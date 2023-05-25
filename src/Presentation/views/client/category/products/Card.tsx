@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { MyColors } from "../../../../theme/AppTheme";
 import { Product } from "../../../../../Domain/entities/Product";
@@ -15,12 +15,12 @@ interface CardProps {
   product: Product;
   navigation: StackNavigationProp<
     ClientStackParamList,
-    "ClientProductListScreen",
+    "ClientCategoryListScreen",
     undefined
   >;
 }
 
-export const CardItemProduct = ({ product, navigation }: CardProps) => {
+export const Card = ({ product, navigation }: CardProps) => {
   const { shoppingBag, saveItem } = useContext(ShoppingBagContext);
 
   const addToCart = () => {

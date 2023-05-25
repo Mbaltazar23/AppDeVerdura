@@ -4,12 +4,10 @@ import { ShoppingBagContext } from "../../../../context/ShoppingBagContext";
 
 const ClientProductDetailViewModel = (product: Product) => {
   const productImagesList: string[] = [
-    product.image1,
-    product.image2,
-    product.image3,
+    product.image,
   ];
 
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(0.0);
   const { shoppingBag, saveItem } = useContext(ShoppingBagContext);
   console.log("Bolsa de compras : " + JSON.stringify(shoppingBag));

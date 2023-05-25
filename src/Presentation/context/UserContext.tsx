@@ -3,6 +3,7 @@ import { User } from "../../Domain/entities/User";
 import { SaveUserLocalUseCase } from "../../Domain/useCases/userLocal/SaveUserLocal";
 import { GetUserLocalUseCase } from "../../Domain/useCases/userLocal/GetUserLocal";
 import { RemoveUserLocalUseCase } from "../../Domain/useCases/userLocal/RemoveUserLocal";
+import { ClearShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/ClearShoppingBag";
 
 export const userInitialState: User = {
   id: "",
@@ -45,6 +46,7 @@ export const UserProvider = ({ children }: any) => {
 
   const removeUserSession = async () => {
     await RemoveUserLocalUseCase();
+    await ClearShoppingBagUseCase()
     setUser(userInitialState);
   };
   return (

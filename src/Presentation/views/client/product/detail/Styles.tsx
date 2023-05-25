@@ -3,13 +3,22 @@ import { StyleSheet } from "react-native";
 const ClientProductDetailStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  imageContainer: {
+    marginTop: 50,
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   productImage: {
-    width: "100%",
-    height: "47%",
+    width: '100%',
+    height: '100%',
+    borderRadius: 100,
   },
   productDetail: {
     position: "absolute",

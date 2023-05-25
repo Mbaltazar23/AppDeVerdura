@@ -1,10 +1,11 @@
+import React from "react";
+import { Image, TouchableOpacity, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ClientCategoryListScreen } from "../views/client/category/list/CategoryList";
 import { ClientProductListScreen } from "../views/client/product/list/ProductList";
 import { ClientProductDetailScreen } from "../views/client/product/detail/ProductDetail";
 import { Product } from "../../Domain/entities/Product";
 import { ShoppingBagProvider } from "../context/ShoppingBagContext";
-import { Image, TouchableOpacity } from "react-native";
 import { ClientShoppingBagScreen } from "../views/client/shopping_bag/ShoppingBag";
 import { ClientAddressListScreen } from "../views/client/address/list/AddressList";
 import { ClientAddressCreateScreen } from "../views/client/address/create/AddressCreate";
@@ -27,12 +28,21 @@ const Stack = createNativeStackNavigator<ClientStackParamList>();
 export const ClientStackNavigator = () => {
   return (
     <ShoppingBagState>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "green",
+          },
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            color: "white",
+          },
+        }}
+      >
         <Stack.Screen
           name="ClientCategoryListScreen"
           component={ClientCategoryListScreen}
-          options={({ navigation, route }) => ({
-            headerShown: true,
+          options={({ navigation }) => ({
             title: "Categorias",
             headerRight: () => (
               <TouchableOpacity
@@ -44,13 +54,28 @@ export const ClientStackNavigator = () => {
                 />
               </TouchableOpacity>
             ),
+            headerTitle: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("ClientAddressCreateScreen")}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Image
+                  source={require("../../../assets/arrow_down.png")}
+                  style={{ width: 20, height: 20, marginRight: 5 }}
+                />
+                <Text style={{ color: "white" }}>Crear Dirección</Text>
+              </TouchableOpacity>
+            ),
           })}
         />
         <Stack.Screen
           name="ClientProductListScreen"
           component={ClientProductListScreen}
-          options={({ navigation, route }) => ({
-            headerShown: true,
+          options={({ navigation }) => ({
             title: "Productos",
             headerRight: () => (
               <TouchableOpacity
@@ -62,27 +87,40 @@ export const ClientStackNavigator = () => {
                 />
               </TouchableOpacity>
             ),
+            headerTitle: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("ClientAddressCreateScreen")}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Image
+                  source={require("../../../assets/arrow_down.png")}
+                  style={{ width: 20, height: 20, marginRight: 5 }}
+                />
+                <Text style={{ color: "white" }}>Crear Dirección</Text>
+              </TouchableOpacity>
+            ),
           })}
         />
         <Stack.Screen
           name="ClientProductDetailScreen"
+          options={{ headerShown: false }}
           component={ClientProductDetailScreen}
         />
-
         <Stack.Screen
           name="ClientShoppingBagScreen"
           component={ClientShoppingBagScreen}
           options={{
-            headerShown: true,
             title: "Mi orden",
           }}
         />
-
         <Stack.Screen
           name="ClientAddressListScreen"
           component={ClientAddressListScreen}
-          options={({ navigation, route }) => ({
-            headerShown: true,
+          options={({ navigation }) => ({
             title: "Mis Direcciones",
             headerRight: () => (
               <TouchableOpacity
@@ -96,21 +134,17 @@ export const ClientStackNavigator = () => {
             ),
           })}
         />
-
         <Stack.Screen
           name="ClientAddressCreateScreen"
           component={ClientAddressCreateScreen}
           options={{
-            headerShown: true,
             title: "Nueva Direccion",
           }}
         />
-
         <Stack.Screen
           name="ClientAddressMapScreen"
           component={ClientAddressMapScreen}
           options={{
-            headerShown: true,
             title: "Ubica tu direccion en el mapa",
           }}
         />

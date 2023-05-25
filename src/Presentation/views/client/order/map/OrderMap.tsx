@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 import { View, Text, ToastAndroid, Image } from "react-native";
+import { RoundedButton } from "../../../../components/RoundedButton";
+import { StackScreenProps } from "@react-navigation/stack";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { GOOGLE_MAPS_APIKEY } from "../../../../constants/GoogleMapApiKey";
+import { ClientOrderStackParamList } from "../../../../navigator/ClientOrderStackNavigator";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
 import styles from "./Styles";
 import stylesMap from "./StylesMap";
 import useViewModel from "./ViewModel";
-import { RoundedButton } from "../../../../components/RoundedButton";
-import { StackScreenProps } from "@react-navigation/stack";
-import { DeliveryOrderStackParamList } from "../../../../navigator/DeliveryOrderStackNavigator";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import MapViewDirections from "react-native-maps-directions";
-import { GOOGLE_MAPS_APIKEY } from "../../../../constants/GoogleMatApiKey";
-import { ClientOrderStackParamList } from "../../../../navigator/ClientOrderStackNavigator";
 
 interface Props
   extends StackScreenProps<

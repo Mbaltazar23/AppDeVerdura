@@ -16,7 +16,7 @@ export const ShoppingBagItem = ({
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: product.image1 }} />
+        <Image style={styles.image} source={{ uri: product.image }} />
       </View>
       <View style={styles.productInfo}>
         <View style={{ flexDirection: "row" }}>

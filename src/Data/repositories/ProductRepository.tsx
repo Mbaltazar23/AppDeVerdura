@@ -10,6 +10,7 @@ import {
 } from "../sources/remote/api/ApiDeVerdura";
 
 export class ProductRepositoryImp implements ProductRepository {
+  
   async getProductsByCategory(id_category: string): Promise<Product[]> {
     try {
       const response = await ApiDeVerdura.get<Product[]>(

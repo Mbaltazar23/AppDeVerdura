@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import  { useState, useContext } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Category } from "../../../../../Domain/entities/Category";
 import { ProductContext } from "../../../../context/ProductContext";

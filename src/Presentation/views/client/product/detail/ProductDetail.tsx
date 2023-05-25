@@ -1,35 +1,32 @@
 import { StackScreenProps } from "@react-navigation/stack";
-import React, { useState } from "react";
+import React from "react";
 import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
 import styles from "./Styles";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-//import Carousel from "react-native-reanimated-carousel";
 import useViewModel from "./ViewModel";
 import { RoundedButton } from "../../../../components/RoundedButton";
+/*import Carousel from "react-native-reanimated-carousel";*/
 
 interface Props
   extends StackScreenProps<ClientStackParamList, "ClientProductDetailScreen"> {}
 
 export const ClientProductDetailScreen = ({ navigation, route }: Props) => {
   const { product } = route.params;
-  const width = Dimensions.get("window").width;
-  const height = Dimensions.get("window").height;
-
-  const {
-    productImagesList,
-    quantity,
-    price,
-    addItem,
-    removeItem,
-    shoppingBag,
-    addToBag,
-  } = useViewModel(product);
+  
+  const { quantity, price, addItem, removeItem, addToBag } =
+    useViewModel(product);
 
   return (
     <View style={styles.container}>
       <GestureHandlerRootView>
-       
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: product.image }}
+            style={styles.productImage}
+            resizeMode="cover"
+          />
+        </View>
       </GestureHandlerRootView>
       <View style={styles.productDetail}>
         <View style={styles.productInfo}>

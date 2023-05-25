@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, SetStateAction, Dispatch } from "react";
 import { Alert, Modal, StyleSheet, Text, View } from "react-native";
 import { RoundedButton } from "./RoundedButton";
 
@@ -6,7 +6,7 @@ interface Props {
   openGallery: () => void;
   openCamera: () => void;
   modalUseState: boolean;
-  setModalUseState: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalUseState: Dispatch<SetStateAction<boolean>>;
 }
 
 export const ModalPickImage = ({

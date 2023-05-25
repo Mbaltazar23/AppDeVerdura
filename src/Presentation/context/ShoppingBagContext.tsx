@@ -1,9 +1,8 @@
 import { Product } from "../../Domain/entities/Product";
 import { createContext, useState, useEffect } from "react";
-SaveShoppingBagUseCase;
 import { GetShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/GetShoppingBag";
 import { SaveShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/SaveShoppingBag";
-GetShoppingBagUseCase;
+import { ClearShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/ClearShoppingBag";
 
 export interface ShoppingBagContextProps {
   shoppingBag: Product[];
@@ -12,6 +11,7 @@ export interface ShoppingBagContextProps {
   getTotal(): Promise<void>;
   saveItem(product: Product): Promise<void>;
   deleteItem(product: Product): Promise<void>;
+  clearShoppingBag(): Promise<void>;
 }
 
 export const ShoppingBagContext = createContext({} as ShoppingBagContextProps);
@@ -25,9 +25,8 @@ export const ShoppingBagProvider = ({ children }: any) => {
   }, []);
 
   useEffect(() => {
-   getTotal()
-  }, [shoppingBag])
-  
+    getTotal();
+  }, [shoppingBag]);
 
   const getShoppingBag = async (): Promise<void> => {
     const result = await GetShoppingBagUseCase();
@@ -38,7 +37,7 @@ export const ShoppingBagProvider = ({ children }: any) => {
     setTotal(0);
     let totalPrice = 0;
     shoppingBag.forEach((product) => {
-      totalPrice = totalPrice + (product.quantity! * product.price);
+      totalPrice = totalPrice + product.quantity! * product.price;
     });
     setTotal(totalPrice);
   };
@@ -58,9 +57,15 @@ export const ShoppingBagProvider = ({ children }: any) => {
 
   const deleteItem = async (product: Product): Promise<void> => {
     const index = shoppingBag.findIndex((p) => p.id === product.id);
-    shoppingBag.splice(index,1);
+    shoppingBag.splice(index, 1);
     await SaveShoppingBagUseCase(shoppingBag);
     getShoppingBag();
+  };
+
+  const clearShoppingBag = async (): Promise<void> => {
+    await ClearShoppingBagUseCase();
+    setShoppingBag([]);
+    setTotal(0.0);
   };
 
   return (
@@ -72,6 +77,7 @@ export const ShoppingBagProvider = ({ children }: any) => {
         getTotal,
         saveItem,
         deleteItem,
+        clearShoppingBag,
       }}
     >
       {children}

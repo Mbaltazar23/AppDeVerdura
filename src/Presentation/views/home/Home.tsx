@@ -28,7 +28,6 @@ export const HomeScreen = ({ navigation, route }: Props) => {
   useEffect(() => {
     if (user?.id !== null && user?.id !== undefined && user?.id !== "") {
       const role = user.roles[0]?.name; // Accede al primer objeto del arreglo "roles" y obtiene el valor de "role"
-
       if (role === "Cliente") {
         // Verifica si el valor de "role" es "Alumno"
         navigation.replace("ClientTabsNavigator");

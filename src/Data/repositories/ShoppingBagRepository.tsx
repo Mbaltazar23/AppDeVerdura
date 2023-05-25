@@ -18,4 +18,9 @@ export class ShoppingBagRepositoryImpl implements ShoppingBagRepository {
       return shoppingBag;
     }
   }
+
+  async clearShoppingBag(): Promise<void> {
+    const { remove } = LocalStorage();
+    await remove("shopping_bag");
+  }
 }

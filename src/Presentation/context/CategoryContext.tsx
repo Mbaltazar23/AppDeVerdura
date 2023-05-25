@@ -1,4 +1,4 @@
-import { ResponseApiDelivery } from "../../Data/sources/remote/models/ResponseApiDelivery";
+import { ResponseApiDeVerdura } from "../../Data/sources/remote/models/ResponseApiDeVerdura";
 import { Category } from "../../Domain/entities/Category";
 import * as ImagePicker from "expo-image-picker";
 import { createContext, useEffect, useState } from "react";
@@ -14,14 +14,14 @@ export interface CategoryContextProps {
   create(
     category: Category,
     file: ImagePicker.ImageInfo
-  ): Promise<ResponseApiDelivery>;
-  update(category: Category): Promise<ResponseApiDelivery>;
+  ): Promise<ResponseApiDeVerdura>;
+  update(category: Category): Promise<ResponseApiDeVerdura>;
   updateWithImage(
     category: Category,
     file: ImagePicker.ImageInfo
-  ): Promise<ResponseApiDelivery>;
+  ): Promise<ResponseApiDeVerdura>;
 
-  remove(id: string): Promise<ResponseApiDelivery>;
+  remove(id: string): Promise<ResponseApiDeVerdura>;
 }
 
 export const CategoryContext = createContext({} as CategoryContextProps);
@@ -43,13 +43,13 @@ export const CategoryProvider = ({ children }: any) => {
   const create = async (
     category: Category,
     file: ImagePicker.ImageInfo
-  ): Promise<ResponseApiDelivery> => {
+  ): Promise<ResponseApiDeVerdura> => {
     const response = await CreateCategoryUseCase(category, file!);
     getCategories();
     return response;
   };
 
-  const update = async (category: Category): Promise<ResponseApiDelivery> => {
+  const update = async (category: Category): Promise<ResponseApiDeVerdura> => {
     const response = await UpdateCategoryUseCase(category);
     getCategories();
     return response;
@@ -57,13 +57,13 @@ export const CategoryProvider = ({ children }: any) => {
   const updateWithImage = async (
     category: Category,
     file: ImagePicker.ImageInfo
-  ): Promise<ResponseApiDelivery> => {
+  ): Promise<ResponseApiDeVerdura> => {
     const response = await UpdateWithImageCategoryUseCase(category, file!);
     getCategories();
     return response;
   };
 
-  const remove = async (id: string): Promise<ResponseApiDelivery> => {
+  const remove = async (id: string): Promise<ResponseApiDeVerdura> => {
     const response = await DeleteCategoryUseCase(id);
     getCategories();
     return response;

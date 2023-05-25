@@ -5,7 +5,6 @@ import { TabView, TabBar } from "react-native-tab-view";
 import { OrderListItem } from "./Item";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { DeliveryOrderStackParamList } from "../../../../navigator/DeliveryOrderStackNavigator";
 import { ClientOrderStackParamList } from "../../../../navigator/ClientOrderStackNavigator";
 
 interface Props {
