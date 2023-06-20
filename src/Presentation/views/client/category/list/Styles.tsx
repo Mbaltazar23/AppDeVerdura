@@ -23,9 +23,22 @@ const CategoryListStyles = StyleSheet.create({
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     marginTop: 20,
     marginBottom: 10,
+  },
+  searchInputContainer: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 5,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    // Estilos adicionales para el contenedor del campo de búsqueda
+  },
+  searchInputPlaceholder: {
+    color: "gray",
+    // Estilos adicionales para el texto de marcador de posición del campo de búsqueda
   },
   searchIcon: {
     marginRight: 10,
@@ -41,7 +54,7 @@ const CategoryListStyles = StyleSheet.create({
   },
   categoryListContainer: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: 10,
   },
 });
 

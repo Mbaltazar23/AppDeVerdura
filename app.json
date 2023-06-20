@@ -47,7 +47,7 @@
         },
         "expo": {
             "androidStatusBar": {
-                "backgroundColor": "#00000000"
+                "backgroundColor": "#0B993D"
             }
         },
         "web": {

@@ -7,7 +7,6 @@ import { OrderDetailItem } from "./Item";
 import { DateFormater } from "../../../../utils/DateFormater";
 import useViewModel from "./ViewModel";
 import { RoundedButton } from "../../../../components/RoundedButton";
-import DropDownPicker from "react-native-dropdown-picker";
 
 interface Props
   extends StackScreenProps<
@@ -19,16 +18,9 @@ export const AdminOrderDetailScreen = ({ navigation, route }: Props) => {
   const { order } = route.params;
   const {
     total,
-    deliveryMen,
     responseMessage,
-    open,
-    value,
-    items,
     getTotal,
     getDeliveryMen,
-    setOpen,
-    setValue,
-    setItems,
     dispatchOrder,
   } = useViewModel(order);
 
@@ -95,26 +87,6 @@ export const AdminOrderDetailScreen = ({ navigation, route }: Props) => {
             source={require("../../../../../../assets/location.png")}
           />
         </View>
-        {order.status === "PAGADO" ? (
-          <View>
-            <Text style={styles.deliveries}>REPARTIDORES DISPONIBLES</Text>
-            <View style={styles.dropDown}>
-              <DropDownPicker
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-              />
-            </View>
-          </View>
-        ) : (
-          <Text style={styles.deliveries}>
-            REPARTIDOR ASIGNAGO : {order.delivery?.name}
-          </Text>
-        )}
-
         <View style={styles.totalInfo}>
           <Text style={styles.total}>TOTAL : $ {total} </Text>
           <View style={styles.button}>

@@ -8,6 +8,7 @@ export interface ProductRepository {
     files: ImagePicker.ImageInfo
   ): Promise<ResponseApiDeVerdura>;
   getProductsByCategory(id_category: string): Promise<Product[]>;
+  getProductsFindByName(name: string): Promise<Product[]>;
   update(product: Product): Promise<ResponseApiDeVerdura>;
   updateWithImages(
     product: Product,

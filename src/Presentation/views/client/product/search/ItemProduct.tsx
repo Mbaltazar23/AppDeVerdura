@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { MyColors } from "../../../../theme/AppTheme";
 import { Product } from "../../../../../Domain/entities/Product";
@@ -9,22 +9,22 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { ShoppingBagContext } from "../../../../context/ShoppingBagContext";
 
 const { width } = Dimensions.get("screen");
-const cardWidth = width / 3 - 20;
+const cardWidth = (width - 60) / 3;
 
 interface CardProps {
   product: Product;
   navigation: StackNavigationProp<
     ClientStackParamList,
-    "ClientCategoryListScreen",
+    "ClientProductSearchScreen",
     undefined
   >;
 }
 
-export const Card = ({ product, navigation }: CardProps) => {
+export const CardItemProductSearch = ({ product, navigation }: CardProps) => {
   const { shoppingBag, saveItem } = useContext(ShoppingBagContext);
 
   const addToCart = () => {
-    const quantity = 1;
+    const quantity = 1
     const item: Product = { ...product, quantity };
     const index = shoppingBag.findIndex((p) => p.id === product.id);
     if (index !== -1) {
@@ -67,11 +67,12 @@ export const Card = ({ product, navigation }: CardProps) => {
   );
 };
 
+
 const styles = StyleSheet.create({
   card: {
     height: 240,
     width: cardWidth,
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     marginBottom: 20,
     borderRadius: 15,
     elevation: 13,
@@ -86,8 +87,8 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height:"100%",
-    aspectRatio: 1, // Para mantener la relación de aspecto de la imagen
+    height: "100%",
+    aspectRatio: 1,
   },
   contentContainer: {
     padding: 10,

@@ -1,6 +1,5 @@
-// ClientProductListScreen.tsx
 import React, { useEffect, useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import useViewModel from "./ViewModel";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
@@ -41,11 +40,19 @@ export const ClientProductListScreen = ({ navigation, route }: Props) => {
     (category) => category.id === selectedCategoryId
   );
 
+  const handleSearchPress = () => {
+    navigation.navigate("ClientProductSearchScreen");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
+      <TouchableOpacity style={styles.searchContainer} onPress={handleSearchPress}>
         <Icon name="search" size={28} style={styles.searchIcon} />
-        <TextInput placeholder="Busque un producto" style={styles.input} />
+        <View style={styles.searchInputContainer}>
+          <Text style={styles.searchInputPlaceholder}>Busque un producto</Text>
+        </View>
+      </TouchableOpacity>
       </View>
       <View style={styles.categoryListContainer}>
         <ItemsCategoryList

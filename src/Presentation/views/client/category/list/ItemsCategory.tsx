@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 10,
     borderBottomWidth: 5,
     borderBottomColor: "#0000",
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     color: MyColors.primary,
   },
   categorySection: {
-    marginBottom: 10,
+    marginBottom: 20,
+    paddingHorizontal: 10,
   },
 });

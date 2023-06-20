@@ -5,24 +5,24 @@ const ClientShoppingBagStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  totalInfo:{
-alignItems: 'center'
+  totalInfo: {
+    alignItems: "center",
   },
   totalToPay: {
     flexDirection: "row",
     height: 70,
     backgroundColor: "f2f2f2",
-    justifyContent: 'space-around',
-    alignItems:'center',
-    paddingHorizontal:30
+    justifyContent: "space-around",
+    alignItems: "center",
+    paddingHorizontal: 30,
   },
   totalText: {
     fontWeight: "bold",
     fontSize: 17,
   },
-  buttonAdd:{
-   width:'50%'
-  }
+  buttonAdd: {
+    width: "50%",
+  },
 });
 
 export default ClientShoppingBagStyles;

@@ -1,11 +1,11 @@
 import React from "react";
 import { FlatList, Text, View } from "react-native";
-import useViewModel from "./ViewModel";
+import { ClientStackParamList } from "../../../navigator/ClientStackNavigator";
+import { StackScreenProps } from "@react-navigation/stack";
 import { ShoppingBagItem } from "./Item";
 import { RoundedButton } from "../../../components/RoundedButton";
+import useViewModel from "./ViewModel";
 import styles from "./Styles";
-import { StackScreenProps } from "@react-navigation/stack";
-import { ClientStackParamList } from "../../../navigator/ClientStackNavigator";
 
 interface Props
   extends StackScreenProps<ClientStackParamList, "ClientShoppingBagScreen"> {}

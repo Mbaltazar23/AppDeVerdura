@@ -1,13 +1,12 @@
-import { StackNavigationProp, StackScreenProps } from "@react-navigation/stack";
 import React, { useEffect } from "react";
 import { Pressable, View, Image, Text } from "react-native";
-import { RootStackParamList } from "../../../navigator/MainStackNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../../navigator/MainStackNavigator";
+import { RoundedButton } from "../../../components/RoundedButton";
 import useViewModel from "./ViewModel";
 import styles from "./Styles";
-import { RoundedButton } from "../../../components/RoundedButton";
 
-interface Props extends StackScreenProps<RootStackParamList> {}
 
 export const ProfileInfoScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();

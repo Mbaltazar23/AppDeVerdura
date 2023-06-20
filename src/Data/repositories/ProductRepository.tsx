@@ -1,9 +1,9 @@
-import * as ImagePicker from "expo-image-picker";
 import { Product } from "../../Domain/entities/Product";
 import { ProductRepository } from "../../Domain/repositories/ProductRepository";
 import { ResponseApiDeVerdura } from "../sources/remote/models/ResponseApiDeVerdura";
 import { AxiosError } from "axios";
 import mime from "mime";
+import * as ImagePicker from "expo-image-picker";
 import {
   ApiDeVerdura,
   ApiDeVerduraWithImage,
@@ -15,6 +15,22 @@ export class ProductRepositoryImp implements ProductRepository {
     try {
       const response = await ApiDeVerdura.get<Product[]>(
         `/products/findByCategory/${id_category}`
+      );
+      return Promise.resolve(response.data);
+    } catch (error) {
+      let e = error as AxiosError;
+      console.log("ERROR: " + JSON.stringify(e.response?.data));
+      const apiError: ResponseApiDeVerdura = JSON.parse(
+        JSON.stringify(e.response?.data)
+      );
+      return Promise.resolve([]);
+    }
+  }
+
+  async getProductsFindByName(name: string): Promise<Product[]> {
+    try {
+      const response = await ApiDeVerdura.get<Product[]>(
+        `/products/findByName/${name}`
       );
       return Promise.resolve(response.data);
     } catch (error) {

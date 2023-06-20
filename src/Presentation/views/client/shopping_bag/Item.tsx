@@ -1,12 +1,14 @@
 import React from "react";
 import { Product } from "../../../../Domain/entities/Product";
 import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+
 interface Props {
   product: Product;
   addItem: (product: Product) => void;
   substractItem: (product: Product) => void;
   deleteItem: (product: Product) => void;
 }
+
 export const ShoppingBagItem = ({
   product,
   addItem,

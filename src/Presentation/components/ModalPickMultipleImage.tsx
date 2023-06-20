@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import React, { SetStateAction } from "react";
+import { Alert, Modal, StyleSheet, Text, View } from "react-native";
 import { RoundedButton } from "./RoundedButton";
 
 interface Props {
   openGallery: (numberImage: number) => void;
   openCamera: (numberImage: number) => void;
-  numberImage:  number;
+  numberImage: number;
   modalUseState: boolean;
-  setModalUseState: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalUseState: React.Dispatch<SetStateAction<boolean>>;
 }
 
 export const ModalPickMultipleImage = ({
@@ -24,7 +24,6 @@ export const ModalPickMultipleImage = ({
         transparent={true}
         visible={modalUseState}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalUseState(!modalUseState);
         }}
       >

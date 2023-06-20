@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, View, useWindowDimensions } from "react-native";
-import useViewModel from "./ViewModel";
 import { TabView, TabBar } from "react-native-tab-view";
 import { OrderListItem } from "./Item";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { AdminOrderStackParamList } from "../../../../navigator/AdminOrderStackNavigator";
+import useViewModel from "./ViewModel";
 
 interface Props {
   status: string;
@@ -15,10 +15,10 @@ const OrderListView = ({ status }: Props) => {
   const {
     ordersPayed,
     ordersDispatched,
-    ordersOnTheWay,
     ordersDelivery,
     getOrders,
   } = useViewModel();
+  
   const navigation =
     useNavigation<
       StackNavigationProp<AdminOrderStackParamList, "AdminOrderListScreen">
@@ -36,8 +36,6 @@ const OrderListView = ({ status }: Props) => {
             ? ordersPayed
             : status === "DESPACHADO"
             ? ordersDispatched
-            : status === "EN CAMINO"
-            ? ordersOnTheWay
             : status === "ENTREGADO"
             ? ordersDelivery
             : []
@@ -58,8 +56,6 @@ const renderScene = ({ route }: any) => {
     case "second":
       return <OrderListView status="DESPACHADO" />;
     case "third":
-      return <OrderListView status="EN CAMINO" />;
-    case "fourth":
       return <OrderListView status="ENTREGADO" />;
     default:
       return <OrderListView status="PAGADO" />;
@@ -69,12 +65,11 @@ const renderScene = ({ route }: any) => {
 export const AdminOrderListScreen = () => {
   const layout = useWindowDimensions();
 
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
     { key: "first", title: "PAGADO" },
     { key: "second", title: "DESPACHO" },
-    { key: "third", title: "EN CAMINO" },
-    { key: "fourth", title: "ENTREGADO" },
+    { key: "third", title: "ENTREGADO" },
   ]);
 
   return (

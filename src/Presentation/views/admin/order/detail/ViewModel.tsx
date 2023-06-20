@@ -35,7 +35,6 @@ const AdminOrderDetailViewModel = (order: Order) => {
 
   const dispatchOrder = async () => {
     if (value !== null) {
-      order.id_delivery = value!;
       const result = await updateToDispatched(order);
       setResponseMessage(result.message);
     } else {

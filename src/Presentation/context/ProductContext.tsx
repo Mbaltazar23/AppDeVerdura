@@ -8,10 +8,12 @@ import { GetProductsByCategoryUseCase } from "../../Domain/useCases/product/GetP
 import { DeleteProductUseCase } from "../../Domain/useCases/product/DeleteProduct";
 import { UpdateProductUseCase } from "../../Domain/useCases/product/UpdateProduct";
 import { UpdateWithImagesProductUseCase } from "../../Domain/useCases/product/UpdateWithImagesProduct";
+import { GetProductsByNameUseCase } from "../../Domain/useCases/product/GetProductsByName";
 
 export interface ProductContextProps {
   products: Product[];
   getProducts(id_category: string): Promise<void>;
+  getProductsByName(name: string): Promise<void>;
   create(
     product: Product,
     file: ImagePicker.ImageInfo
@@ -33,6 +35,11 @@ export const ProductProvider = ({ children }: any) => {
     const result = await GetProductsByCategoryUseCase(id_category);
     setProducts(result);
   };
+
+  const getProductsByName = async (name: string): Promise<void> => {
+     const result = await GetProductsByNameUseCase(name);
+     setProducts(result);
+  }
 
   const create = async (
     product: Product,
@@ -69,6 +76,7 @@ export const ProductProvider = ({ children }: any) => {
       value={{
         products,
         getProducts,
+        getProductsByName,
         create,
         updateWithImages,
         update,

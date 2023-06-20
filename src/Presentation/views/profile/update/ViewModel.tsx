@@ -2,9 +2,8 @@ import React, { useState, useContext } from "react";
 import { UdpateUserUseCase } from "../../../../Domain/useCases/user/UpdateUser";
 import { UdpateWithImageUserUseCase } from "../../../../Domain/useCases/user/UpdateWithImageUser";
 import * as ImagePicker from "expo-image-picker";
-import { useUserLocal } from "../../../hooks/useUserLocal";
 import { User } from "../../../../Domain/entities/User";
-import { ResponseApiDelivery } from "../../../../Data/sources/remote/models/ResponseApiDelivery";
+import { ResponseApiDeVerdura } from "../../../../Data/sources/remote/models/ResponseApiDeVerdura";
 import { UserConext } from "../../../context/UserContext";
 
 const ProfileUpdateViewModel = (user: User) => {
@@ -56,7 +55,7 @@ const ProfileUpdateViewModel = (user: User) => {
   const update = async () => {
     if (isValidForm()) {
       setLoading(true);
-      let response = {} as ResponseApiDelivery;
+      let response = {} as ResponseApiDeVerdura;
       if (values.image?.includes("https://")) {
         response = await UdpateUserUseCase(values);
       } else {

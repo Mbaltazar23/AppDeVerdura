@@ -6,7 +6,6 @@ import { OrderDetailItem } from "./Item";
 import { DateFormater } from "../../../../utils/DateFormater";
 import useViewModel from "./ViewModel";
 import { RoundedButton } from "../../../../components/RoundedButton";
-import { DeliveryOrderStackParamList } from "../../../../navigator/DeliveryOrderStackNavigator";
 import { ClientOrderStackParamList } from "../../../../navigator/ClientOrderStackNavigator";
 
 interface Props
@@ -24,7 +23,6 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
     value,
     items,
     getTotal,
-    updateToOnTheWayOrder,
   } = useViewModel(order);
 
   useEffect(() => {
@@ -87,20 +85,6 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
           <Image
             style={styles.infoImage}
             source={require("../../../../../../assets/location.png")}
-          />
-        </View>
-
-        <View style={styles.infoRow}>
-          <View style={styles.infoText}>
-            <Text style={styles.infoTitle}>REPARTIDOR ASIGNADO</Text>
-            <Text style={styles.infoDescription}>
-              {order.delivery?.name} {order.delivery?.lastname}
-            </Text>
-          </View>
-
-          <Image
-            style={styles.infoImage}
-            source={require("../../../../../../assets/my_user.png")}
           />
         </View>
 

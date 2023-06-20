@@ -10,7 +10,7 @@ interface ProductListProps {
   categoryId: string;
   navigation: StackNavigationProp<
     ClientStackParamList,
-    "ClientProductListScreen"
+    "ClientCategoryListScreen"
   >;
 }
 

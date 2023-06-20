@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { OrderContext } from "../../../../context/OrderContext";
 
 const AdminOrderListViewModel = () => {
@@ -6,7 +6,6 @@ const AdminOrderListViewModel = () => {
   const {
     ordersPayed,
     ordersDispatched,
-    ordersOnTheWay,
     ordersDelivery,
     getOrderByStatus,
   } = useContext(OrderContext);
@@ -16,10 +15,10 @@ const AdminOrderListViewModel = () => {
     //setOrders(result);
     console.log("ORDERS : " + JSON.stringify(result, null, 3));
   };
+  
   return {
     ordersPayed,
     ordersDispatched,
-    ordersOnTheWay,
     ordersDelivery,
     getOrders,
   };

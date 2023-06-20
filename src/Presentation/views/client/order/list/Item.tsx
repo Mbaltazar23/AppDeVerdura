@@ -3,7 +3,6 @@ import { Order } from "../../../../../Domain/entities/Order";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { DateFormater } from "../../../../utils/DateFormater";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { DeliveryOrderStackParamList } from "../../../../navigator/DeliveryOrderStackNavigator";
 import { ClientOrderStackParamList } from "../../../../navigator/ClientOrderStackNavigator";
 
 interface Props {

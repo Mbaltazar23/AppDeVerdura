@@ -1,5 +1,5 @@
-import React, { useState, SetStateAction, Dispatch } from "react";
-import { Alert, Modal, StyleSheet, Text, View } from "react-native";
+import React, {  SetStateAction, Dispatch } from "react";
+import {  Modal, StyleSheet, Text, View } from "react-native";
 import { RoundedButton } from "./RoundedButton";
 
 interface Props {
@@ -22,7 +22,6 @@ export const ModalPickImage = ({
         transparent={true}
         visible={modalUseState}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalUseState(!modalUseState);
         }}
       >

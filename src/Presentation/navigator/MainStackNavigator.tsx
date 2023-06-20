@@ -36,7 +36,7 @@ export const MainStackNavigator = () => {
             title: "Registrese",
           }}
         />
-    <Stack.Screen
+       <Stack.Screen
           name="AdminTabsNavigator"
           component={AdminTabsNavigator}
         />

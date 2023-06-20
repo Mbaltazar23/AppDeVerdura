@@ -8,8 +8,8 @@ import { AdminOrderStackParamList } from "../../../../navigator/AdminOrderStackN
 interface Props {
   order: Order;
   navigation: StackNavigationProp<AdminOrderStackParamList, 'AdminOrderListScreen', undefined>
-
 }
+
 export const OrderListItem = ({ order, navigation }: Props) => {
   return (
     <TouchableOpacity

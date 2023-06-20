@@ -9,7 +9,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { ShoppingBagContext } from "../../../../context/ShoppingBagContext";
 
 const { width } = Dimensions.get("screen");
-const cardWidth = width / 2 - 30;
+const cardWidth = (width - 60) / 3;
 
 interface CardProps {
   product: Product;
@@ -70,30 +70,28 @@ export const CardItemProduct = ({ product, navigation }: CardProps) => {
 
 const styles = StyleSheet.create({
   card: {
-    height: 320,
+    height: 240,
     width: cardWidth,
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     marginBottom: 20,
     borderRadius: 15,
     elevation: 13,
     backgroundColor: "white",
   },
   imageContainer: {
-    height: "60%",
+    flex: 1,
+    justifyContent: "flex-end",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     overflow: "hidden",
   },
   image: {
-    flex: 1,
-    resizeMode: "cover",
     width: "100%",
+    height: "100%",
+    aspectRatio: 1,
   },
   contentContainer: {
-    flex: 1,
-    justifyContent: "center",
     padding: 10,
-    bottom: 5,
   },
   title: {
     fontSize: 16,
@@ -101,10 +99,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   description: {
-    fontSize: 15,
-    fontWeight: "bold",
+    fontSize: 12,
     color: MyColors.primary,
-    marginBottom: 0.6,
+    marginBottom: 5,
   },
   footer: {
     flexDirection: "row",
@@ -123,6 +120,8 @@ const styles = StyleSheet.create({
     width: 30,
     borderRadius: 15,
     backgroundColor: MyColors.primary,
-    marginLeft: 70,
+    marginLeft: 12,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

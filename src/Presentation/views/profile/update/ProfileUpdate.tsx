@@ -16,6 +16,7 @@ import { ModalPickImage } from "../../../components/ModalPickImage";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../navigator/MainStackNavigator";
 import { MyColors } from "../../../theme/AppTheme";
+
 interface Props
   extends StackScreenProps<RootStackParamList, "ProfileUpdateScreen"> {}
 

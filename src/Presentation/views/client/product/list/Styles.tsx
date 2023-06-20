@@ -25,11 +25,24 @@ const CategoryListStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    marginTop: 10, // Reducir el margen superior para acercarlo al título
+    marginTop: 2, // Reducir el margen superior para acercarlo al título
   },
   searchIcon: {
     marginRight: 10,
     color: MyColors.primary,
+  },
+  searchInputContainer: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 5,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    // Estilos adicionales para el contenedor del campo de búsqueda
+  },
+  searchInputPlaceholder: {
+    color: "gray",
+    // Estilos adicionales para el texto de marcador de posición del campo de búsqueda
   },
   input: {
     flex: 1,
@@ -45,7 +58,6 @@ const CategoryListStyles = StyleSheet.create({
     marginTop: 20, // Ajusta este valor según tus preferencias para obtener el espacio deseado
     marginBottom: 10, // Agrega un margen inferior para separar el listado de elementos de categoría del resto de la pantalla
   },
-  
   selectedCategoryContainer: {
     backgroundColor: MyColors.primary,
     paddingVertical: 10,

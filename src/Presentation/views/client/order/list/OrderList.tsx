@@ -15,7 +15,6 @@ const OrderListView = ({ status }: Props) => {
   const {
     ordersPayed,
     ordersDispatched,
-    ordersOnTheWay,
     ordersDelivery,
     getOrders,
     user
@@ -37,8 +36,6 @@ const OrderListView = ({ status }: Props) => {
           ? ordersPayed:
          status === "DESPACHADO"
             ? ordersDispatched
-            : status === "EN CAMINO"
-            ? ordersOnTheWay
             : status === "ENTREGADO"
             ? ordersDelivery
             : []
@@ -59,8 +56,6 @@ const renderScene = ({ route }: any) => {
     case "second":
       return <OrderListView status="DESPACHADO" />;
     case "third":
-      return <OrderListView status="EN CAMINO" />;
-    case "fourth":
       return <OrderListView status="ENTREGADO" />;
     default:
       return <OrderListView status="DESPACHADO" />;
@@ -74,8 +69,7 @@ export const ClientOrderListScreen = () => {
   const [routes] = React.useState([
     { key: "first", title: "PAGADO" },
     { key: "second", title: "DESPACHADO" },
-    { key: "third", title: "EN CAMINO" },
-    { key: "fourth", title: "ENTREGADO" },
+    { key: "third", title: "ENTREGADO" },
   ]);
 
   return (

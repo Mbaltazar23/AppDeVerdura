@@ -84,70 +84,66 @@ export const ItemsCategoryList = ({
 
   return (
     <View style={styles.container}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {categories.map((category) => (
-          <TouchableOpacity
-            key={category.id}
-            activeOpacity={0.8}
-            onPress={() => handleCategorySelected(category.id!)}
-          >
-            <View
-              style={[
-                styles.categoryItem,
-                { opacity: category.id === selectedCategoryId ? 1 : 0.5 },
-              ]}
+      <View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {categories.map((category) => (
+            <TouchableOpacity
+              key={category.id}
+              activeOpacity={0.8}
+              onPress={() => handleCategorySelected(category.id!)}
             >
               <View
                 style={[
-                  styles.categoryButton,
-                  {
-                    backgroundColor:
-                      category.id === selectedCategoryId
-                        ? MyColors.primary
-                        : MyColors.secondary,
-                  },
+                  styles.categoryItem,
+                  { opacity: category.id === selectedCategoryId ? 1 : 0.5 },
                 ]}
               >
-                <View style={styles.imageContainer}>
-                  <Image
-                    source={{ uri: category.image }}
-                    style={styles.image}
-                  />
-                </View>
-                <Text
+                <View
                   style={[
-                    styles.categoryText,
-                    category.id === selectedCategoryId &&
-                      styles.selectedCategoryText,
+                    styles.categoryButton,
+                    {
+                      backgroundColor:
+                        category.id === selectedCategoryId
+                          ? MyColors.primary
+                          : MyColors.secondary,
+                    },
                   ]}
                 >
-                  {category.name}
-                </Text>
+                  <View style={styles.imageContainer}>
+                    <Image source={{ uri: category.image }} style={styles.image} />
+                  </View>
+                  <Text
+                    style={[
+                      styles.categoryText,
+                      category.id === selectedCategoryId && styles.selectedCategoryText,
+                    ]}
+                  >
+                    {category.name}
+                  </Text>
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-      <View style={styles.categoryHeader}>
-        <Text style={styles.selectedCategoryName}>
-          {categories.find((category) => category.id === selectedCategoryId)?.name}
-        </Text>
-        <TouchableOpacity
-          style={styles.selectButton}
-          onPress={() => setShowOptions(true)}
-        >
-          <Text style={styles.selectButtonText}>Ordenar Por</Text>
-        </TouchableOpacity>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        numColumns={2}
-        data={filteredProducts}
-        renderItem={({ item }) => (
-          <CardItemProduct product={item} navigation={navigation} />
-        )}
-        keyExtractor={(item) => item.id!.toString()}
-      />
+      <View style={styles.productListContainer}>
+        <View style={styles.categoryHeader}>
+          <Text style={styles.selectedCategoryName}>
+            {categories.find((category) => category.id === selectedCategoryId)?.name}
+          </Text>
+          <TouchableOpacity style={styles.selectButton} onPress={() => setShowOptions(true)}>
+            <Text style={styles.selectButtonText}>Ordenar Por</Text>
+          </TouchableOpacity>
+        </View>
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          numColumns={3}
+          data={filteredProducts}
+          renderItem={({ item }) => <CardItemProduct product={item} navigation={navigation} />}
+          keyExtractor={(item) => item.id!.toString()}
+          contentContainerStyle={styles.productList} // Agrega este estilo para mantener el diseño de los productos
+        />
+      </View>
 
       {/* Modal de opciones de ordenamiento */}
       <Modal visible={showOptions} transparent animationType="fade">
@@ -203,8 +199,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   categoryItem: {
-    marginBottom: 10,
-    marginRight: 10,
+    marginBottom: 5,
+    marginRight: 5,
   },
   categoryButton: {
     height: 45,
@@ -241,7 +237,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: 15,
+    marginVertical: 10,
     paddingHorizontal: 15,
   },
   selectedCategoryName: {
@@ -256,6 +252,15 @@ const styles = StyleSheet.create({
   },
   selectButtonText: {
     color: "black",
+  },
+  productListContainer: {
+    flex: 1,
+    paddingHorizontal: 1,
+    paddingTop: 2,
+  },
+  productList: {
+    flexGrow: 1,
+    justifyContent: "space-between",
   },
   modalOverlay: {
     flex: 1,
@@ -281,4 +286,3 @@ const styles = StyleSheet.create({
     color: "black",
   },
 });
-
