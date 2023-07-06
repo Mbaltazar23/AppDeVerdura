@@ -4,6 +4,8 @@ export const MyColors = {
   primary: "#0B993D",
   secondary: "#70ff8b",
   background: "#EEEEEE",
+  warning: "red",
+  whishlist: "#0A2A0A"
 };
 
 export const MyStyles = StyleSheet.create({

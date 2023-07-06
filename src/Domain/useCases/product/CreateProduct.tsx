@@ -1,6 +1,6 @@
+import { ProductRepositoryImp } from "../../../Data/repositories/ProductRepository";
 import { Product } from "../../entities/Product";
 import * as ImagePicker from "expo-image-picker";
-import { ProductRepositoryImp } from "../../../Data/repositories/ProductRepository";
 
 const { create } = new ProductRepositoryImp();
 

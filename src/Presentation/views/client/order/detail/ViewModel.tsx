@@ -13,11 +13,12 @@ const ClientOrderDetailViewModel = (order: Order) => {
   const [value, setValue] = useState(null);
   const [items, setItems] = useState<DropDownProps[]>([]);
 
-
   const getTotal = async () => {
-    order.products.forEach((p) => {
-      setTotal(total + p.price * p.quantity!);
-    });
+    const calculatedTotal = order.products.reduce(
+      (accumulator, product) => accumulator + product.price * product.quantity!,
+      0
+    );
+    setTotal(calculatedTotal);
   };
 
   return {

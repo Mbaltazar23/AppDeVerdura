@@ -1,9 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
-import { User } from "../../Domain/entities/User";
+import { ClearShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/ClearShoppingBag";
+import { RemoveUserLocalUseCase } from "../../Domain/useCases/userLocal/RemoveUserLocal";
 import { SaveUserLocalUseCase } from "../../Domain/useCases/userLocal/SaveUserLocal";
 import { GetUserLocalUseCase } from "../../Domain/useCases/userLocal/GetUserLocal";
-import { RemoveUserLocalUseCase } from "../../Domain/useCases/userLocal/RemoveUserLocal";
-import { ClearShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/ClearShoppingBag";
+import { User } from "../../Domain/entities/User";
 
 export const userInitialState: User = {
   id: "",
@@ -25,7 +25,7 @@ export interface UserConextProps {
   removeUserSession: () => Promise<void>;
 }
 
-export const UserConext = createContext({} as UserConextProps);
+export const UserContext = createContext({} as UserConextProps);
 
 export const UserProvider = ({ children }: any) => {
   const [user, setUser] = useState(userInitialState);
@@ -50,7 +50,7 @@ export const UserProvider = ({ children }: any) => {
     setUser(userInitialState);
   };
   return (
-    <UserConext.Provider
+    <UserContext.Provider
       value={{
         user,
         saveUserSesion,
@@ -59,6 +59,6 @@ export const UserProvider = ({ children }: any) => {
       }}
     >
       {children}
-    </UserConext.Provider>
+    </UserContext.Provider>
   );
 };

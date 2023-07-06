@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { View, FlatList } from "react-native";
-import { Card } from "./Card";
-import { Product } from "../../../../../Domain/entities/Product";
 import { GetProductsByCategoryUseCase } from "../../../../../Domain/useCases/product/GetProductsByCategory";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Product } from "../../../../../Domain/entities/Product";
+import { Card } from "./Card";
 
 interface ProductListProps {
   categoryId: string;
@@ -25,7 +25,6 @@ export const ProductList = ({
       const result = await GetProductsByCategoryUseCase(categoryId);
       setProducts(result);
     };
-
     fetchData();
   }, [categoryId]);
 

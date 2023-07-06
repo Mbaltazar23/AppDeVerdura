@@ -9,7 +9,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { ShoppingBagContext } from "../../../../context/ShoppingBagContext";
 
 const { width } = Dimensions.get("screen");
-const cardWidth = width / 3 - 20;
+const cardWidth = width / 3 - 28;
 
 interface CardProps {
   product: Product;
@@ -57,8 +57,8 @@ export const Card = ({ product, navigation }: CardProps) => {
           <View style={styles.addToCart}>
             <Icon
               name="add"
-              size={28}
-              style={{ marginRight: 5, color: "white" }}
+              size={20}
+              style={{ color: "white" }}
             />
           </View>
         </TouchableOpacity>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   card: {
     height: 240,
     width: cardWidth,
-    marginHorizontal: 10,
+    marginHorizontal: 7.5,
     marginBottom: 20,
     borderRadius: 15,
     elevation: 13,
@@ -79,15 +79,17 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: "center",
+    alignItems: "center",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     overflow: "hidden",
   },
   image: {
-    width: "100%",
-    height:"100%",
-    aspectRatio: 1, // Para mantener la relación de aspecto de la imagen
+    width: "80%",
+    height: "80%",
+    aspectRatio: 1,
+    resizeMode: "contain",
   },
   contentContainer: {
     padding: 10,
@@ -112,14 +114,13 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     fontWeight: "bold",
-    marginRight: 5,
+    marginRight: "auto",
   },
   addToCart: {
-    height: 30,
-    width: 30,
-    borderRadius: 15,
+    height: 28,
+    width: 28,
+    borderRadius: 14,
     backgroundColor: MyColors.primary,
-    marginLeft: 12,
     justifyContent: "center",
     alignItems: "center",
   },

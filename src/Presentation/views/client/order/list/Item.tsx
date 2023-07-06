@@ -1,9 +1,9 @@
 import React from "react";
-import { Order } from "../../../../../Domain/entities/Order";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import { DateFormater } from "../../../../utils/DateFormater";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { ClientOrderStackParamList } from "../../../../navigator/ClientOrderStackNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { DateFormater } from "../../../../utils/DateFormater";
+import { Order } from "../../../../../Domain/entities/Order";
 
 interface Props {
   order: Order;
@@ -20,16 +20,24 @@ export const OrderListItem = ({ order, navigation }: Props) => {
         navigation.navigate("ClientOrderDetailScreen", { order: order })
       }
     >
-      <View style={styles.container}>
+     <View style={styles.container}>
         <Text style={styles.order}>Orden # {order.id}</Text>
         <Text style={{ ...styles.info, marginTop: 10 }}>
-          Fecha del pedido: {DateFormater(order.timestamp!)}
+          <Text style={styles.textColor}>Fecha del pedido:</Text>{" "}
+          {DateFormater(order.timestamp!)}
         </Text>
         <Text style={styles.info}>
-          Cliente en :{order.client?.name} {order.client?.lastname}
+          <Text style={styles.textColor}>Cliente: </Text>
+          {order.client?.name} {order.client?.lastname}
         </Text>
-        <Text style={styles.info}>Direccion:{order.address?.address} </Text>
-        <Text style={styles.info}>Barrio: {order.address?.neighborhood}</Text>
+        <Text style={styles.info}>
+          <Text style={styles.textColor}>Direccion:</Text>{" "}
+          {order.address?.address}{" "}
+        </Text>
+        <Text style={styles.info}>
+          <Text style={styles.textColor}>Barrio:</Text>{" "}
+          {order.address?.neighborhood}
+        </Text>
         <View style={styles.divider}></View>
       </View>
     </TouchableOpacity>
@@ -39,6 +47,7 @@ export const OrderListItem = ({ order, navigation }: Props) => {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
+    marginTop:4
   },
   order: {
     fontWeight: "bold",
@@ -54,5 +63,10 @@ const styles = StyleSheet.create({
   },
   info: {
     fontSize: 13,
+  },
+  textColor: {
+    fontWeight: "bold",
+    color: "black",
+    fontSize: 12,
   },
 });

@@ -1,8 +1,9 @@
 import axios from "axios";
-import { User } from "../../../../Domain/entities/User";
 import { LocalStorage } from "../../local/LocalStorage";
+import { User } from "../../../../Domain/entities/User";
 
-//URL inicial : http://192.168.1.88:3000/api
+//URL API LOCAL : http://192.168.1.88:3000/api
+//URL API WEB: http://api-rest.barriosinteligentes.cl/api
 
 const ApiDeVerdura = axios.create({
   baseURL: "http://api-rest.barriosinteligentes.cl/api",

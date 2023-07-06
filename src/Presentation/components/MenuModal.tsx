@@ -8,9 +8,10 @@ import {
   Animated,
 } from "react-native";
 import { ClientStackParamList } from "../navigator/ClientStackNavigator";
+import { RootStackParamList } from "../navigator/MainStackNavigator";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
-import { UserConext } from "../context/UserContext";
+import { UserContext } from "../context/UserContext";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 interface Props {
@@ -20,7 +21,9 @@ interface Props {
 
 export const MenuModal = ({ isVisible, toggleMenu }: Props) => {
   const navigation = useNavigation<StackNavigationProp<ClientStackParamList>>();
-  const { user, removeUserSession } = useContext(UserConext);
+  const navigateHome = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const { user, removeUserSession } = useContext(UserContext);
   const [isModalVisible, setModalVisible] = useState(false);
 
   const modalAnimation = useRef(new Animated.Value(0)).current;
@@ -31,10 +34,16 @@ export const MenuModal = ({ isVisible, toggleMenu }: Props) => {
     }
   }, [isVisible]);
 
+  useEffect(() => {
+    if (user.id === "") {
+      navigateHome.replace("HomeScreen");
+    }
+  }, [user]);
+
   const closeModal = () => {
     Animated.timing(modalAnimation, {
       toValue: 0,
-      duration: 300,
+      duration: 1,
       useNativeDriver: true,
     }).start(() => {
       setModalVisible(false);
@@ -85,7 +94,9 @@ export const MenuModal = ({ isVisible, toggleMenu }: Props) => {
         >
           <View style={styles.headerContainer}>
             <View style={styles.headerBackground} />
-            <Text style={styles.headerText}>Hola {user.name} {user.lastname}</Text>
+            <Text style={styles.headerText}>
+              Hola {user.name} {user.lastname}
+            </Text>
           </View>
           <View style={styles.optionsContainer}>
             <TouchableOpacity
@@ -104,10 +115,17 @@ export const MenuModal = ({ isVisible, toggleMenu }: Props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.option}
-              onPress={() => {}}
+              onPress={() => handleOptionPress("ClientFavoriteProductsScreen")}
             >
               <Icon name="favorite" size={20} color="green" />
               <Text style={styles.optionText}>Lista de Favoritos</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => handleOptionPress("ClientTermsConditionsScreen")}
+            >
+              <Icon name="description" size={20} color="green" />
+              <Text style={styles.optionText}>Terminos y condiciones</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.option}
@@ -138,7 +156,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 30,
     paddingBottom: 20,
-    height:'20%'
+    height: "20%",
   },
   headerBackground: {
     position: "absolute",
@@ -159,7 +177,7 @@ const styles = StyleSheet.create({
   },
   optionsContainer: {
     marginTop: 30,
-    paddingLeft: 20,
+    paddingLeft: 12,
     paddingRight: 20,
   },
   option: {

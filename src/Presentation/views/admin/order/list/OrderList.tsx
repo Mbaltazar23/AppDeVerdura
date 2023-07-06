@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, View, useWindowDimensions } from "react-native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { AdminOrderStackParamList } from "../../../../navigator/AdminOrderStackNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { TabView, TabBar } from "react-native-tab-view";
 import { OrderListItem } from "./Item";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { AdminOrderStackParamList } from "../../../../navigator/AdminOrderStackNavigator";
 import useViewModel from "./ViewModel";
 
 interface Props {
@@ -12,13 +12,9 @@ interface Props {
 }
 
 const OrderListView = ({ status }: Props) => {
-  const {
-    ordersPayed,
-    ordersDispatched,
-    ordersDelivery,
-    getOrders,
-  } = useViewModel();
-  
+  const { ordersPayed, ordersDispatched, ordersDelivery, getOrders } =
+    useViewModel();
+
   const navigation =
     useNavigation<
       StackNavigationProp<AdminOrderStackParamList, "AdminOrderListScreen">
@@ -64,13 +60,24 @@ const renderScene = ({ route }: any) => {
 
 export const AdminOrderListScreen = () => {
   const layout = useWindowDimensions();
-
+  const { getOrders } = useViewModel();
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: "first", title: "PAGADO" },
-    { key: "second", title: "DESPACHO" },
+    { key: "second", title: "DESPACHADO" },
     { key: "third", title: "ENTREGADO" },
   ]);
+
+  const isFocused = useIsFocused(); // Nueva adición
+
+  useEffect(() => {
+    if (isFocused) {
+      // Si la pantalla está enfocada (accedida desde la pestaña de pedidos), obtén todos los pedidos
+      routes.forEach((route) => {
+        getOrders(route.title);
+      });
+    }
+  }, [isFocused]);
 
   return (
     <TabView

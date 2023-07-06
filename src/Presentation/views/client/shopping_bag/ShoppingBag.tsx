@@ -13,6 +13,7 @@ interface Props
 export const ClientShoppingBagScreen = ({ navigation, route }: Props) => {
   const { shoppingBag, total, addItem, subtractItem, deleteItem } =
     useViewModel();
+    
   return (
     <View style={styles.container}>
       <FlatList

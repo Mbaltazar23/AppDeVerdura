@@ -12,15 +12,14 @@ const ClientAddressCreateStyles = StyleSheet.create({
     height: 150,
     resizeMode: "contain",
   },
-
   form: {
     backgroundColor: "white",
-    height: "65%",
+    height: "70%",
     width: "100%",
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     paddingHorizontal: 30,
-    marginTop:30,
+    marginTop: 30,
     bottom: 0,
   },
   buttonContainer: {

@@ -1,20 +1,21 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { GetByUserAddressUseCase } from "../../../../../Domain/useCases/address/GetByUserAddress";
-import { Address } from "../../../../../Domain/entities/Address";
-import { UserConext } from "../../../../context/UserContext";
 import { CreateOrderUseCase } from "../../../../../Domain/useCases/order/CreateOrder";
-import { Order } from "../../../../../Domain/entities/Order";
 import { ShoppingBagContext } from "../../../../context/ShoppingBagContext";
+import { UserContext } from "../../../../context/UserContext";
+import { Address } from "../../../../../Domain/entities/Address";
+import { Order } from "../../../../../Domain/entities/Order";
 
 const ClientAddressListViewModel = () => {
   const [address, setAddress] = useState<Address[]>([]);
-  const { user, saveUserSesion, getUserSession } = useContext(UserConext);
-  const { shoppingBag } = useContext(ShoppingBagContext);
   const [checked, setChecked] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { user, saveUserSesion } = useContext(UserContext);
+  const { shoppingBag } = useContext(ShoppingBagContext);
+
   useEffect(() => {
     getAddress();
-
     if (user.address !== null && user.address !== undefined) {
       changeRadioValue(user.address!);
       console.log("USUARIO CON DIRECCION : " + JSON.stringify(user));
@@ -22,19 +23,30 @@ const ClientAddressListViewModel = () => {
   }, [user]);
 
   const createOrder = async () => {
-    const order: Order = {
-      id_client: user.id!,
-      id_address: user.address?.id!,
-      products: shoppingBag,
-    };
-    const result = await CreateOrderUseCase(order);
-    setResponseMessage(result.message);
+    if (checked !== "") {
+      // Verificar si se ha seleccionado una dirección
+      const order: Order = {
+        id_client: user.id!,
+        id_address: user.address?.id!,
+        lat: user.address?.lat,
+        lng: user.address?.lng,
+        products: shoppingBag,
+      };
+      const result = await CreateOrderUseCase(order);
+      user.address = "";
+      saveUserSesion(user);
+      setChecked(""); // Reestablecer el input
+      setResponseMessage(result.message);
+      setLoading(true);
+      setLoading(false);
+    } else {
+      setResponseMessage("Debe seleccionar una dirección para la Orden.");
+    }
   };
 
   const changeRadioValue = (address: Address) => {
     setChecked(address.id!);
     user.address = address;
-    saveUserSesion(user);
   };
 
   const getAddress = async () => {
@@ -49,6 +61,7 @@ const ClientAddressListViewModel = () => {
     getAddress,
     changeRadioValue,
     createOrder,
+    loading,
   };
 };
 

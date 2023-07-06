@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { LoginAuthUseCase } from "../../../Domain/useCases/auth/LoginAuth";
-import { UserConext } from "../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 
 const HomeViewModel = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -10,7 +10,7 @@ const HomeViewModel = () => {
   });
 
   //const { user, getUserSession } = useUserLocal();
-  const { user, saveUserSesion } = useContext(UserConext);
+  const { user, saveUserSesion } = useContext(UserContext);
   console.log("Usuario en Sesion : " + JSON.stringify(user));
 
   const onChange = (property: string, value: any) => {

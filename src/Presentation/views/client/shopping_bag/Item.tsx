@@ -1,6 +1,6 @@
 import React from "react";
-import { Product } from "../../../../Domain/entities/Product";
 import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Product } from "../../../../Domain/entities/Product";
 
 interface Props {
   product: Product;
@@ -61,12 +61,16 @@ const styles = StyleSheet.create({
     height: 70,
     flexDirection: "row",
     marginHorizontal: 20,
-    marginTop: 7,
+    marginTop: 12,
   },
-  imageContainer: {},
+  imageContainer: {
+    marginRight: 1,
+  },
   image: {
-    width: 60,
-    height: 60,
+    width: "90%",
+    height: "90%",
+    aspectRatio: 1,
+    resizeMode: "contain",
     borderRadius: 15,
   },
   productInfo: {

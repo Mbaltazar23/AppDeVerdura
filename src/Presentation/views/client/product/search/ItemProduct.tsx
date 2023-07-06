@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import { MyColors } from "../../../../theme/AppTheme";
-import { Product } from "../../../../../Domain/entities/Product";
-import { Dimensions, StyleSheet } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { View, Text, Image, TouchableOpacity,Dimensions, StyleSheet } from "react-native";
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import { ShoppingBagContext } from "../../../../context/ShoppingBagContext";
+import { Product } from "../../../../../Domain/entities/Product";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { MyColors } from "../../../../theme/AppTheme";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const { width } = Dimensions.get("screen");
-const cardWidth = (width - 60) / 3;
+const cardWidth = width / 3 - 28;
 
 interface CardProps {
   product: Product;
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
   card: {
     height: 240,
     width: cardWidth,
-    marginHorizontal: 5,
+    marginHorizontal: 10,
     marginBottom: 20,
     borderRadius: 15,
     elevation: 13,
@@ -80,15 +79,17 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: "center",
+    alignItems: "center",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     overflow: "hidden",
   },
   image: {
-    width: "100%",
-    height: "100%",
-    aspectRatio: 1,
+    width: "80%",
+    height: "80%",
+    aspectRatio: 1, // Para mantener la relación de aspecto de la imagen
+    resizeMode: "contain",
   },
   contentContainer: {
     padding: 10,
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     fontWeight: "bold",
-    marginRight: 5,
+    marginRight: "auto", // Centra el botón addToCart verticalmente
   },
   addToCart: {
     height: 30,

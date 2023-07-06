@@ -20,7 +20,7 @@ export const ClientProductSearchScreen = ({ navigation, route }: Props) => {
   );
 
   useEffect(() => {
-      handleSearch(searchText);
+    handleSearch(searchText);
   }, [searchText]);
 
   return (

@@ -9,7 +9,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { ShoppingBagContext } from "../../../../context/ShoppingBagContext";
 
 const { width } = Dimensions.get("screen");
-const cardWidth = (width - 60) / 3;
+const cardWidth = (width - 72) / 3;
 
 interface CardProps {
   product: Product;
@@ -80,15 +80,17 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: "center",
+    alignItems: "center",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     overflow: "hidden",
   },
   image: {
-    width: "100%",
-    height: "100%",
-    aspectRatio: 1,
+    width: "80%",
+    height: "80%",
+    aspectRatio: 1, // Para mantener la relación de aspecto de la imagen
+    resizeMode: "contain",
   },
   contentContainer: {
     padding: 10,
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     fontWeight: "bold",
-    marginRight: 5,
+    marginRight: 'auto', // Centra el botón removeFavorite verticalmente
   },
   addToCart: {
     height: 30,

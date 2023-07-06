@@ -7,19 +7,22 @@ const AdminOrderDetailStyles = StyleSheet.create({
   },
   products: {
     width: "100%",
-    height: "45%",
+    height: "50%",
+    overflow: "hidden", // Ocultar contenido que se desborda
   },
   info: {
     width: "100%",
-    height: "55%",
+    height: "50%",
     backgroundColor: "white",
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-    paddingHorizontal: 20,
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    paddingHorizontal: 30,
+    elevation: 10, // Agregar sombreado
+    overflow: "hidden", // Ocultar contenido que se desborda
   },
   infoRow: {
     flexDirection: "row",
-    marginTop: 15,
+    marginTop: 35,
   },
   infoText: {
     flex: 1,
@@ -42,20 +45,20 @@ const AdminOrderDetailStyles = StyleSheet.create({
     color: MyColors.primary,
   },
   totalInfo: {
-    marginTop: 25,
+    marginTop: 35,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
   total: {
     fontWeight: "bold",
-    fontSize: 17,
+    fontSize: 18,
   },
   button: {
     width: "30%",
   },
   dropDown: {
-    marginTop: 15,
+    marginTop: 20,
   },
 });
 

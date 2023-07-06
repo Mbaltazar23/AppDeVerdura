@@ -1,21 +1,32 @@
-import { StackScreenProps } from "@react-navigation/stack";
-import React from "react";
-import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
-import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
-import styles from "./Styles";
+import React, { useEffect } from "react";
+import { Image, Text, TouchableOpacity, View, ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import useViewModel from "./ViewModel";
+import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
+import { StackScreenProps } from "@react-navigation/stack";
 import { RoundedButton } from "../../../../components/RoundedButton";
-/*import Carousel from "react-native-reanimated-carousel";*/
+import useViewModel from "./ViewModel";
+import styles from "./Styles";
+import { SimilarProductsList } from "./ProductsSimilars";
 
 interface Props
   extends StackScreenProps<ClientStackParamList, "ClientProductDetailScreen"> {}
 
 export const ClientProductDetailScreen = ({ navigation, route }: Props) => {
   const { product } = route.params;
-  
-  const { quantity, price, addItem, removeItem, addToBag } =
-    useViewModel(product);
+
+  const {
+    quantity,
+    price,
+    addItem,
+    removeItem,
+    addToBag,
+    getProductsFilterNotNames,
+    productsFilters,
+  } = useViewModel(product);
+
+  useEffect(() => {
+    getProductsFilterNotNames();
+  }, [product]);
 
   return (
     <View style={styles.container}>
@@ -28,6 +39,7 @@ export const ClientProductDetailScreen = ({ navigation, route }: Props) => {
           />
         </View>
       </GestureHandlerRootView>
+      <ScrollView>
       <View style={styles.productDetail}>
         <View style={styles.productInfo}>
           {/*NOMBRE */}
@@ -61,12 +73,14 @@ export const ClientProductDetailScreen = ({ navigation, route }: Props) => {
           <TouchableOpacity onPress={() => addItem()} style={styles.actionAdd}>
             <Text style={styles.actionText}>+</Text>
           </TouchableOpacity>
-
           <View style={styles.buttonAdd}>
             <RoundedButton text="AGREGAR" onPress={() => addToBag()} />
           </View>
         </View>
+       <SimilarProductsList products={productsFilters} navigation={navigation}/>
       </View>
+      </ScrollView>
+
       <TouchableOpacity style={styles.back} onPress={() => navigation.pop()}>
         <Image
           style={styles.backImage}

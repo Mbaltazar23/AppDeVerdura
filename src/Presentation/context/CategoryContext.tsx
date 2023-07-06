@@ -1,12 +1,12 @@
 import { ResponseApiDeVerdura } from "../../Data/sources/remote/models/ResponseApiDeVerdura";
-import { Category } from "../../Domain/entities/Category";
-import * as ImagePicker from "expo-image-picker";
 import { createContext, useEffect, useState } from "react";
+import { UpdateWithImageCategoryUseCase } from "../../Domain/useCases/category/UpdateWithImageCategory";
 import { GetAllCategoryUseCase } from "../../Domain/useCases/category/GetAllCategory";
 import { CreateCategoryUseCase } from "../../Domain/useCases/category/CreateCategory";
 import { UpdateCategoryUseCase } from "../../Domain/useCases/category/UpdateCategory";
-import { UpdateWithImageCategoryUseCase } from "../../Domain/useCases/category/UpdateWithImageCategory";
 import { DeleteCategoryUseCase } from "../../Domain/useCases/category/DeleteCategory";
+import { Category } from "../../Domain/entities/Category";
+import * as ImagePicker from "expo-image-picker";
 
 export interface CategoryContextProps {
   categories: Category[];
@@ -20,7 +20,6 @@ export interface CategoryContextProps {
     category: Category,
     file: ImagePicker.ImageInfo
   ): Promise<ResponseApiDeVerdura>;
-
   remove(id: string): Promise<ResponseApiDeVerdura>;
 }
 
@@ -54,6 +53,7 @@ export const CategoryProvider = ({ children }: any) => {
     getCategories();
     return response;
   };
+
   const updateWithImage = async (
     category: Category,
     file: ImagePicker.ImageInfo

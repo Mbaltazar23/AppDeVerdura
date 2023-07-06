@@ -12,5 +12,5 @@ export interface User {
   image: string;
   session_token?: string;
   roles: Rol[];
-  address?: Address;
+  address?: Address| any;
 }

@@ -46,7 +46,7 @@ const CategoryListStyles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 40,
+    height: 30,
     borderWidth: 1,
     borderColor: MyColors.primary,
     borderRadius: 8,
@@ -54,15 +54,15 @@ const CategoryListStyles = StyleSheet.create({
   },
   categoryListContainer: {
     flex: 1,
-    paddingHorizontal: 16,
-    marginTop: 20, // Ajusta este valor según tus preferencias para obtener el espacio deseado
-    marginBottom: 10, // Agrega un margen inferior para separar el listado de elementos de categoría del resto de la pantalla
+    paddingHorizontal: 20,
+    marginTop: 22, // Ajusta este valor según tus preferencias para obtener el espacio deseado
+    marginBottom: 0, // Agrega un margen inferior para separar el listado de elementos de categoría del resto de la pantalla
   },
   selectedCategoryContainer: {
     backgroundColor: MyColors.primary,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    marginTop: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 18,
+    marginTop: 0,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

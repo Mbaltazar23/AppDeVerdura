@@ -1,40 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, View, useWindowDimensions } from "react-native";
-import useViewModel from "./ViewModel";
 import { TabView, TabBar } from "react-native-tab-view";
-import { OrderListItem } from "./Item";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { ClientOrderStackParamList } from "../../../../navigator/ClientOrderStackNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { OrderListItem } from "./Item";
+import useViewModel from "./ViewModel";
 
 interface Props {
   status: string;
 }
 
 const OrderListView = ({ status }: Props) => {
-  const {
-    ordersPayed,
-    ordersDispatched,
-    ordersDelivery,
-    getOrders,
-    user
-  } = useViewModel();
-  const navigation =
-    useNavigation<
-      StackNavigationProp<ClientOrderStackParamList, "ClientOrderListScreen">
-    >();
+  const { ordersPayed, ordersDispatched, ordersDelivery, getOrders, user } =
+    useViewModel();
 
   useEffect(() => {
     getOrders(user?.id!, status);
   }, [user]);
+
+  const navigation =
+    useNavigation<
+      StackNavigationProp<ClientOrderStackParamList, "ClientOrderListScreen">
+    >();
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <FlatList
         data={
           status === "PAGADO"
-          ? ordersPayed:
-         status === "DESPACHADO"
+            ? ordersPayed
+            : status === "DESPACHADO"
             ? ordersDispatched
             : status === "ENTREGADO"
             ? ordersDelivery
@@ -64,13 +60,24 @@ const renderScene = ({ route }: any) => {
 
 export const ClientOrderListScreen = () => {
   const layout = useWindowDimensions();
-
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
+  const { getOrders, user } = useViewModel();
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
     { key: "first", title: "PAGADO" },
     { key: "second", title: "DESPACHADO" },
     { key: "third", title: "ENTREGADO" },
   ]);
+
+  const isFocused = useIsFocused(); // Nueva adición
+
+  useEffect(() => {
+    if (isFocused) {
+      // Si la pantalla está enfocada (accedida desde la pestaña de pedidos), obtén todos los pedidos
+      routes.forEach((route) => {
+        getOrders(user?.id!, route.title);
+      });
+    }
+  }, [isFocused]);
 
   return (
     <TabView

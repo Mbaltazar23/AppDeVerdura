@@ -1,1 +1,5 @@
-export const GOOGLE_MAPS_APIKEY ='AIzaSyD7M1Wk_hiOt6DLkOTMZ-he1FISDA5bH9M'
+export const GOOGLE_MAPS_APIKEY ='AIzaSyB56CPvKRzoylKb0gGy1EqjksszKixtFog'
+
+//Api Maps Javascript : AIzaSyB56CPvKRzoylKb0gGy1EqjksszKixtFog
+
+//Api Google Maps : AIzaSyCTLQJidWJgcHYOyHMrsfOMWAH73DLUeHY

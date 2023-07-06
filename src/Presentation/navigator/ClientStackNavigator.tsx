@@ -13,6 +13,9 @@ import { ClientProductSearchScreen } from "../views/client/product/search/Produc
 import { Product } from "../../Domain/entities/Product";
 import { MenuModal } from "../components/MenuModal";
 import { ProfileInfoScreen } from "../views/profile/info/ProfileInfo";
+import { ClientFavoriteProductsScreen } from "../views/client/favorite/list/FavoriteProducts";
+import { ClientFavoriteProductSearchScreen } from "../views/client/favorite/search/FavoriteProductSearch";
+import { ClientTermsConditionsScreen } from "../views/client/terms/TermsConditions";
 
 export type ClientStackParamList = {
   ClientCategoryListScreen: undefined;
@@ -20,11 +23,14 @@ export type ClientStackParamList = {
   ClientProductDetailScreen: { product: Product };
   ClientProductSearchScreen: undefined;
   ClientShoppingBagScreen: undefined;
+  ClientTermsConditionsScreen: undefined;
   ClientAddressListScreen: undefined;
   ClientAddressCreateScreen:
     | { refPoint: string; latitude: number; longitude: number }
     | undefined;
   ClientAddressMapScreen: undefined;
+  ClientFavoriteProductsScreen: undefined;
+  ClientFavoriteProductSearchScreen: undefined;
   ProfileInfoScreen: undefined;
 };
 
@@ -187,6 +193,13 @@ export const ClientStackNavigator = () => {
           })}
         />
         <Stack.Screen
+          name="ClientTermsConditionsScreen"
+          component={ClientTermsConditionsScreen}
+          options={{
+            title: "Términos y condiciones",
+          }}
+        />
+        <Stack.Screen
           name="ClientAddressCreateScreen"
           component={ClientAddressCreateScreen}
           options={{
@@ -199,6 +212,47 @@ export const ClientStackNavigator = () => {
           options={{
             title: "Ubica tu direccion en el mapa",
           }}
+        />
+
+        <Stack.Screen
+          name="ClientFavoriteProductsScreen"
+          component={ClientFavoriteProductsScreen}
+          options={{
+            title: "Mis productos Favoritos",
+          }}
+        />
+
+        <Stack.Screen
+          name="ClientFavoriteProductSearchScreen"
+          component={ClientFavoriteProductSearchScreen}
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("ClientShoppingBagScreen")}
+              >
+                <Image
+                  source={require("../../../assets/shopping_cart.png")}
+                  style={{ width: 30, height: 30 }}
+                />
+              </TouchableOpacity>
+            ),
+            headerTitle: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("ClientAddressCreateScreen")}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Image
+                  source={require("../../../assets/arrow_down.png")}
+                  style={{ width: 20, height: 20, marginRight: 5 }}
+                />
+                <Text style={{ color: "white" }}>Crear Dirección</Text>
+              </TouchableOpacity>
+            ),
+          })}
         />
       </Stack.Navigator>
       <MenuModal isVisible={isMenuVisible} toggleMenu={toggleMenu} />

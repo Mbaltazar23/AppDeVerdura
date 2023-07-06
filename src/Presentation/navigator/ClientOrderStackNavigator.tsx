@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Order } from "../../Domain/entities/Order";
-import { OrderProvider } from "../context/OrderContext";
-import { ClientOrderListScreen } from "../views/client/order/list/OrderList";
 import { ClientOrderDetailScreen } from "../views/client/order/detail/OrderDetail";
+import { ClientOrderListScreen } from "../views/client/order/list/OrderList";
 import { ClientOrderMapScreen } from "../views/client/order/map/OrderMap";
+import { OrderProvider } from "../context/OrderContext";
+import { Order } from "../../Domain/entities/Order";
 
 export type ClientOrderStackParamList = {
   ClientOrderListScreen: undefined;
@@ -33,7 +33,6 @@ export const ClientOrderStackNavigator = () => {
             title: "Detalle de la Orden",
           }}
         />
-
         <Stack.Screen
           name="ClientOrderMapScreen"
           component={ClientOrderMapScreen}

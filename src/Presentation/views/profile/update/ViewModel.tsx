@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { UdpateUserUseCase } from "../../../../Domain/useCases/user/UpdateUser";
 import { UdpateWithImageUserUseCase } from "../../../../Domain/useCases/user/UpdateWithImageUser";
-import * as ImagePicker from "expo-image-picker";
 import { User } from "../../../../Domain/entities/User";
 import { ResponseApiDeVerdura } from "../../../../Data/sources/remote/models/ResponseApiDeVerdura";
-import { UserConext } from "../../../context/UserContext";
+import { UserContext } from "../../../context/UserContext";
+import * as ImagePicker from "expo-image-picker";
 
 const ProfileUpdateViewModel = (user: User) => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -12,7 +12,7 @@ const ProfileUpdateViewModel = (user: User) => {
   const [values, setValues] = useState(user);
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
-  const { saveUserSesion } = useContext(UserConext);
+  const { saveUserSesion } = useContext(UserContext);
   
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({

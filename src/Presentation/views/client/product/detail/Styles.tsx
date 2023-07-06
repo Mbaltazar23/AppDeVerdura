@@ -3,29 +3,28 @@ import { StyleSheet } from "react-native";
 const ClientProductDetailStyles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    alignItems: "center",
+    justifyContent: "flex-start",
+    flexGrow: 1, // Agrega esta propiedad
   },
   imageContainer: {
-    marginTop: 50,
-    width: 200,
-    height: 200,
+    marginTop: 60,
+    marginBottom:30,
+    width: 500,
+    height: 300,
     borderRadius: 100,
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
   },
   productImage: {
-    width: '100%',
-    height: '100%',
+    width: '50%',
+    height: '95%',
     borderRadius: 100,
   },
   productDetail: {
-    position: "absolute",
     width: "100%",
-    height: "57%",
     backgroundColor: "white",
-    bottom: 0,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
   },
@@ -52,8 +51,7 @@ const ClientProductDetailStyles = StyleSheet.create({
   },
   productActions: {
     flexDirection: "row",
-    height: 70,
-    backgroundColor: "#f2f2f2",
+    height: 30,
     paddingHorizontal: 30,
   },
   actionLess: {
@@ -91,7 +89,7 @@ const ClientProductDetailStyles = StyleSheet.create({
   back: {
     position: "absolute",
     top: 30,
-    left: 15,
+    left: 20,
   },
   backImage: {
     height: 40,

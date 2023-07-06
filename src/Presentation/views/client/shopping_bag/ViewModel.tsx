@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { ShoppingBagContext } from "../../../context/ShoppingBagContext";
 import { Product } from "../../../../Domain/entities/Product";
 

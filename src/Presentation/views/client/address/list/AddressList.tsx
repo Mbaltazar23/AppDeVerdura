@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
-import { FlatList, Text, ToastAndroid, View } from "react-native";
-import useViewModel from "./ViewModel";
+import { ActivityIndicator, FlatList, ToastAndroid, View } from "react-native";
+import { MyColors, MyStyles } from "../../../../theme/AppTheme";
 import { AddressListItem } from "./Item";
 import { RoundedButton } from "../../../../components/RoundedButton";
+import useViewModel from "./ViewModel";
 
 export const ClientAddressListScreen = () => {
-  const { address, checked, responseMessage, createOrder, changeRadioValue } =
+  const { address, checked, responseMessage, createOrder, changeRadioValue,loading } =
     useViewModel();
 
   useEffect(() => {
     if (responseMessage != "") {
       ToastAndroid.show(responseMessage, ToastAndroid.LONG);
     }
-  }, []);
+  }, [responseMessage]);
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -30,6 +31,13 @@ export const ClientAddressListScreen = () => {
       <View style={{ width: "100%", paddingHorizontal: 20 , paddingVertical:20}}>
         <RoundedButton text="CONTINUAR" onPress={() => createOrder()} />
       </View>
+      {loading && (
+        <ActivityIndicator
+          style={MyStyles.loading}
+          size="large"
+          color={MyColors.primary}
+        />
+      )}
     </View>
   );
 };

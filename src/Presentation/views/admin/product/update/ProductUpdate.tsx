@@ -40,6 +40,7 @@ export const AdminProductUpdateScreen = ({ navigation, route }: Props) => {
   useEffect(() => {
     if (responseMessage !== "") {
       ToastAndroid.show(responseMessage, ToastAndroid.LONG);
+      navigation.navigate("AdminProductListScreen", { category: category });
     }
   }, [responseMessage]);
 

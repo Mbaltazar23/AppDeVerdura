@@ -24,7 +24,6 @@ const ClientOrderMapViewModel = (order: Order) => {
   const mapRef = useRef<MapView | null>(null);
   let positionSuscription: Location.LocationSubscription;
 
-  const { updateToDelivered } = useContext(OrderContext);
 
   useEffect(() => {
     const requestPermissions = async () => {
@@ -38,8 +37,7 @@ const ClientOrderMapViewModel = (order: Order) => {
   }, []);
 
   const updateToDeliveredOrder = async () => {
-    const result = await updateToDelivered(order);
-    setResponseMessage(result.message);
+  
   };
 
   const onRegionChangeComplete = async (

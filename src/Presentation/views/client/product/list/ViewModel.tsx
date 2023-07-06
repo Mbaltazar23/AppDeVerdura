@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Product } from "../../../../../Domain/entities/Product";
 import { GetProductsByCategoryUseCase } from "../../../../../Domain/useCases/product/GetProductsByCategory";
 import { Category } from "../../../../../Domain/entities/Category";
@@ -15,9 +15,8 @@ const ClientProductListViewModel = () => {
 
   const getCategories = async () => {
     const result = await GetAllCategoryUseCase();
-    setCategories(result);    
+    setCategories(result);
   };
-
 
   return {
     products,

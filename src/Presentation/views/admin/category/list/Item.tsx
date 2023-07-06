@@ -1,14 +1,15 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Category } from "../../../../../Domain/entities/Category";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-
 import { CategoryStackParamList } from "../../../../navigator/AdminCategoryNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
+import { Category } from "../../../../../Domain/entities/Category";
+
 interface Props {
   category: Category;
   remove: (id: string) => void;
 }
+
 export const AdminCategoryListItem = ({ category, remove }: Props) => {
   const navigation =
     useNavigation<StackNavigationProp<CategoryStackParamList>>();

@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { FlatList, Text, View, Image, ToastAndroid } from "react-native";
-import styles from "./Styles";
+import { ClientOrderStackParamList } from "../../../../navigator/ClientOrderStackNavigator";
 import { StackScreenProps } from "@react-navigation/stack";
 import { OrderDetailItem } from "./Item";
+//import { RoundedButton } from "../../../../components/RoundedButton";
 import { DateFormater } from "../../../../utils/DateFormater";
 import useViewModel from "./ViewModel";
-import { RoundedButton } from "../../../../components/RoundedButton";
-import { ClientOrderStackParamList } from "../../../../navigator/ClientOrderStackNavigator";
+import styles from "./Styles";
 
 interface Props
   extends StackScreenProps<
@@ -16,14 +16,8 @@ interface Props
 
 export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
   const { order } = route.params;
-  const {
-    total,
-    responseMessage,
-    open,
-    value,
-    items,
-    getTotal,
-  } = useViewModel(order);
+  const { total, responseMessage, getTotal } =
+    useViewModel(order);
 
   useEffect(() => {
     if (responseMessage !== "") {
@@ -39,13 +33,14 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.products}>
+      <View style={styles.products}>
         <FlatList
           data={order.products}
           keyExtractor={(item) => item.id!}
           renderItem={({ item }) => <OrderDetailItem product={item} />}
         />
-      </Text>
+      </View>
+      
       <View style={styles.info}>
         <View style={styles.infoRow}>
           <View style={styles.infoText}>
@@ -68,7 +63,6 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
               {order.client?.phone}
             </Text>
           </View>
-
           <Image
             style={styles.infoImage}
             source={require("../../../../../../assets/user.png")}
@@ -89,9 +83,11 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
         </View>
 
         <View style={styles.totalInfo}>
-          <Text style={styles.total}>TOTAL : $ {total} </Text>
+          <Text style={styles.total}>
+            TOTAL : $ {total.toLocaleString("en-US")}{" "}
+          </Text>
           <View style={styles.button}>
-            {order.status == "EN CAMINO" && (
+           {/*  {order.status == "DESPACHADO" && (
               <RoundedButton
                 text="RASTREAR PEDIDO"
                 onPress={() =>
@@ -100,7 +96,7 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
                   })
                 }
               />
-            )}
+            )} */}
           </View>
         </View>
       </View>

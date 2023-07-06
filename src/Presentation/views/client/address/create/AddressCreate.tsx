@@ -6,13 +6,13 @@ import {
   ActivityIndicator,
   ToastAndroid,
 } from "react-native";
+import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
+import { StackScreenProps } from "@react-navigation/stack";
+import { MyColors, MyStyles } from "../../../../theme/AppTheme";
 import { CustomTextInput } from "../../../../components/CustomTextInput";
 import { RoundedButton } from "../../../../components/RoundedButton";
-import { MyColors, MyStyles } from "../../../../theme/AppTheme";
-import styles from "./Styles";
 import useViewModel from "./ViewModel";
-import { StackScreenProps } from "@react-navigation/stack";
-import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
+import styles from "./Styles";
 
 interface Props
   extends StackScreenProps<ClientStackParamList, "ClientAddressCreateScreen"> {}
@@ -31,10 +31,13 @@ export const ClientAddressCreateScreen = ({ navigation, route }: Props) => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {   
-
+  useEffect(() => {
     if (route.params?.refPoint) {
-      onChangeRefPoint(route.params?.refPoint, route.params?.latitude, route.params?.longitude);
+      onChangeRefPoint(
+        route.params?.refPoint,
+        route.params?.latitude,
+        route.params?.longitude
+      );
     }
   }, [route.params?.refPoint]);
 
@@ -56,15 +59,16 @@ export const ClientAddressCreateScreen = ({ navigation, route }: Props) => {
         />
       </TouchableOpacity>
 
-      <View style={styles.form}>
+      <View style={styles.form}> 
         <CustomTextInput
-          placeholder="Nombre de la Direccion"
+          placeholder="Nombre de la Dirección"
           keyboardType="default"
           image={require("../../../../../../assets/location.png")}
           property="address"
           onChangeText={onChange}
           value={address}
         />
+
         <CustomTextInput
           placeholder="Barrio"
           keyboardType="default"

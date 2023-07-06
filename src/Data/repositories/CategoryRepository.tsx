@@ -10,6 +10,7 @@ import * as ImagePicker from "expo-image-picker";
 import mime from "mime";
 
 export class CategoryRepositoryImpl implements CategoryRepository {
+  
   async getAll(): Promise<Category[]> {
     try {
       const response = await ApiDeVerdura.get<Category[]>("/categories/getAll");

@@ -7,8 +7,6 @@ export const AdminCategoryListScreen = () => {
   const { categories, responseMessage, getCategories, deleteCategory } =
     useViewModel();
 
-
-
   useEffect(() => {
     if (responseMessage !== "") {
       ToastAndroid.show(responseMessage, ToastAndroid.LONG);

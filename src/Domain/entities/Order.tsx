@@ -6,7 +6,7 @@ export interface Order {
   id?: string;
   id_client: string;
   id_address: string;
-  status?: string;
+  status?: string; 
   lat?: number;
   lng?: number;
   timestamp?: number;

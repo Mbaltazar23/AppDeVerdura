@@ -43,6 +43,25 @@ export class ProductRepositoryImp implements ProductRepository {
     }
   }
 
+  async getProductsFilterNotName(
+    id_category: string,
+    id_product: string
+  ): Promise<Product[]> {
+    try {
+      const response = await ApiDeVerdura.get<Product[]>(
+        `/products/findProductFilterNotName/${id_category}/${id_product}`
+      );
+      return Promise.resolve(response.data);
+    } catch (error) {
+      let e = error as AxiosError;
+      console.log("ERROR: " + JSON.stringify(e.response?.data));
+      const apiError: ResponseApiDeVerdura = JSON.parse(
+        JSON.stringify(e.response?.data)
+      );
+      return Promise.resolve([]);
+    }
+  }
+
   async create(
     product: Product,
     file: ImagePicker.ImageInfo
@@ -89,7 +108,10 @@ export class ProductRepositoryImp implements ProductRepository {
     }
   }
 
-  async updateWithImages(product: Product, file: ImagePicker.ImagePickerAsset): Promise<ResponseApiDeVerdura> {
+  async updateWithImages(
+    product: Product,
+    file: ImagePicker.ImagePickerAsset
+  ): Promise<ResponseApiDeVerdura> {
     try {
       let data = new FormData();
 

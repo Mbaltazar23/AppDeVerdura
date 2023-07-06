@@ -9,6 +9,7 @@ export interface ProductRepository {
   ): Promise<ResponseApiDeVerdura>;
   getProductsByCategory(id_category: string): Promise<Product[]>;
   getProductsFindByName(name: string): Promise<Product[]>;
+  getProductsFilterNotName(id_category: string, id_product: string): Promise<Product[]>;
   update(product: Product): Promise<ResponseApiDeVerdura>;
   updateWithImages(
     product: Product,

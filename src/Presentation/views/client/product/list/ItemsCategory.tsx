@@ -10,16 +10,16 @@ import {
   Modal,
   TouchableWithoutFeedback,
 } from "react-native";
-import { Product } from "../../../../../Domain/entities/Product";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
 import { Category } from "../../../../../Domain/entities/Category";
+import { Product } from "../../../../../Domain/entities/Product";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { MyColors } from "../../../../theme/AppTheme";
 import { CardItemProduct } from "./Item";
 
 interface CategoryListProps {
   categories: Category[];
-  selectedCategoryId: string | null;
+  selectedCategoryId: string |any;
   products: Product[];
   navigation: StackNavigationProp<
     ClientStackParamList,
@@ -47,10 +47,10 @@ export const ItemsCategoryList = ({
   const [showOptions, setShowOptions] = useState(false);
 
   useEffect(() => {
-    if (selectedCategoryId === null && categories.length > 0) {
-      onCategorySelected(categories[0].id!);
+    if (selectedCategoryId !== "") {
+      onCategorySelected(selectedCategoryId);
     }
-  }, [categories, selectedCategoryId, onCategorySelected]);
+  }, [selectedCategoryId]);
 
   const handleCategorySelected = (categoryId: string) => {
     onCategorySelected(categoryId);
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     height: 35,
     width: 35,
     resizeMode: "cover",
-    borderRadius: 28,
+    borderRadius: 24,
   },
   categoryText: {
     fontSize: 13,
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
   productListContainer: {
     flex: 1,
     paddingHorizontal: 1,
-    paddingTop: 2,
+    paddingTop: 5,
   },
   productList: {
     flexGrow: 1,

@@ -42,5 +42,3 @@ export const ClientCategoryListScreen = ({ navigation, route }: Props) => {
     </SafeAreaView>
   );
 };
-
-export default ClientCategoryListScreen;

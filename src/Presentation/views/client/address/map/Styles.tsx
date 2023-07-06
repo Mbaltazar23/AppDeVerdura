@@ -31,6 +31,28 @@ const ClientAddressMapStyles = StyleSheet.create({
     bottom: 40,
     width: "40%",
   },
+  inputContainer: {
+    position: "absolute",
+    top: 120,
+    width: "80%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  inputWrapper: {
+    flex: 1,
+    backgroundColor: "white",
+    borderRadius: 8,
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+    height: 40,
+    paddingHorizontal: 10,
+  },
+  buttonWrapper: {
+    width: 80,
+  },
 });
 
 export default ClientAddressMapStyles;

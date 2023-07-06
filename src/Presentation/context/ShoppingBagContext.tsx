@@ -1,8 +1,8 @@
-import { Product } from "../../Domain/entities/Product";
-import { createContext, useState, useEffect } from "react";
-import { GetShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/GetShoppingBag";
-import { SaveShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/SaveShoppingBag";
+import React,{ createContext, useState, useEffect } from "react";
 import { ClearShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/ClearShoppingBag";
+import { SaveShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/SaveShoppingBag";
+import { GetShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/GetShoppingBag";
+import { Product } from "../../Domain/entities/Product";
 
 export interface ShoppingBagContextProps {
   shoppingBag: Product[];
@@ -37,11 +37,11 @@ export const ShoppingBagProvider = ({ children }: any) => {
     setTotal(0);
     let totalPrice = 0;
     shoppingBag.forEach((product) => {
-      totalPrice = totalPrice + product.quantity! * product.price;
+      totalPrice = totalPrice + (product.quantity! * product.price);
     });
     setTotal(totalPrice);
   };
-
+  
   const saveItem = async (product: Product): Promise<void> => {
     const index = shoppingBag.findIndex((p) => p.id === product.id);
     if (index == -1) {

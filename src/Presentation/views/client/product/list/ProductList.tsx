@@ -17,13 +17,13 @@ export const ClientProductListScreen = ({ navigation, route }: Props) => {
 
   useEffect(() => {
     getCategories();
-  }, [categories]);
+  }, []);
 
   useEffect(() => {
     getProducts(id_category);
   }, [id_category]);
 
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>(
     id_category
   );
 

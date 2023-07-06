@@ -3,11 +3,12 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ScrollView,
+  FlatList,
   StyleSheet,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { GetProductsByCategoryUseCase } from "../../../../../Domain/useCases/product/GetProductsByCategory";import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
+import { GetProductsByCategoryUseCase } from "../../../../../Domain/useCases/product/GetProductsByCategory";
+import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
 import { Category } from "../../../../../Domain/entities/Category";
 import { Product } from "../../../../../Domain/entities/Product";
 import { MyColors } from "../../../../theme/AppTheme";
@@ -24,17 +25,11 @@ interface CategoryListItemProps {
   >;
 }
 
-const CategoryListItem = ({ category, navigation }: CategoryListItemProps) => {
+const CategoryListItem = ({ category, navigation, onViewMore }: CategoryListItemProps) => {
   return (
     <View style={styles.categoryItem}>
       <Text style={styles.categoryName}>{category.name}</Text>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("ClientProductListScreen", {
-            id_category: category.id!,
-          })
-        }
-      >
+      <TouchableOpacity onPress={onViewMore}>
         <Text style={styles.viewMoreText}>Ver más</Text>
       </TouchableOpacity>
     </View>
@@ -53,15 +48,45 @@ interface CategorySectionProps {
 
 const CategorySection = ({ category, navigation }: CategorySectionProps) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchProducts = async () => {
       const fetchedProducts = await GetProductsByCategoryUseCase(category.id!);
-      setProducts(fetchedProducts);
+
+      if (isMounted) {
+        setProducts(fetchedProducts);
+        setLoading(false);
+      }
     };
 
     fetchProducts();
+
+    return () => {
+      isMounted = false;
+    };
   }, [category.id]);
+
+  if (loading) {
+    return (
+      <View style={styles.categorySection}>
+        <CategoryListItem
+          category={category}
+          onViewMore={() =>
+            navigation.navigate("ClientProductListScreen", {
+              id_category: category.id!,
+            })
+          }
+          navigation={navigation}
+        />
+        <View style={styles.loadingContainer}>
+          <Text>Cargando productos...</Text>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.categorySection}>
@@ -74,11 +99,14 @@ const CategorySection = ({ category, navigation }: CategorySectionProps) => {
         }
         navigation={navigation}
       />
-      <ScrollView horizontal>
-        {products.map((product) => (
-          <Card key={product.id} product={product} navigation={navigation} />
-        ))}
-      </ScrollView>
+      <FlatList
+        data={products}
+        horizontal
+        keyExtractor={(item) => item.id!.toString()}
+        renderItem={({ item }) => (
+          <Card product={item} navigation={navigation} />
+        )}
+      />
     </View>
   );
 };
@@ -95,15 +123,13 @@ interface CategoryListProps {
 
 export const CategoryList = ({ categories, navigation }: CategoryListProps) => {
   return (
-    <ScrollView>
-      {categories.map((category) => (
-        <CategorySection
-          key={category.id}
-          category={category}
-          navigation={navigation}
-        />
-      ))}
-    </ScrollView>
+    <FlatList
+      data={categories}
+      keyExtractor={(item) => item.id!.toString()}
+      renderItem={({ item }) => (
+        <CategorySection category={item} navigation={navigation} />
+      )}
+    />
   );
 };
 
@@ -129,5 +155,10 @@ const styles = StyleSheet.create({
   categorySection: {
     marginBottom: 20,
     paddingHorizontal: 10,
+  },
+  loadingContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: 200,
   },
 });

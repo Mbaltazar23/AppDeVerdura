@@ -40,26 +40,26 @@ export const AdminProductCreateScreen = ({ navigation, route }: Props) => {
   useEffect(() => {
     if (responseMessage !== "") {
       ToastAndroid.show(responseMessage, ToastAndroid.LONG);
+      navigation.navigate("AdminProductListScreen", { category: category });
     }
   }, [responseMessage]);
 
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-      <TouchableOpacity
-        style={styles.imageContainer}
-        onPress={() => setModalVisible(true)}
-      >
-        {image == "" ? (
-          <Image
-            source={require("../../../../../../assets/image_new.png")}
-            style={styles.image}
-          />
-        ) : (
-          <Image source={{ uri: image }} style={styles.image} />
-        )}
-      </TouchableOpacity>
-        
+        <TouchableOpacity
+          style={styles.imageContainer}
+          onPress={() => setModalVisible(true)}
+        >
+          {image == "" ? (
+            <Image
+              source={require("../../../../../../assets/image_new.png")}
+              style={styles.image}
+            />
+          ) : (
+            <Image source={{ uri: image }} style={styles.image} />
+          )}
+        </TouchableOpacity>
       </View>
 
       <View style={styles.form}>

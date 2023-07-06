@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { Category } from "../../../../../Domain/entities/Category";
 import { ProductContext } from "../../../../context/ProductContext";
 import { Product } from "../../../../../Domain/entities/Product";
 import { ResponseApiDeVerdura } from "../../../../../Data/sources/remote/models/ResponseApiDeVerdura";
+import { Category } from "../../../../../Domain/entities/Category";
 
 const AdminProductUpdateViewModel = (product: Product, category: Category) => {
   console.log("Producto: " + JSON.stringify(product));
@@ -13,7 +13,7 @@ const AdminProductUpdateViewModel = (product: Product, category: Category) => {
   const [responseMessage, setResponseMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
- 
+
   const { update, updateWithImages } = useContext(ProductContext);
 
   const onChange = (property: string, value: any) => {

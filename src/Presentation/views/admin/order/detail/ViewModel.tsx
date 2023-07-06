@@ -1,74 +1,47 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Order } from "../../../../../Domain/entities/Order";
-import { GetDeliveryMenUserUseCase } from "../../../../../Domain/useCases/user/GetDeliveryMenUser";
-import { User } from "../../../../../Domain/entities/User";
+import { useState, useContext } from "react";
 import { OrderContext } from "../../../../context/OrderContext";
-
-interface DropDownProps {
-  label: string;
-  value: string;
-}
+import { Order } from "../../../../../Domain/entities/Order";
 
 const AdminOrderDetailViewModel = (order: Order) => {
   const [total, setTotal] = useState(0.0);
-  const [deliveryMen, setDeliveryMen] = useState<User[]>([]);
   const [responseMessage, setResponseMessage] = useState("");
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState<DropDownProps[]>([]);
-  const { updateToDispatched } = useContext(OrderContext);
-
-  useEffect(() => {
-    setDroppDownItems();
-  }, [deliveryMen]);
-
-  const setDroppDownItems = async () => {
-    let itemDeliveryMen: DropDownProps[] = [];
-    deliveryMen.forEach((delivery) => {
-      itemDeliveryMen.push({
-        label: delivery.name + " " + delivery.lastname,
-        value: delivery.id!,
-      });
-    });
-    setItems(itemDeliveryMen);
-  };
+  const [modalVisible, setModalVisible] = useState(false);
+  const { updateToDispatched, updateToDelivered } = useContext(OrderContext);
 
   const dispatchOrder = async () => {
-    if (value !== null) {
-      const result = await updateToDispatched(order);
-      setResponseMessage(result.message);
-    } else {
-      setResponseMessage("Seleccione a un repartidor..");
-    }
-    console.log("REPARTIDOR SELECCIONADO: " + value);
+    const result = await updateToDispatched(order);
+    setResponseMessage(result.message);
+    //console.log("REPARTIDOR SELECCIONADO: " + value);
   };
 
-  const getDeliveryMen = async () => {
-    const result = await GetDeliveryMenUserUseCase();
-    console.log("Repartidores:  " + JSON.stringify(result, null, 3));
+  const deliveredOrder = async () => {
+    const result = await updateToDelivered(order);
+    setResponseMessage(result.message);
+  };
 
-    setDeliveryMen(result);
+  const handleConfirmAction = () => {
+    if (order.status === "PAGADO") {
+      dispatchOrder();
+    } else if (order.status === "DESPACHADO") {
+      deliveredOrder();
+    }
   };
 
   const getTotal = async () => {
-    order.products.forEach((p) => {
-      setTotal(total + p.price * p.quantity!);
-    });
+    const calculatedTotal = order.products.reduce(
+      (accumulator, product) => accumulator + product.price * product.quantity!,
+      0
+    );
+    setTotal(calculatedTotal);
   };
 
   return {
     total,
-    deliveryMen,
-    open,
-    value,
-    items,
     responseMessage,
     getTotal,
-    getDeliveryMen,
-    setOpen,
-    setValue,
-    setItems,
-    dispatchOrder,
+    setModalVisible,
+    modalVisible,
+    handleConfirmAction,
   };
 };
 

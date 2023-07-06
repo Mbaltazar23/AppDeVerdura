@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import { CreateAddressUseCase } from "../../../../../Domain/useCases/address/CreateAddress";
-import { UserConext } from "../../../../context/UserContext";
+import { UserContext } from "../../../../context/UserContext";
 
 const ClientAddressCreateViewModel = () => {
   const [responseMessage, setResponseMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const { user, saveUserSesion, getUserSession } = useContext(UserConext);
+  const { user, saveUserSesion, getUserSession } = useContext(UserContext);
   const [values, setValues] = useState({
     address: "",
     neighborhood: "",
@@ -28,6 +28,7 @@ const ClientAddressCreateViewModel = () => {
   const onChangeRefPoint = (refPoint: string, lat: number, lng: number) => {
     setValues({ ...values, refPoint: refPoint, lat: lat, lng: lng });
   };
+  
   const createAddress = async () => {
     console.log("Formulario : " + JSON.stringify(values));
 
