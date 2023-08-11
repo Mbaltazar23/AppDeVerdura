@@ -20,7 +20,7 @@ import styles from "./Styles";
 interface Props
   extends StackScreenProps<RootStackParamList, "RegisterScreen"> {}
 
-  export const RegisterScreen = ({ navigation, route }: Props) => {
+export const RegisterScreen = ({ navigation, route }: Props) => {
   const {
     name,
     lastname,
@@ -47,7 +47,7 @@ interface Props
   }, [errorMessage]);
 
   useEffect(() => {
-    if (user?.id !== null && user?.id !== undefined) {
+    if (user?.id !== null && user?.id !== undefined && user?.id !== "") {
       navigation.replace("ClientTabsNavigator");
     }
   }, [user]);
@@ -57,10 +57,10 @@ interface Props
     <View style={styles.container}>
       <Image
         style={styles.imageBackground}
-        source={require("../../../../assets/deVerduraFondo.jpg")}
+        source={require("../../../../assets/fondoDeVerdura.jpg")}
       />
       <View style={styles.logoContainer}>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
           {image == "" ? (
             <Image
               source={require("../../../../assets/user_image.png")}
@@ -133,10 +133,13 @@ interface Props
           />
 
           <View style={{ marginTop: 30 }}>
-            <RoundedButton
-              text="CONFIRMAR"
-              onPress={() => register()}
-            />
+            <RoundedButton text="CONFIRMAR" onPress={() => register()} />
+          </View>
+          <View style={styles.formRegister}>
+            <Text>Ya tengo cuenta</Text>
+            <TouchableOpacity onPress={() => navigation.replace("LoginScreen")}>
+              <Text style={styles.formRegisterText}>Ingrese</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>

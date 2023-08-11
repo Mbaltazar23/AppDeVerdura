@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, Image, TouchableOpacity,Dimensions, StyleSheet } from "react-native";
+import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ShoppingBagContext } from "../../../../context/ShoppingBagContext";
 import { MyColors } from "../../../../theme/AppTheme";
 import { Product } from "../../../../../Domain/entities/Product";
-import { Dimensions, StyleSheet } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { ShoppingBagContext } from "../../../../context/ShoppingBagContext";
 
 const { width } = Dimensions.get("screen");
 const cardWidth = width / 3 - 28;
@@ -18,9 +17,10 @@ interface CardProps {
     "ClientCategoryListScreen",
     undefined
   >;
+  onAddToCart: () => void;
 }
 
-export const Card = ({ product, navigation }: CardProps) => {
+export const Card = ({ product, navigation, onAddToCart }: CardProps) => {
   const { shoppingBag, saveItem } = useContext(ShoppingBagContext);
 
   const addToCart = () => {
@@ -33,6 +33,7 @@ export const Card = ({ product, navigation }: CardProps) => {
       item.quantity = updatedQuantity;
     }
     saveItem(item);
+    onAddToCart(); // Llamar a la función de devolución de llamada
   };
 
   return (
@@ -55,11 +56,7 @@ export const Card = ({ product, navigation }: CardProps) => {
         <Text style={styles.price}>${product.price}</Text>
         <TouchableOpacity onPress={addToCart}>
           <View style={styles.addToCart}>
-            <Icon
-              name="add"
-              size={20}
-              style={{ color: "white" }}
-            />
+            <Icon name="add" size={20} style={{ color: "white" }} />
           </View>
         </TouchableOpacity>
       </View>

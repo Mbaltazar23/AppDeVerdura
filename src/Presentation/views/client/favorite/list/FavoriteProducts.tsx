@@ -14,7 +14,7 @@ interface Props
   > {}
 
 export const ClientFavoriteProductsScreen = ({ navigation, route }: Props) => {
-  const { products, getProductsFavorites } = useViewModel();
+  const { products, getProductsFavorites, user } = useViewModel();
 
   useEffect(() => {
     getProductsFavorites();
@@ -40,7 +40,7 @@ export const ClientFavoriteProductsScreen = ({ navigation, route }: Props) => {
         </TouchableOpacity>
       </View>
       <View style={styles.categoryListContainer}>
-        <ProductsFavoritesList products={products} navigation={navigation}/>
+        <ProductsFavoritesList user={user} products={products} navigation={navigation}/>
       </View>
     </SafeAreaView>
   );

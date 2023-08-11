@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { GetProductsByCategoryUseCase } from "../../Domain/useCases/product/GetProductsByCategory";
 import { UpdateWithImagesProductUseCase } from "../../Domain/useCases/product/UpdateWithImagesProduct";
+import { GetProductsByCategoryUseCase } from "../../Domain/useCases/product/GetProductsByCategory";
 import { GetProductsByNameUseCase } from "../../Domain/useCases/product/GetProductsByName";
 import { ResponseApiDeVerdura } from "../../Data/sources/remote/models/ResponseApiDeVerdura";
 import { CreateProductUseCase } from "../../Domain/useCases/product/CreateProduct";

@@ -45,9 +45,10 @@ export const OrderListItem = ({ order, navigation }: Props) => {
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 20,
+    marginHorizontal: 35,
     marginTop:4
   },
   order: {
@@ -71,3 +72,4 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 });
+

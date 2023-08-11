@@ -1,8 +1,6 @@
 import React from "react";
 import { Text, View, Modal, TouchableOpacity, StyleSheet } from "react-native";
 import { MyColors } from "../theme/AppTheme";
-import { AdminOrderStackParamList } from "../navigator/AdminOrderStackNavigator";
-import { StackNavigationProp } from "@react-navigation/stack";
 
 //interface Props extends StackNavigationProp<AdminOrderStackParamList, "AdminOrderDetailScreen" undefined>;
 

@@ -8,7 +8,7 @@ interface Props {
   keyboardType: KeyboardType;
   secureTextEntry?: boolean;
   property: string;
-  editable?:boolean;
+  editable?: boolean;
   onChangeText: (property: string, value: any) => void;
 }
 

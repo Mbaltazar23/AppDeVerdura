@@ -16,7 +16,10 @@ import useViewModel from "./ViewModel";
 import { CategoryStackParamList } from "../../../../navigator/AdminCategoryNavigator";
 
 interface Props
-  extends StackScreenProps<CategoryStackParamList, "AdminCategoryUpdateScreen"> {}
+  extends StackScreenProps<
+    CategoryStackParamList,
+    "AdminCategoryUpdateScreen"
+  > {}
 
 export const AdminCategoryUpdateScreen = ({ navigation, route }: Props) => {
   const { category } = route.params;
@@ -39,6 +42,11 @@ export const AdminCategoryUpdateScreen = ({ navigation, route }: Props) => {
       ToastAndroid.show(responseMessage, ToastAndroid.LONG);
     }
   }, [responseMessage]);
+
+  const handleUpdateCategory = async () => {
+    updateCategory();
+    navigation.navigate("AdminCategoryListScreen");
+  };
 
   return (
     <View style={styles.container}>
@@ -77,7 +85,7 @@ export const AdminCategoryUpdateScreen = ({ navigation, route }: Props) => {
       <View style={styles.buttonContainer}>
         <RoundedButton
           text="ACTUALIZAR CATEGORIA"
-          onPress={() => updateCategory()}
+          onPress={() => handleUpdateCategory()}
         />
       </View>
 

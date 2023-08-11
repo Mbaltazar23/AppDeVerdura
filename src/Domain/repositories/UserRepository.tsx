@@ -3,7 +3,7 @@ import { User } from "../entities/User";
 import * as ImagePicker from "expo-image-picker";
 
 export interface UserRepository {
-  getDeliveryMen(): Promise<User[]>;
+  getAllClients(user:User): Promise<User[]>;
   update(user: User): Promise<ResponseApiDeVerdura>;
   updateWithImages(
     user: User,

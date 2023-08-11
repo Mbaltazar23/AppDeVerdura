@@ -13,11 +13,11 @@ const AdminOrderDetailStyles = StyleSheet.create({
   info: {
     width: "100%",
     height: "50%",
-    backgroundColor: "white",
+    backgroundColor: "rgba(198, 227, 156, 1)", // Color verde anaranjado sin transparencia
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
-    paddingHorizontal: 30,
-    elevation: 10, // Agregar sombreado
+    paddingHorizontal: 35,
+    elevation: 14, // Agregar sombreado
     overflow: "hidden", // Ocultar contenido que se desborda
   },
   infoRow: {
@@ -59,6 +59,12 @@ const AdminOrderDetailStyles = StyleSheet.create({
   },
   dropDown: {
     marginTop: 20,
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    opacity: 1, // Ajusta la opacidad para aumentar el efecto de difuminado
   },
 });
 

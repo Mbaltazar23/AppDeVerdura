@@ -1,9 +1,9 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { Product } from "../../../../../Domain/entities/Product";
 import { ProductStackParamList } from "../../../../navigator/AdminProductNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
+import { Product } from "../../../../../Domain/entities/Product";
 import { Category } from "../../../../../Domain/entities/Category";
 
 interface Props {
@@ -17,7 +17,12 @@ export const AdminProductListItem = ({ product, category, remove }: Props) => {
     useNavigation<StackNavigationProp<ProductStackParamList>>();
   return (
     <TouchableOpacity
-    //onPress={() => navigation.navigate("AdminProductNavigator", {product: product })}
+      onPress={() =>
+        navigation.navigate("AdminProductUpdateScreen", {
+          product: product,
+          category: category,
+        })
+      }
     >
       <View style={styles.container}>
         <Image style={styles.image} source={{ uri: product.image }} />
@@ -63,9 +68,11 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   image: {
-    width: 60,
-    height: 60,
-    borderRadius: 15,
+    width: "20%",
+    height: "20%",
+    aspectRatio: 1,
+    resizeMode: "contain",
+    borderRadius: 1,
   },
   info: {
     marginLeft: 15,

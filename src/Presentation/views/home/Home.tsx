@@ -1,89 +1,80 @@
 import React, { useEffect } from "react";
-import {
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-  ToastAndroid,
-} from "react-native";
-import { RoundedButton } from "../../components/RoundedButton";
-import { StackScreenProps } from "@react-navigation/stack";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 import { RootStackParamList } from "../../navigator/MainStackNavigator";
-import styles from "./Styles";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RoundedButton } from "../../components/RoundedButton";
+import { useFonts } from "expo-font";
+import { User } from "../../../Domain/entities/User";
 import useViewModel from "./ViewModel";
-import { CustomTextInput } from "../../components/CustomTextInput";
+import styles from "./Styles";
 
 interface Props extends StackScreenProps<RootStackParamList, "HomeScreen"> {}
 
 export const HomeScreen = ({ navigation, route }: Props) => {
-  const { email, password, onChange, login, errorMessage, user } =
-    useViewModel();
+  const { user } = useViewModel();
 
-  useEffect(() => {
-    if (errorMessage !== "") {
-      ToastAndroid.show(errorMessage, ToastAndroid.LONG);
-    }
-  }, [errorMessage]);
+  const [loaded] = useFonts({
+    Another: require("../../../../assets/fonts/AnotherFont.ttf"),
+    ComicSansMS: require("../../../../assets/fonts/ComicSansMS.ttf"),
+  });
 
-  useEffect(() => {
+  if (!loaded) {
+    return null;
+  }
+
+  const handleNavigation = (user: User) => {
     if (user?.id !== null && user?.id !== undefined && user?.id !== "") {
-      const role = user.roles[0]?.name; // Accede al primer objeto del arreglo "roles" y obtiene el valor de "role"
-      if (role === "Cliente") {
-        // Verifica si el valor de "role" es "Alumno"
-        navigation.replace("ClientTabsNavigator");
-      } else {
+      const role = user.roles[0]?.name; // Obtener el primer rol del usuario
+      if (role === "Administrador") {
+        // Navegar a la pantalla del Administrador
         navigation.replace("AdminTabsNavigator");
+      } else {
+        // Navegar a la pantalla del Cliente
+        navigation.replace("ClientTabsNavigator");
       }
     }
-  }, [user]);
+  };
+
+  handleNavigation(user);
 
   return (
-    //Column
     <View style={styles.container}>
       <Image
         style={styles.imageBackground}
-        source={require("../../../../assets/deVerduraFondo.jpg")}
+        source={require("../../../../assets/fondoDeVerdura.jpg")}
       />
       <View style={styles.logoContainer}>
-        <Image
-          style={styles.logoImage}
-          source={require("../../../../assets/logo.png")}
-        />
-        <Text style={styles.logoText}>DE VERDURA</Text>
+        <Text style={[styles.logoText, { fontSize: 70 }]}>DE</Text>
+        <Text style={[styles.logoText, { fontSize: 70 }]}>VERDURA</Text>
       </View>
       <View style={styles.form}>
-        <Text style={styles.formText}>INGRESAR</Text>
-
-        <CustomTextInput
-          image={require("../../../../assets/email.png")}
-          placeholder="Correo electronico"
-          keyboardType="email-address"
-          property="email"
-          onChangeText={onChange}
-          value={email}
-        />
-
-        <CustomTextInput
-          image={require("../../../../assets/password.png")}
-          placeholder="Contraseña"
-          keyboardType="default"
-          property="password"
-          onChangeText={onChange}
-          value={password}
-          secureTextEntry={true}
-        />
-
-        <View style={{ marginTop: 30 }}>
-          <RoundedButton text="INGRESAR" onPress={() => login()} />
+        <View style={styles.formButton}>
+          <RoundedButton
+            text="INICIAR SESIÓN"
+            onPress={() => navigation.replace("LoginScreen")}
+            style={styles.colorBtnLogin}
+            textStyle={{ fontSize: 18 }}
+          />
         </View>
-        <View style={styles.formRegister}>
-          <Text>No tienes cuenta?</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("RegisterScreen")}
+
+        <View style={[styles.formButton, { alignItems: "center" }]}>
+          <RoundedButton
+            text="REGISTRARTE"
+            onPress={() => navigation.replace("RegisterScreen")}
+            style={styles.formBtnRegister}
+            textStyle={{ fontFamily: "ComicSansMS", fontSize: 20 }}
+          />
+        </View>
+        <TouchableOpacity
+          style={[styles.forgotPassword, { marginTop: 30 }]}
+          onPress={() => navigation.replace("ResetPasswordScreen")}
+        >
+          <Text
+            style={[styles.forgotPasswordText, { fontFamily: "ComicSansMS" }]}
           >
-            <Text style={styles.formRegisterText}>Registrate</Text>
-          </TouchableOpacity>
-        </View>
+            ¿Olvidaste tu clave?
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

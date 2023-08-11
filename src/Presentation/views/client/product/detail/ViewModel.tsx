@@ -10,6 +10,14 @@ const ClientProductDetailViewModel = (product: Product) => {
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(0.0);
   const [productsFilters, setProductsFilters] = useState<Product[]>([]);
+  const [showMessage, setShowMessage] = useState(false);
+
+  const showConfirmationMessage = () => {
+    setShowMessage(true);
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 2000);
+  };
 
   useEffect(() => {
     const index = shoppingBag.findIndex((p) => p.id === product.id);
@@ -28,6 +36,7 @@ const ClientProductDetailViewModel = (product: Product) => {
     if (quantity > 0) {
       product.quantity = quantity;
       saveItem(product);
+      showConfirmationMessage(); // Mostrar el mensaje de confirmación
     }
     console.log("Bolsa de compras : " + JSON.stringify(shoppingBag));
   };
@@ -60,6 +69,8 @@ const ClientProductDetailViewModel = (product: Product) => {
     addItem,
     addToBag,
     removeItem,
+    showMessage,
+    setShowMessage,
   };
 };
 

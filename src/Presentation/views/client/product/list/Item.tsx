@@ -18,9 +18,11 @@ interface CardProps {
     "ClientProductListScreen",
     undefined
   >;
+  onAddToCart: () => void;
+
 }
 
-export const CardItemProduct = ({ product, navigation }: CardProps) => {
+export const CardItemProduct = ({ product, navigation, onAddToCart }: CardProps) => {
   const { shoppingBag, saveItem } = useContext(ShoppingBagContext);
 
   const addToCart = () => {
@@ -33,6 +35,8 @@ export const CardItemProduct = ({ product, navigation }: CardProps) => {
       item.quantity = updatedQuantity;
     }
     saveItem(item);
+    onAddToCart(); // Llamar a la función de devolución de llamada
+
   };
 
   return (

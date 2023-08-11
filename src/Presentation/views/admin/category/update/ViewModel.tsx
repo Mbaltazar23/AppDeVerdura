@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
-import * as ImagePicker from "expo-image-picker";
-import { Category } from "../../../../../Domain/entities/Category";
 import { ResponseApiDeVerdura } from "../../../../../Data/sources/remote/models/ResponseApiDeVerdura";
 import { CategoryContext } from "../../../../context/CategoryContext";
+import { Category } from "../../../../../Domain/entities/Category";
+import * as ImagePicker from "expo-image-picker";
 
 const AdminCategoryUpdateViewModel = (category: Category) => {
   const [values, setValues] = useState(category);
@@ -10,6 +10,8 @@ const AdminCategoryUpdateViewModel = (category: Category) => {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
   const { update, updateWithImage } = useContext(CategoryContext);
+  
+
   const onChange = (property: string, value: any) => {
     setValues({ ...values, [property]: value });
   };

@@ -1,12 +1,12 @@
-import { StackScreenProps } from "@react-navigation/stack";
 import React, { useEffect } from "react";
 import { FlatList, Text, View } from "react-native";
+import { CardItemFavoriteProductSearch } from "./ItemProduct";
+import { ProductSearchFavoriteInput } from "./InputSearch";
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
+import { StackScreenProps } from "@react-navigation/stack";
+import { Product } from "../../../../../Domain/entities/Product";
 import useViewModel from "./ViewModel";
 import styles from "./Styles";
-import { ProductSearchFavoriteInput } from "./InputSearch";
-import { CardItemFavoriteProductSearch } from "./ItemProduct";
-import { Product } from "../../../../../Domain/entities/Product";
 
 interface Props
   extends StackScreenProps<ClientStackParamList, "ClientFavoriteProductSearchScreen"> {}

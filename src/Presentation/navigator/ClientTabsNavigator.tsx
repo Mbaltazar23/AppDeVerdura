@@ -1,8 +1,8 @@
 import React from "react";
+import { ClientOrderStackNavigator } from "./ClientOrderStackNavigator";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ProfileInfoScreen } from "../views/profile/info/ProfileInfo";
 import { ClientStackNavigator } from "./ClientStackNavigator";
-import { ClientOrderStackNavigator } from "./ClientOrderStackNavigator";
 import { Image } from "react-native";
 
 const Tab = createBottomTabNavigator();

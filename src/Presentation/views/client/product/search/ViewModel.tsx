@@ -5,6 +5,8 @@ import { Product } from '../../../../../Domain/entities/Product';
 const ClientProductSearchViewModel = () => {
   const [productList, setProductList] = useState<Product[]>([]);
   const [searchText, setSearchText] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
+
 
   const handleSearch = async (text: string) => {
     try {
@@ -20,11 +22,21 @@ const ClientProductSearchViewModel = () => {
     }
   };
 
+  const handleAddToCart = () => {
+    setShowMessage(true);
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 10000); // Ocultar el mensaje después de 10 segundos
+  };
+
   return {
     productList,
     handleSearch,
     searchText,
     setSearchText,
+    showMessage,
+    setShowMessage,
+    handleAddToCart
   };
 };
 

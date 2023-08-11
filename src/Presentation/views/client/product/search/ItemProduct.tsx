@@ -17,9 +17,11 @@ interface CardProps {
     "ClientProductSearchScreen",
     undefined
   >;
+  onAddToCart: () => void;
+
 }
 
-export const CardItemProductSearch = ({ product, navigation }: CardProps) => {
+export const CardItemProductSearch = ({ product, navigation, onAddToCart }: CardProps) => {
   const { shoppingBag, saveItem } = useContext(ShoppingBagContext);
 
   const addToCart = () => {
@@ -32,6 +34,7 @@ export const CardItemProductSearch = ({ product, navigation }: CardProps) => {
       item.quantity = updatedQuantity;
     }
     saveItem(item);
+    onAddToCart(); // Llamar a la función de devolución de llamada
   };
 
   return (

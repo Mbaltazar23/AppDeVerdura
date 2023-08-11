@@ -3,8 +3,24 @@ import { ClearShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/Clea
 import { SaveShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/SaveShoppingBag";
 import { GetShoppingBagUseCase } from "../../Domain/useCases/shopping_bag/GetShoppingBag";
 import { Product } from "../../Domain/entities/Product";
+import { User } from "../../Domain/entities/User";
+import { RemoveUserLocalUseCase } from "../../Domain/useCases/userLocal/RemoveUserLocal";
+
+export const userInitialState: User = {
+  id: "",
+  name: "",
+  lastname: "",
+  phone: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  image: "",
+  session_token: "",
+  roles: [],
+};
 
 export interface ShoppingBagContextProps {
+  user: User
   shoppingBag: Product[];
   total: number;
   getShoppingBag(): Promise<void>;
@@ -12,11 +28,13 @@ export interface ShoppingBagContextProps {
   saveItem(product: Product): Promise<void>;
   deleteItem(product: Product): Promise<void>;
   clearShoppingBag(): Promise<void>;
+  removeUserSession: () => Promise<void>;
 }
 
 export const ShoppingBagContext = createContext({} as ShoppingBagContextProps);
 
 export const ShoppingBagProvider = ({ children }: any) => {
+  const [user, setUser] = useState(userInitialState);
   const [shoppingBag, setShoppingBag] = useState<Product[]>([]);
   const [total, setTotal] = useState(0.0);
 
@@ -68,12 +86,21 @@ export const ShoppingBagProvider = ({ children }: any) => {
     setTotal(0.0);
   };
 
+  const removeUserSession = async () => {
+    await RemoveUserLocalUseCase();
+    await ClearShoppingBagUseCase()
+    setUser(userInitialState);
+  };
+  
+
   return (
     <ShoppingBagContext.Provider
       value={{
+        user,
         shoppingBag,
         total,
         getShoppingBag,
+        removeUserSession,
         getTotal,
         saveItem,
         deleteItem,

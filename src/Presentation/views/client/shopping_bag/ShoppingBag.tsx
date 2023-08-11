@@ -1,6 +1,7 @@
 import React from "react";
 import { FlatList, Text, View } from "react-native";
 import { ClientStackParamList } from "../../../navigator/ClientStackNavigator";
+import { ActionToCartMessage } from "../../../components/CustomMessageCart";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ShoppingBagItem } from "./Item";
 import { RoundedButton } from "../../../components/RoundedButton";
@@ -10,10 +11,18 @@ import styles from "./Styles";
 interface Props
   extends StackScreenProps<ClientStackParamList, "ClientShoppingBagScreen"> {}
 
-export const ClientShoppingBagScreen = ({ navigation, route }: Props) => {
-  const { shoppingBag, total, addItem, subtractItem, deleteItem } =
-    useViewModel();
-    
+export const ClientShoppingBagScreen = ({ navigation }: Props) => {
+  const {
+    shoppingBag,
+    total,
+    addItem,
+    subtractItem,
+    deleteItem,
+    getShowMessage,
+    showMessage,
+    setShowMessage,
+  } = useViewModel();
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -25,13 +34,16 @@ export const ClientShoppingBagScreen = ({ navigation, route }: Props) => {
             addItem={addItem}
             substractItem={subtractItem}
             deleteItem={deleteItem}
+            showMessage={getShowMessage}
           />
         )}
       />
       <View style={styles.totalToPay}>
         <View style={styles.totalInfo}>
           <Text style={styles.totalText}>Total</Text>
-          <Text>${total}</Text>
+          <Text style={styles.totalMoney}>
+            ${total.toLocaleString("en-US")}
+          </Text>
         </View>
         <View style={styles.buttonAdd}>
           <RoundedButton
@@ -40,6 +52,12 @@ export const ClientShoppingBagScreen = ({ navigation, route }: Props) => {
           />
         </View>
       </View>
+      {showMessage && (
+        <ActionToCartMessage
+          onAnimationEnd={() => setShowMessage(false)}
+          message="Producto Eliminado Exitosamente !!"
+        />
+      )}
     </View>
   );
 };

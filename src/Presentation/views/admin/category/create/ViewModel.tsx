@@ -5,6 +5,8 @@ import { CategoryContext } from "../../../../context/CategoryContext";
 const AdminCategoryCreateViewModel = () => {
   const [responseMessage, setResponseMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+
   const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
   const { create } = useContext(CategoryContext);
   const [values, setValues] = useState({
@@ -81,6 +83,8 @@ const AdminCategoryCreateViewModel = () => {
     createCategory,
     loading,
     responseMessage,
+    modalVisible,
+    setModalVisible
   };
 };
 

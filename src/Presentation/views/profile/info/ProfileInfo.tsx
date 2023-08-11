@@ -13,7 +13,7 @@ export const ProfileInfoScreen = () => {
   const { removeUserSession, user } = useViewModel();
 
   useEffect(() => {
-    if (user.id === "") {
+    if (user?.id === "") {
       navigation.replace("HomeScreen");
     }
   }, [user]);
@@ -21,7 +21,7 @@ export const ProfileInfoScreen = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../../../../../assets/deVerduraFondo.jpg")}
+        source={require("../../../../../assets/fondoPerfil.jpg")}
         style={styles.imageBackground}
       />
       <Pressable

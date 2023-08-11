@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { MyColors, MyStyles } from "../../../../theme/AppTheme";
 import {
   View,
   Text,
@@ -9,14 +10,13 @@ import {
   ActivityIndicator,
   ToastAndroid,
 } from "react-native";
+import { CreateFavoriteUseCase } from "../../../../../Domain/useCases/favorite/CreateFavorite";
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Product } from "../../../../../Domain/entities/Product";
-import { MyColors, MyStyles } from "../../../../theme/AppTheme";
 import { UserContext } from "../../../../context/UserContext";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import { CreateFavoriteUseCase } from "../../../../../Domain/useCases/favorite/CreateFavorite";
 import { Favorite } from "../../../../../Domain/entities/Favorite";
+import { Product } from "../../../../../Domain/entities/Product";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const { width } = Dimensions.get("screen");
 const cardWidth = width / 3 - 28;

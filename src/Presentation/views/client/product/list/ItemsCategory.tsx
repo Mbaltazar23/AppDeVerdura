@@ -7,19 +7,19 @@ import {
   Image,
   StyleSheet,
   FlatList,
-  Modal,
-  TouchableWithoutFeedback,
 } from "react-native";
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ActionToCartMessage } from "../../../../components/CustomMessageCart";
+import { CardItemProduct } from "./Item";
+import { SortModal } from "../../../../components/SortProductList";
+import { MyColors } from "../../../../theme/AppTheme";
 import { Category } from "../../../../../Domain/entities/Category";
 import { Product } from "../../../../../Domain/entities/Product";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { MyColors } from "../../../../theme/AppTheme";
-import { CardItemProduct } from "./Item";
 
 interface CategoryListProps {
   categories: Category[];
-  selectedCategoryId: string |any;
+  selectedCategoryId: string | any;
   products: Product[];
   navigation: StackNavigationProp<
     ClientStackParamList,
@@ -43,8 +43,10 @@ export const ItemsCategoryList = ({
   navigation,
   onCategorySelected,
 }: CategoryListProps) => {
-  const [selectedSortOption, setSelectedSortOption] = useState<SortOption | null>(null);
+  const [selectedSortOption, setSelectedSortOption] =
+    useState<SortOption | null>(null);
   const [showOptions, setShowOptions] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     if (selectedCategoryId !== "") {
@@ -59,6 +61,13 @@ export const ItemsCategoryList = ({
   const handleSortOptionSelected = (option: SortOption) => {
     setSelectedSortOption(option);
     setShowOptions(false);
+  };
+
+  const handleAddToCart = () => {
+    setShowMessage(true);
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 10000); // Ocultar el mensaje después de 10 segundos
   };
 
   const sortProducts = (option: SortOption) => {
@@ -76,10 +85,14 @@ export const ItemsCategoryList = ({
     }
   };
 
-  const sortedProducts = sortProducts(selectedSortOption || SortOption.NameAscending);
+  const sortedProducts = sortProducts(
+    selectedSortOption || SortOption.NameAscending
+  );
 
   const filteredProducts = selectedCategoryId
-    ? sortedProducts.filter((product) => product.id_category === selectedCategoryId)
+    ? sortedProducts.filter(
+        (product) => product.id_category === selectedCategoryId
+      )
     : [];
 
   return (
@@ -110,12 +123,16 @@ export const ItemsCategoryList = ({
                   ]}
                 >
                   <View style={styles.imageContainer}>
-                    <Image source={{ uri: category.image }} style={styles.image} />
+                    <Image
+                      source={{ uri: category.image }}
+                      style={styles.image}
+                    />
                   </View>
                   <Text
                     style={[
                       styles.categoryText,
-                      category.id === selectedCategoryId && styles.selectedCategoryText,
+                      category.id === selectedCategoryId &&
+                        styles.selectedCategoryText,
                     ]}
                   >
                     {category.name}
@@ -129,9 +146,15 @@ export const ItemsCategoryList = ({
       <View style={styles.productListContainer}>
         <View style={styles.categoryHeader}>
           <Text style={styles.selectedCategoryName}>
-            {categories.find((category) => category.id === selectedCategoryId)?.name}
+            {
+              categories.find((category) => category.id === selectedCategoryId)
+                ?.name
+            }
           </Text>
-          <TouchableOpacity style={styles.selectButton} onPress={() => setShowOptions(true)}>
+          <TouchableOpacity
+            style={styles.selectButton}
+            onPress={() => setShowOptions(true)}
+          >
             <Text style={styles.selectButtonText}>Ordenar Por</Text>
           </TouchableOpacity>
         </View>
@@ -139,57 +162,32 @@ export const ItemsCategoryList = ({
           showsHorizontalScrollIndicator={false}
           numColumns={3}
           data={filteredProducts}
-          renderItem={({ item }) => <CardItemProduct product={item} navigation={navigation} />}
+          renderItem={({ item }) => (
+            <CardItemProduct
+              product={item}
+              navigation={navigation}
+              onAddToCart={handleAddToCart}
+            />
+          )}
           keyExtractor={(item) => item.id!.toString()}
           contentContainerStyle={styles.productList} // Agrega este estilo para mantener el diseño de los productos
         />
       </View>
 
       {/* Modal de opciones de ordenamiento */}
-      <Modal visible={showOptions} transparent animationType="fade">
-        <TouchableWithoutFeedback onPress={() => setShowOptions(false)}>
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <TouchableOpacity
-                style={[
-                  styles.sortOption,
-                  selectedSortOption === SortOption.NameAscending && styles.selectedSortOption,
-                ]}
-                onPress={() => handleSortOptionSelected(SortOption.NameAscending)}
-              >
-                <Text style={styles.sortOptionText}>{SortOption.NameAscending}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.sortOption,
-                  selectedSortOption === SortOption.NameDescending && styles.selectedSortOption,
-                ]}
-                onPress={() => handleSortOptionSelected(SortOption.NameDescending)}
-              >
-                <Text style={styles.sortOptionText}>{SortOption.NameDescending}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.sortOption,
-                  selectedSortOption === SortOption.PriceHighToLow && styles.selectedSortOption,
-                ]}
-                onPress={() => handleSortOptionSelected(SortOption.PriceHighToLow)}
-              >
-                <Text style={styles.sortOptionText}>{SortOption.PriceHighToLow}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.sortOption,
-                  selectedSortOption === SortOption.PriceLowToHigh && styles.selectedSortOption,
-                ]}
-                onPress={() => handleSortOptionSelected(SortOption.PriceLowToHigh)}
-              >
-                <Text style={styles.sortOptionText}>{SortOption.PriceLowToHigh}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
+      <SortModal
+        visible={showOptions}
+        selectedSortOption={selectedSortOption}
+        onClose={() => setShowOptions(false)}
+        onSelectSortOption={handleSortOptionSelected}
+      />
+
+      {showMessage && (
+        <ActionToCartMessage
+          onAnimationEnd={() => setShowMessage(false)}
+          message="Producto Agregado Exitosamente!"
+        />
+      )}
     </View>
   );
 };
@@ -261,28 +259,5 @@ const styles = StyleSheet.create({
   productList: {
     flexGrow: 1,
     justifyContent: "space-between",
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalContent: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 20,
-    minWidth: 200,
-  },
-  sortOption: {
-    paddingVertical: 10,
-  },
-  selectedSortOption: {
-    backgroundColor: MyColors.primary,
-  },
-  sortOptionText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "black",
   },
 });

@@ -1,14 +1,14 @@
+import { ClientOrderPayTransbankScreen } from "../views/client/order/transbank-pay/TranbankPay";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ClientOrderDetailScreen } from "../views/client/order/detail/OrderDetail";
 import { ClientOrderListScreen } from "../views/client/order/list/OrderList";
-import { ClientOrderMapScreen } from "../views/client/order/map/OrderMap";
 import { OrderProvider } from "../context/OrderContext";
 import { Order } from "../../Domain/entities/Order";
 
 export type ClientOrderStackParamList = {
   ClientOrderListScreen: undefined;
   ClientOrderDetailScreen: { order: Order };
-  ClientOrderMapScreen: { order: Order };
+  ClientOrderPayTransbankScreen: { order: Order };
 };
 
 const Stack = createNativeStackNavigator<ClientOrderStackParamList>();
@@ -34,8 +34,8 @@ export const ClientOrderStackNavigator = () => {
           }}
         />
         <Stack.Screen
-          name="ClientOrderMapScreen"
-          component={ClientOrderMapScreen}
+          name="ClientOrderPayTransbankScreen"
+          component={ClientOrderPayTransbankScreen}
         />
       </Stack.Navigator>
     </OrderStatus>

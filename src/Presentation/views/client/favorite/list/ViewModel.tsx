@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { GetFavoriteProductsUseCase } from "../../../../../Domain/useCases/favorite/GetFavoriteProducts";
-import { Product } from "../../../../../Domain/entities/Product";
 import { UserContext } from "../../../../context/UserContext";
+import { Product } from "../../../../../Domain/entities/Product";
 
 const ClientFavoriteProductsViewModel = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -14,6 +14,7 @@ const ClientFavoriteProductsViewModel = () => {
   };
 
   return {
+    user,
     products,
     getProductsFavorites,
   };

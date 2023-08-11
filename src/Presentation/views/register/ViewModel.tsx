@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { RegisterAuthUseCase } from "../../../Domain/useCases/auth/RegisterAuth";
+import React, { useContext, useState } from "react";
 import { RegisterWithImageWAuthUseCase } from "../../../Domain/useCases/auth/RegisterWithImageAuth";
-import * as ImagePicker from "expo-image-picker";
 import { SaveUserLocalUseCase } from "../../../Domain/useCases/userLocal/SaveUserLocal";
-import { useUserLocal } from "../../hooks/useUserLocal";
+import { RegisterAuthUseCase } from "../../../Domain/useCases/auth/RegisterAuth";
 import { ResponseApiDeVerdura } from "../../../Data/sources/remote/models/ResponseApiDeVerdura";
+import { UserContext } from "../../context/UserContext";
+import * as ImagePicker from "expo-image-picker";
 
 const RegisterViewModel = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -19,10 +19,11 @@ const RegisterViewModel = () => {
     roles: [], // Agrega el campo "roles" con un valor inicial vacío
   });
   const [loading, setLoading] = useState(false);
-  const { user, getUserSession } = useUserLocal();
+  const { user, getUserSession } = useContext(UserContext);
 
   
   const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
+  
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,

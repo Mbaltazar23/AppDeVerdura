@@ -1,6 +1,6 @@
-import { Product } from "../../Domain/entities/Product";
 import { ShoppingBagRepository } from "../../Domain/repositories/ShoppingBagRepository";
 import { LocalStorage } from "../sources/local/LocalStorage";
+import { Product } from "../../Domain/entities/Product";
 
 export class ShoppingBagRepositoryImpl implements ShoppingBagRepository {
   async save(products: Product[]): Promise<void> {

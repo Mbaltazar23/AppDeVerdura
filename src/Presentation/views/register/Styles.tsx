@@ -9,11 +9,11 @@ const RegisterStyles = StyleSheet.create({
     width: "100%",
     height: "100%",
     opacity: 0.7,
-    bottom: "30%",
+    bottom: "0%",
   },
   form: {
     width: "100%",
-    height: "72%",
+    height: "66%",
     backgroundColor: "white",
     position: "absolute",
     bottom: 0,
@@ -28,7 +28,7 @@ const RegisterStyles = StyleSheet.create({
   formIcon: {
     width: 25,
     height: 25,
-    marginTop: 5,
+    marginTop: 10,
   },
   formInput: {
     flexDirection: "row",
@@ -47,16 +47,16 @@ const RegisterStyles = StyleSheet.create({
   },
   formRegisterText: {
     fontStyle: "italic",
-    color: "orange",
+    color: "green",
     borderBottomWidth: 1,
-    borderBottomColor: "orange",
+    borderBottomColor: "green",
     fontWeight: "bold",
     marginLeft: 10,
   },
   logoContainer: {
     position: "absolute",
     alignSelf: "center",
-    top: "4%",
+    top: "10%",
     alignItems: "center",
   },
   logoImage: {

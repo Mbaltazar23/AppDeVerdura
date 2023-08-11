@@ -10,7 +10,7 @@ const ClientShoppingBagStyles = StyleSheet.create({
   },
   totalToPay: {
     flexDirection: "row",
-    height: 70,
+    height: 95,
     backgroundColor: "f2f2f2",
     justifyContent: "space-around",
     alignItems: "center",
@@ -18,7 +18,11 @@ const ClientShoppingBagStyles = StyleSheet.create({
   },
   totalText: {
     fontWeight: "bold",
-    fontSize: 17,
+    fontSize: 25,
+  },
+  totalMoney:{
+    fontWeight: "bold",
+    fontSize: 20,
   },
   buttonAdd: {
     width: "50%",

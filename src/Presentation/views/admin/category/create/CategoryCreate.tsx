@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Image,
@@ -6,14 +6,22 @@ import {
   ActivityIndicator,
   ToastAndroid,
 } from "react-native";
+import { MyColors, MyStyles } from "../../../../theme/AppTheme";
+import { CategoryStackParamList } from "../../../../navigator/AdminCategoryNavigator";
+import { StackScreenProps } from "@react-navigation/stack";
 import { CustomTextInput } from "../../../../components/CustomTextInput";
 import { ModalPickImage } from "../../../../components/ModalPickImage";
 import { RoundedButton } from "../../../../components/RoundedButton";
-import { MyColors, MyStyles } from "../../../../theme/AppTheme";
-import styles from "./Styles";
 import useViewModel from "./ViewModel";
+import styles from "./Styles";
 
-export const AdminCategoryCreateScreen = () => {
+interface Props
+  extends StackScreenProps<
+    CategoryStackParamList,
+    "AdminCategoryCreateScreen"
+  > {}
+
+export const AdminCategoryCreateScreen = ({ navigation, route }: Props) => {
   const {
     name,
     description,
@@ -24,15 +32,21 @@ export const AdminCategoryCreateScreen = () => {
     pickImage,
     image,
     createCategory,
+    modalVisible,
+    setModalVisible,
   } = useViewModel();
-
-  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     if (responseMessage !== "") {
       ToastAndroid.show(responseMessage, ToastAndroid.LONG);
+      //navigation.navigate("AdminCategoryListScreen");
     }
   }, [responseMessage]);
+
+  const handleCreateCategory = async() => {
+    createCategory()
+    navigation.navigate("AdminCategoryListScreen");
+  }
 
   return (
     <View style={styles.container}>
@@ -71,7 +85,7 @@ export const AdminCategoryCreateScreen = () => {
       <View style={styles.buttonContainer}>
         <RoundedButton
           text="CREAR CATEGORIA"
-          onPress={() => createCategory()}
+          onPress={() => handleCreateCategory()}
         />
       </View>
 

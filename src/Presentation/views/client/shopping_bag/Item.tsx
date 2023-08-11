@@ -7,6 +7,7 @@ interface Props {
   addItem: (product: Product) => void;
   substractItem: (product: Product) => void;
   deleteItem: (product: Product) => void;
+  showMessage: () => void; // Nueva función para mostrar el mensaje
 }
 
 export const ShoppingBagItem = ({
@@ -14,7 +15,14 @@ export const ShoppingBagItem = ({
   addItem,
   substractItem,
   deleteItem,
+  showMessage,
 }: Props) => {
+  
+  const handleDeleteItem = (product: Product) => {
+    deleteItem(product);
+    showMessage(); // Mostrar el mensaje cuando se elimina un producto
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -23,7 +31,7 @@ export const ShoppingBagItem = ({
       <View style={styles.productInfo}>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.title}>{product.name}</Text>
-          <Text style={styles.price}>${product.quantity! * product.price}</Text>
+          <Text style={styles.price}>${(product.quantity! * product.price).toLocaleString("en-US")}</Text>
         </View>
         <View style={styles.productActions}>
           <View style={styles.actions}>
@@ -43,7 +51,7 @@ export const ShoppingBagItem = ({
               <Text style={styles.actionText}>+</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => deleteItem(product)}>
+          <TouchableOpacity onPress={() => handleDeleteItem(product)}>
             <Image
               style={styles.deleteItem}
               source={require("../../../../../assets/trash.png")}

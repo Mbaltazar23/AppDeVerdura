@@ -10,9 +10,11 @@ import { User } from "../../Domain/entities/User";
 import mime from "mime";
 
 export class UserRepositoryImp implements UserRepository {
-  async getDeliveryMen(): Promise<User[]> {
+  async getAllClients(user: User): Promise<User[]> {
     try {
-      const response = await ApiDeVerdura.get<User[]>("/users/findDeliveryMen");
+      const response = await ApiDeVerdura.get<User[]>(
+        `/users/findAll/${user.id}`
+      );
       return Promise.resolve(response.data);
     } catch (error) {
       let e = error as AxiosError;
@@ -20,6 +22,7 @@ export class UserRepositoryImp implements UserRepository {
       return Promise.resolve([]);
     }
   }
+
   async update(user: User): Promise<ResponseApiDeVerdura> {
     try {
       const response = await ApiDeVerdura.put<ResponseApiDeVerdura>(

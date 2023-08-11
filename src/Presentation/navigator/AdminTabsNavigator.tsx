@@ -1,8 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image, TouchableOpacity } from "react-native";
-import { ProfileInfoScreen } from "../views/profile/info/ProfileInfo";
-import { AdminCategoryNavigator } from "./AdminCategoryNavigator";
 import { AdminOrderStackNavigator } from "./AdminOrderStackNavigator";
+import { AdminCategoryNavigator } from "./AdminCategoryNavigator";
+import { ProfileInfoScreen } from "../views/profile/info/ProfileInfo";
+import { Image } from "react-native";
+import { AdminUserNavigator } from "./AdminUserNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,16 +26,7 @@ export const AdminTabsNavigator = () => {
               style={{ width: 25, height: 25 }}
             />
           ),
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("AdminCategoryCreateScreen")}
-            >
-              <Image
-                source={require("../../../assets/add.png")}
-                style={{ width: 35, height: 35, marginRight: 25 }}
-              />
-            </TouchableOpacity>
-          ),
+
         })}
       />
       <Tab.Screen
@@ -46,6 +38,20 @@ export const AdminTabsNavigator = () => {
           tabBarIcon: ({ color }) => (
             <Image
               source={require("../../../assets/orders.png")}
+              style={{ width: 25, height: 25 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="AdminUserNavigator"
+        component={AdminUserNavigator}
+        options={{
+          title: "Usuarios",
+          tabBarLabel: "Usuarios",
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={require("../../../assets/user.png")}
               style={{ width: 25, height: 25 }}
             />
           ),

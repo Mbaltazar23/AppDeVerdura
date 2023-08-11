@@ -10,4 +10,7 @@ export interface AuthRepository {
     user: User,
     file: ImagePicker.ImageInfo
   ): Promise<ResponseApiDeVerdura>;
+  resetPasswordEmail(email: string) : Promise<ResponseApiDeVerdura>
+
+  changePassword(email: string, password: string) : Promise<ResponseApiDeVerdura>
 }

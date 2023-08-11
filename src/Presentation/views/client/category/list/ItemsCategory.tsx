@@ -6,12 +6,14 @@ import {
   FlatList,
   StyleSheet,
 } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { GetProductsByCategoryUseCase } from "../../../../../Domain/useCases/product/GetProductsByCategory";
+import { CELL_NUMBER_WHATSAPP } from "../../../../constants/CellNumberWhatsapp";
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { WhatsAppButton } from "../../../../components/CustomBtnWhatsapp";
 import { Category } from "../../../../../Domain/entities/Category";
-import { Product } from "../../../../../Domain/entities/Product";
 import { MyColors } from "../../../../theme/AppTheme";
+import { Product } from "../../../../../Domain/entities/Product";
 import { Card } from "../products/Card";
 
 // Componente para renderizar un elemento de categoría en la lista
@@ -23,9 +25,13 @@ interface CategoryListItemProps {
     "ClientCategoryListScreen",
     undefined
   >;
+  showMessage: () => void; // Agregamos la función para mostrar el mensaje
 }
 
-const CategoryListItem = ({ category, navigation, onViewMore }: CategoryListItemProps) => {
+const CategoryListItem = ({
+  category,
+  onViewMore,
+}: CategoryListItemProps) => {
   return (
     <View style={styles.categoryItem}>
       <Text style={styles.categoryName}>{category.name}</Text>
@@ -44,9 +50,14 @@ interface CategorySectionProps {
     "ClientCategoryListScreen",
     undefined
   >;
+  showMessage: () => void; // Pasamos la función para mostrar el mensaje
 }
 
-const CategorySection = ({ category, navigation }: CategorySectionProps) => {
+const CategorySection = ({
+  category,
+  navigation,
+  showMessage,
+}: CategorySectionProps) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -69,6 +80,10 @@ const CategorySection = ({ category, navigation }: CategorySectionProps) => {
     };
   }, [category.id]);
 
+  const handleAddToCart = () => {
+    showMessage(); // Llamamos a la función para mostrar el mensaje
+  };
+
   if (loading) {
     return (
       <View style={styles.categorySection}>
@@ -80,6 +95,7 @@ const CategorySection = ({ category, navigation }: CategorySectionProps) => {
             })
           }
           navigation={navigation}
+          showMessage={showMessage}
         />
         <View style={styles.loadingContainer}>
           <Text>Cargando productos...</Text>
@@ -98,13 +114,18 @@ const CategorySection = ({ category, navigation }: CategorySectionProps) => {
           })
         }
         navigation={navigation}
+        showMessage={showMessage}
       />
       <FlatList
         data={products}
         horizontal
         keyExtractor={(item) => item.id!.toString()}
         renderItem={({ item }) => (
-          <Card product={item} navigation={navigation} />
+          <Card
+            product={item}
+            navigation={navigation}
+            onAddToCart={handleAddToCart}
+          />
         )}
       />
     </View>
@@ -119,22 +140,48 @@ interface CategoryListProps {
     "ClientCategoryListScreen",
     undefined
   >;
+  showMessage: () => void; // Agregamos la función para mostrar el mensaje
 }
 
-export const CategoryList = ({ categories, navigation }: CategoryListProps) => {
+export const CategoryList = ({
+  categories,
+  navigation,
+  showMessage,
+}: CategoryListProps) => {
   return (
-    <FlatList
-      data={categories}
-      keyExtractor={(item) => item.id!.toString()}
-      renderItem={({ item }) => (
-        <CategorySection category={item} navigation={navigation} />
-      )}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={categories}
+        keyExtractor={(item) => item.id!.toString()}
+        renderItem={({ item }) => (
+          <CategorySection
+            category={item}
+            navigation={navigation}
+            showMessage={showMessage}
+          />
+        )}
+      />
+      <View style={styles.floatingButtonContainer}>
+        <WhatsAppButton phoneNumber={CELL_NUMBER_WHATSAPP} />
+      </View>
+    </View>
   );
 };
 
 // Estilos para los componentes
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  floatingButtonContainer: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    backgroundColor: MyColors.primary,
+    borderRadius: 60,
+    padding: 10,
+    elevation: 10,
+  },
   categoryItem: {
     flexDirection: "row",
     justifyContent: "space-between",

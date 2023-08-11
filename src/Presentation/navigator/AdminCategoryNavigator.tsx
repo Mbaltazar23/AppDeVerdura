@@ -1,18 +1,20 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import { Category } from "../../Domain/entities/Category";
-import { CategoryProvider } from "../context/CategoryContext";
+import { Image, TouchableOpacity } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AdminCategoryCreateScreen } from "../views/admin/category/create/CategoryCreate";
 import { AdminCategoryUpdateScreen } from "../views/admin/category/update/CategoryUpdate";
 import { AdminCategoryListScreen } from "../views/admin/category/list/CategoryList";
-import { Image, TouchableOpacity } from "react-native";
 import { AdminProductNavigator } from "./AdminProductNavigator";
+import { AdminUserNavigator } from "./AdminUserNavigator";
+import { CategoryProvider } from "../context/CategoryContext";
+import { Category } from "../../Domain/entities/Category";
 
 export type CategoryStackParamList = {
   AdminCategoryListScreen: undefined;
   AdminCategoryCreateScreen: undefined;
   AdminCategoryUpdateScreen: { category: Category };
-  AdminProductNavigator: { category: Category }
+  AdminProductNavigator: { category: Category };
+  AdminUserNavigator: undefined;
 };
 
 const Stack = createNativeStackNavigator<CategoryStackParamList>();
@@ -30,7 +32,7 @@ export const AdminCategoryNavigator = () => {
           component={AdminCategoryListScreen}
           options={({ navigation, route }) => ({
             headerShown: true,
-            title: "Categorias",
+            title: "   Categorias",
             headerRight: () => (
               <TouchableOpacity
                 onPress={() => navigation.navigate("AdminCategoryCreateScreen")}
@@ -59,10 +61,13 @@ export const AdminCategoryNavigator = () => {
             title: "Editar Categoria",
           }}
         />
-           <Stack.Screen
+        <Stack.Screen
           name="AdminProductNavigator"
           component={AdminProductNavigator}
-     
+        />
+        <Stack.Screen
+          name="AdminUserNavigator"
+          component={AdminUserNavigator}
         />
       </Stack.Navigator>
     </CategoryState>

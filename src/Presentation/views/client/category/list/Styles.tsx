@@ -1,4 +1,4 @@
-import {  StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { MyColors } from "../../../../theme/AppTheme";
 
 const CategoryListStyles = StyleSheet.create({
@@ -6,19 +6,48 @@ const CategoryListStyles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    paddingVertical: 20,
-    paddingHorizontal: 25,
+    paddingHorizontal: 30,
     backgroundColor: MyColors.primary,
+    height: "14%",
+    justifyContent: "flex-end",
+  },
+  gradient: {
+    backgroundColor: `linear-gradient(90deg, ${MyColors.secondary} 50%, ${MyColors.primary} 50%)`,
+    paddingHorizontal: 0,
+    paddingBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 22,
     color: "white",
+    marginVertical: 5,
+    right: 4,
+    textAlign: "center",
+  },
+  titleOrange: {
+    fontSize: 22,
+    color:"orange", // Usar el color naranja
+    marginVertical: 5,
+    right: 4,
+    textAlign: "center",
+  },
+  titleWhite: {
+    fontSize: 22,
+    color: "white",
+    marginVertical: 5,
+    right: 4,
+    textAlign: "center",
   },
   subtitle: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 14,
     color: "white",
+    textAlign: "center",
+  },
+  orangeStripe: {
+    height: 3,
+    width: 50,
+    backgroundColor: "orange", // Color naranja
+    alignSelf: "center",
+    marginTop: 5,
   },
   searchContainer: {
     flexDirection: "row",
@@ -43,14 +72,6 @@ const CategoryListStyles = StyleSheet.create({
   searchIcon: {
     marginRight: 10,
     color: MyColors.primary,
-  },
-  input: {
-    flex: 1,
-    height: 40,
-    borderWidth: 1,
-    borderColor: MyColors.primary,
-    borderRadius: 8,
-    paddingHorizontal: 10,
   },
   categoryListContainer: {
     flex: 1,

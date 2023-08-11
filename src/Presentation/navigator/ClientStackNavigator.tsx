@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import { Image, TouchableOpacity, Text } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ClientCategoryListScreen } from "../views/client/category/list/CategoryList";
-import { ClientProductListScreen } from "../views/client/product/list/ProductList";
-import { ClientProductDetailScreen } from "../views/client/product/detail/ProductDetail";
-import { ShoppingBagProvider } from "../context/ShoppingBagContext";
-import { ClientShoppingBagScreen } from "../views/client/shopping_bag/ShoppingBag";
-import { ClientAddressListScreen } from "../views/client/address/list/AddressList";
-import { ClientAddressCreateScreen } from "../views/client/address/create/AddressCreate";
-import { ClientAddressMapScreen } from "../views/client/address/map/AddressMap";
-import { ClientProductSearchScreen } from "../views/client/product/search/ProductSearch";
-import { Product } from "../../Domain/entities/Product";
-import { MenuModal } from "../components/MenuModal";
-import { ProfileInfoScreen } from "../views/profile/info/ProfileInfo";
-import { ClientFavoriteProductsScreen } from "../views/client/favorite/list/FavoriteProducts";
 import { ClientFavoriteProductSearchScreen } from "../views/client/favorite/search/FavoriteProductSearch";
+import { ClientFavoriteProductsScreen } from "../views/client/favorite/list/FavoriteProducts";
 import { ClientTermsConditionsScreen } from "../views/client/terms/TermsConditions";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { ClientProductDetailScreen } from "../views/client/product/detail/ProductDetail";
+import { ClientAddressCreateScreen } from "../views/client/address/create/AddressCreate";
+import { ClientProductSearchScreen } from "../views/client/product/search/ProductSearch";
+import { ClientCategoryListScreen } from "../views/client/category/list/CategoryList";
+import { ClientShoppingBagScreen } from "../views/client/shopping_bag/ShoppingBag";
+import { ClientProductListScreen } from "../views/client/product/list/ProductList";
+import { ClientStatusOrderScreen } from "../views/client/address/status/StatusOrder";
+import { ClientAddressListScreen } from "../views/client/address/list/AddressList";
+import { ClientAddressMapScreen } from "../views/client/address/map/AddressMap";
+import { ShoppingBagProvider } from "../context/ShoppingBagContext";
+import { ProfileInfoScreen } from "../views/profile/info/ProfileInfo";
+import { MenuModal } from "../components/MenuModal";
+import { Product } from "../../Domain/entities/Product";
+import { Order } from "../../Domain/entities/Order";
 
 export type ClientStackParamList = {
   ClientCategoryListScreen: undefined;
@@ -29,6 +31,7 @@ export type ClientStackParamList = {
     | { refPoint: string; latitude: number; longitude: number }
     | undefined;
   ClientAddressMapScreen: undefined;
+  ClientStatusOrderScreen: {order:Order};
   ClientFavoriteProductsScreen: undefined;
   ClientFavoriteProductSearchScreen: undefined;
   ProfileInfoScreen: undefined;
@@ -254,8 +257,16 @@ export const ClientStackNavigator = () => {
             ),
           })}
         />
-      </Stack.Navigator>
-      <MenuModal isVisible={isMenuVisible} toggleMenu={toggleMenu} />
+        <Stack.Screen
+          name="ClientStatusOrderScreen"
+          component={ClientStatusOrderScreen}
+          options={{ headerShown: false }}
+        />    
+        
+
+      </Stack.Navigator> 
+               <MenuModal isVisible={isMenuVisible} toggleMenu={toggleMenu} />
+
     </ShoppingBagState>
   );
 };

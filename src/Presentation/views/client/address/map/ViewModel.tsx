@@ -121,8 +121,6 @@ const ClientAddressMapViewModel = () => {
       console.log("Error al geocodificar la dirección:", error);
     }
   };
-  
-  
 
   const validateAndRedirect = () => {
     if (addressInput.trim() === "") {

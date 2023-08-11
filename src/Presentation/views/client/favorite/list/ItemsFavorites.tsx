@@ -7,17 +7,19 @@ import {
   ToastAndroid,
   ActivityIndicator,
 } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
 import { GetCategoriesByProductsFavoritesUseCase } from "../../../../../Domain/useCases/favorite/GetCategoriesByProductsFavorites";
+import { DeleteFavoriteProductUseCase } from "../../../../../Domain/useCases/favorite/DeleteFavoriteProduct";
+import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { MyColors, MyStyles } from "../../../../theme/AppTheme";
 import { Category } from "../../../../../Domain/entities/Category";
 import { Product } from "../../../../../Domain/entities/Product";
 import { UserContext } from "../../../../context/UserContext";
 import { Card } from "./Item";
-import { DeleteFavoriteProductUseCase } from "../../../../../Domain/useCases/favorite/DeleteFavoriteProduct";
-import { MyColors, MyStyles } from "../../../../theme/AppTheme";
+import { User } from "../../../../../Domain/entities/User";
 
 interface CategoryListProps {
+  user:User
   products: Product[];
   navigation: StackNavigationProp<
     ClientStackParamList,
@@ -27,21 +29,19 @@ interface CategoryListProps {
 }
 
 export const ProductsFavoritesList = ({
+  user,
   products,
   navigation,
 }: CategoryListProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [responseMessage, setResponseMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const { user } = useContext(UserContext);
 
   const fetchCategories = async () => {
-    if (user && user.id) {
-      const fetchedCategories = await GetCategoriesByProductsFavoritesUseCase(
-        user.id
-      );
-      setCategories(fetchedCategories);
-    }
+    const fetchedCategories = await GetCategoriesByProductsFavoritesUseCase(
+      user.id!
+    );
+    setCategories(fetchedCategories);
   };
 
   const removeFavoriteProduct = async (product: Product) => {
@@ -101,10 +101,10 @@ export const ProductsFavoritesList = ({
 
 const styles = StyleSheet.create({
   categorySection: {
-    marginTop: 5,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-    marginRight: 10,
+    marginTop: 10,
+    marginBottom: 0,
+    paddingHorizontal: 4,
+    marginRight: 0,
   },
   categoryName: {
     fontSize: 18,
@@ -123,5 +123,6 @@ const styles = StyleSheet.create({
   },
   productScrollView: {
     marginLeft: 0,
+    marginRight: 0,
   },
 });

@@ -1,6 +1,6 @@
 import { Product } from "../../Domain/entities/Product";
-import { ProductRepository } from "../../Domain/repositories/ProductRepository";
 import { ResponseApiDeVerdura } from "../sources/remote/models/ResponseApiDeVerdura";
+import { ProductRepository } from "../../Domain/repositories/ProductRepository";
 import { AxiosError } from "axios";
 import mime from "mime";
 import * as ImagePicker from "expo-image-picker";

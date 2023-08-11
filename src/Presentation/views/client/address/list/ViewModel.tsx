@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react";
+import { GetByClientAndStatusByOrderUseCase } from "../../../../../Domain/useCases/order/GetByClientAndStatusOrder";
 import { GetByUserAddressUseCase } from "../../../../../Domain/useCases/address/GetByUserAddress";
 import { CreateOrderUseCase } from "../../../../../Domain/useCases/order/CreateOrder";
 import { ShoppingBagContext } from "../../../../context/ShoppingBagContext";
@@ -6,11 +7,14 @@ import { UserContext } from "../../../../context/UserContext";
 import { Address } from "../../../../../Domain/entities/Address";
 import { Order } from "../../../../../Domain/entities/Order";
 
+
 const ClientAddressListViewModel = () => {
   const [address, setAddress] = useState<Address[]>([]);
   const [checked, setChecked] = useState("");
-  const [responseMessage, setResponseMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
+  const [order, setOrder] = useState<Order>(); // Estado local para almacenar el pedido actual
+  // contextos usados e importados
   const { user, saveUserSesion } = useContext(UserContext);
   const { shoppingBag } = useContext(ShoppingBagContext);
 
@@ -36,8 +40,15 @@ const ClientAddressListViewModel = () => {
       user.address = "";
       saveUserSesion(user);
       setChecked(""); // Reestablecer el input
-      setResponseMessage(result.message);
       setLoading(true);
+      //setResponseMessage(result.message);
+
+      const orders = await GetByClientAndStatusByOrderUseCase(
+        user.id!,
+        "EN ESPERA"
+      );
+      const orderFind = orders.find((order) => order.id === result.data);
+      setOrder(orderFind);
       setLoading(false);
     } else {
       setResponseMessage("Debe seleccionar una dirección para la Orden.");
@@ -61,6 +72,7 @@ const ClientAddressListViewModel = () => {
     getAddress,
     changeRadioValue,
     createOrder,
+    order,
     loading,
   };
 };

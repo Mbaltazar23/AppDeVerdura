@@ -6,13 +6,15 @@ import {
   Modal,
   StyleSheet,
   Animated,
+  ImageBackground,
 } from "react-native";
 import { ClientStackParamList } from "../navigator/ClientStackNavigator";
-import { RootStackParamList } from "../navigator/MainStackNavigator";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../navigator/MainStackNavigator";
 import { useNavigation } from "@react-navigation/native";
-import { UserContext } from "../context/UserContext";
+import { useUserLocal } from "../hooks/useUserLocal";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { UserContext } from "../context/UserContext";
 
 interface Props {
   isVisible: boolean;
@@ -23,7 +25,10 @@ export const MenuModal = ({ isVisible, toggleMenu }: Props) => {
   const navigation = useNavigation<StackNavigationProp<ClientStackParamList>>();
   const navigateHome = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const { user, removeUserSession } = useContext(UserContext);
+  const { removeUserSession } = useContext(UserContext);
+
+  const { user } = useUserLocal();
+
   const [isModalVisible, setModalVisible] = useState(false);
 
   const modalAnimation = useRef(new Animated.Value(0)).current;
@@ -34,13 +39,7 @@ export const MenuModal = ({ isVisible, toggleMenu }: Props) => {
     }
   }, [isVisible]);
 
-  useEffect(() => {
-    if (user.id === "") {
-      navigateHome.replace("HomeScreen");
-    }
-  }, [user]);
-
-  const closeModal = () => {
+  const closeModal = async () => {
     Animated.timing(modalAnimation, {
       toValue: 0,
       duration: 1,
@@ -74,6 +73,11 @@ export const MenuModal = ({ isVisible, toggleMenu }: Props) => {
     closeModal();
   };
 
+  const handleLogout = async () => {
+    await removeUserSession();
+    navigateHome.replace("HomeScreen");
+  };
+
   return (
     <Modal
       visible={isVisible}
@@ -95,46 +99,50 @@ export const MenuModal = ({ isVisible, toggleMenu }: Props) => {
           <View style={styles.headerContainer}>
             <View style={styles.headerBackground} />
             <Text style={styles.headerText}>
-              Hola {user.name} {user.lastname}
+              Hola {user?.name} {user?.lastname}
             </Text>
           </View>
-          <View style={styles.optionsContainer}>
+          <ImageBackground
+          source={require("../../../assets/fondo-difuminado.jpg")}
+          style={styles.optionsContainer}
+          imageStyle={[styles.backgroundImage, { opacity: 0.2 }]} // Ajusta la opacidad
+        >
             <TouchableOpacity
               style={styles.option}
               onPress={() => handleOptionPress("ProfileInfoScreen")}
             >
-              <Icon name="person" size={20} color="green" />
+              <Icon name="person" size={30} color="red" />
               <Text style={styles.optionText}>Perfil</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.option}
               onPress={() => handleOptionPress("ClientAddressListScreen")}
             >
-              <Icon name="location-on" size={20} color="green" />
+              <Icon name="location-on" size={30} color="yellow" />
               <Text style={styles.optionText}>Dirección</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.option}
               onPress={() => handleOptionPress("ClientFavoriteProductsScreen")}
             >
-              <Icon name="favorite" size={20} color="green" />
+              <Icon name="favorite" size={30} color="green" />
               <Text style={styles.optionText}>Lista de Favoritos</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.option}
               onPress={() => handleOptionPress("ClientTermsConditionsScreen")}
             >
-              <Icon name="description" size={20} color="green" />
+              <Icon name="description" size={30} color="orange" />
               <Text style={styles.optionText}>Terminos y condiciones</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.option}
-              onPress={() => removeUserSession()}
+              onPress={() => handleLogout()}
             >
-              <Icon name="exit-to-app" size={20} color="green" />
+              <Icon name="exit-to-app" size={30} color="black" />
               <Text style={styles.optionText}>Cerrar Sesión</Text>
             </TouchableOpacity>
-          </View>
+          </ImageBackground>
         </Animated.View>
       </TouchableOpacity>
     </Modal>
@@ -148,7 +156,7 @@ const styles = StyleSheet.create({
     left: 0,
     width: "55%",
     height: "100%",
-    backgroundColor: "white",
+    backgroundColor: "transparent",
   },
   headerContainer: {
     backgroundColor: "green",
@@ -176,9 +184,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   optionsContainer: {
-    marginTop: 30,
-    paddingLeft: 12,
-    paddingRight: 20,
+    flex: 1,
+    marginTop: 0,
+    padding: 12,
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderRadius: 10,
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    opacity: 0.2,
   },
   option: {
     marginBottom: 15,
@@ -188,9 +204,9 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   optionText: {
-    fontSize: 14,
+    fontSize: 15, // Aumenta el tamaño de la letra
     marginLeft: 14,
-    color: "green",
+    color: "black",
   },
   overlay: {
     flex: 1,

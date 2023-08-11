@@ -1,5 +1,5 @@
 import React, { SetStateAction } from "react";
-import { Alert, Modal, StyleSheet, Text, View } from "react-native";
+import {  Modal, StyleSheet, Text, View } from "react-native";
 import { RoundedButton } from "./RoundedButton";
 
 interface Props {
