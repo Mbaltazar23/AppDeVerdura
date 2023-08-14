@@ -66,7 +66,7 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
   const handlePaymentbtn = async () => {
     const paymentSuccess = await handlePayment();
     if (paymentSuccess?.success) {
-      handleShowMessage();
+        await handleShowMessage();
     }
   };
 
@@ -176,8 +176,11 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
                   <View style={styles.buttonContainer}>
                     <RoundedButton text="Ver Datos" onPress={handleOpenModal} />
                     <TransferDataModal
+                      order={order}
                       visible={modalVisible}
                       onClose={handleCloseModal}
+                      navigation={navigation}
+                      optionMessage="no"
                     />
                   </View>
                 ) : order.payment?.method === "Transbank" &&

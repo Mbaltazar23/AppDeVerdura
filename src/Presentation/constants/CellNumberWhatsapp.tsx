@@ -1,1 +1,1 @@
-export const CELL_NUMBER_WHATSAPP = "+56 9 3933 9128"
+export const CELL_NUMBER_WHATSAPP = "+56 9 3933 9128"

@@ -10,19 +10,20 @@ interface DropDownProps {
 }
 
 const ClientOrderDetailViewModel = (order: Order) => {
-  const { createPayment, createTransbankPayment, getOrderById } = useContext(OrderContext);
+  const { createPayment, createTransbankPayment, getOrderById } =
+    useContext(OrderContext);
   const [total, setTotal] = useState(0.0);
   const [responseMessage, setResponseMessage] = useState("");
   const [showMessage, setShowMessage] = useState(false); // Agregamos el estado para mostrar/ocultar el mensaje
   const [transbankToken, setTransbankToken] = useState("");
   const [transbankUrl, setTransbankURL] = useState("");
-  const [orderGet, setOrderGet] = useState(order)
+  const [orderGet, setOrderGet] = useState(order);
   const [transbankModalVisible, setTransbankModalVisible] = useState(false);
   const [values, setValues] = useState({
     id_order: order.id!,
     method: "",
   });
-  
+
   const [paymentMethods, setPaymentMethods] = useState<DropDownProps[]>([
     { label: "Seleccione un metodo de pago", value: "" },
     { label: "Transferencia", value: "Transferencia" },
@@ -40,11 +41,9 @@ const ClientOrderDetailViewModel = (order: Order) => {
     setModalVisible(false);
   };
 
-   // Función para mostrar el mensaje cuando se agrega un producto al carrito
-   const handleShowMessage = async () => {
+  // Función para mostrar el mensaje cuando se agrega un producto al carrito
+  const handleShowMessage = async () => {
     setShowMessage(true);
-    await new Promise(resolve => setTimeout(resolve, 3000)); // Mostrar el mensaje durante 3 segundos
-    setShowMessage(false);
   };
 
   // Agregamos un estado para controlar si el botón de pago debe estar habilitado o no
@@ -72,7 +71,7 @@ const ClientOrderDetailViewModel = (order: Order) => {
 
   const handlePayment = async () => {
     let result = {} as ResponseApiDeVerdura;
-  
+
     if (!values.method) {
       // Si no se selecciona un método, establecemos el mensaje de error
       setResponseMessage("Debe seleccionar un método de pago");
@@ -92,6 +91,7 @@ const ClientOrderDetailViewModel = (order: Order) => {
     // Retornamos un valor booleano para indicar que el pago no se realizó correctamente
     return result;
   };
+
   const validateTransbank = async () => {
     let transbankData = {} as ResponseApiTransbank;
     if (order.payment?.method === "Transbank") {
@@ -119,7 +119,10 @@ const ClientOrderDetailViewModel = (order: Order) => {
   const openTransbankURL = async () => {
     const result = await validateTransbank();
     if (result?.success) {
-      console.log("DATA VALIDATE TRANSBANK : ",JSON.stringify(result, null,3));
+      console.log(
+        "DATA VALIDATE TRANSBANK : ",
+        JSON.stringify(result, null, 3)
+      );
       setTransbankModalVisible(true);
     } else {
       console.error("Error al obtener la URL desde el backend");
@@ -127,15 +130,14 @@ const ClientOrderDetailViewModel = (order: Order) => {
   };
 
   return {
+    //isPaymentButtonDisabled,
     total,
-    handlePayment,
-    values,
-    paymentMethods,
     responseMessage,
     getTotal,
-    setPaymentMethods,
+    values,
+    paymentMethods,
+    handlePayment,
     handleMethodSelection,
-    //isPaymentButtonDisabled,
     modalVisible,
     handleCloseModal,
     handleOpenModal,
@@ -145,11 +147,10 @@ const ClientOrderDetailViewModel = (order: Order) => {
     transbankToken,
     transbankModalVisible,
     setTransbankModalVisible,
-    getOrderById,
+    orderGet,
     handleShowMessage,
     showMessage,
-    setShowMessage,
-    orderGet
+    setShowMessage
   };
 };
 

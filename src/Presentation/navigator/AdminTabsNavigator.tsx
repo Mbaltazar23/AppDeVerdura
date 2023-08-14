@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AdminOrderStackNavigator } from "./AdminOrderStackNavigator";
 import { AdminCategoryNavigator } from "./AdminCategoryNavigator";
+import { AdminUserNavigator } from "./AdminUserNavigator";
 import { ProfileInfoScreen } from "../views/profile/info/ProfileInfo";
 import { Image } from "react-native";
-import { AdminUserNavigator } from "./AdminUserNavigator";
 
 const Tab = createBottomTabNavigator();
 

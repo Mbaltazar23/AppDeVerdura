@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
   Image,
   Animated,
   StyleSheet,
-  //TouchableOpacity,
+  TouchableOpacity,
 } from "react-native";
-import { TransferDataModal } from "./ModalDataTransacction";
-import { Order } from "../../Domain/entities/Order";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ClientOrderStackParamList } from "../navigator/ClientOrderStackNavigator";
+import { TransferDataModal } from "./ModalDataTransacction";
+import { Order } from "../../Domain/entities/Order";
 
 interface Props {
   onAnimationEnd: () => void;
-  order: Order; // Asegúrate de tener acceso a la interfaz Order
+  order: Order;
   navigation: StackNavigationProp<
     ClientOrderStackParamList,
     "ClientOrderDetailScreen",
@@ -53,52 +53,49 @@ export const PaymentStatusMessage = ({
       useNativeDriver: true,
     }).start(() => {
       onAnimationEnd();
-      scaleAnim.setValue(0); // Reiniciar la escala a 0 para la siguiente animación
+      scaleAnim.setValue(0);
     });
+  };
+
+  const handleCloseModalTransfer = () => {
+    setModalVisible(false);
   };
 
   useEffect(() => {
     showAnimation();
 
     const timer = setTimeout(() => {
-      hideAnimation();
-    }, 40000); // Cambia el valor a 30000 para que el mensaje dure 30 segundos
+      if (order.payment?.method !== "Transferencia") {
+        hideAnimation();
+        navigation.replace("ClientOrderListScreen");
+      }
+    }, 10000);
 
     return () => {
       clearTimeout(timer);
-      navigation.replace("ClientOrderListScreen");
     };
-  }, []);
-
-  const handleModalClose = () => {
-    setModalVisible(false);
-    onAnimationEnd();
-    scaleAnim.setValue(0);
-  };
+  }, [order]);
 
   const handlePaymentMethod = () => {
     if (order.payment?.method === "Transbank") {
       return (
-        <Text style={styles.messageText}>
+        <Text style={[styles.messageText, styles.messageLarge]}>
           Puede ir al apartado de PAGADO para pagar por Transbank
         </Text>
       );
     } else if (order.payment?.method === "Transferencia") {
       return (
         <View>
-          <Text style={styles.messageText}>
-            Puede ir al apartado de PAGADO para realizar la Transferencia con un boton
-          </Text>
-          {/*    <TouchableOpacity onPress={() => setModalVisible(true)}>
-            <Text style={styles.linkText}>
-              Ver detalles de para la transferencia
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <Text style={[styles.linkText, styles.linkTextLarge]}>
+              Pinche aquí para realizar la transferencia
             </Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
       );
     } else {
       return (
-        <Text style={styles.messageText}>
+        <Text style={[styles.messageText, styles.messageLarge]}>
           Puede proceder a esperar su Pedido para pagarlo..
         </Text>
       );
@@ -106,12 +103,7 @@ export const PaymentStatusMessage = ({
   };
 
   return (
-    <Animated.View
-      style={[
-        styles.container,
-        { transform: [{ scale: scaleAnim }], opacity: opacityAnim },
-      ]}
-    >
+    <View style={styles.container}>
       <Image source={require("../../../assets/logo.png")} style={styles.logo} />
       <View style={styles.messageContainer}>
         <Text style={styles.message}>{handlePaymentMethod()}</Text>
@@ -120,8 +112,14 @@ export const PaymentStatusMessage = ({
         source={require("../../../assets/checkmark.png")}
         style={styles.checkmark}
       />
-      <TransferDataModal visible={modalVisible} onClose={handleModalClose} />
-    </Animated.View>
+      <TransferDataModal
+        optionMessage="si"
+        order={order}
+        navigation={navigation}
+        onClose={handleCloseModalTransfer}
+        visible={modalVisible}
+      />
+    </View>
   );
 };
 
@@ -168,5 +166,11 @@ const styles = StyleSheet.create({
     color: "white",
     textDecorationLine: "underline",
     marginTop: 5,
+  },
+  messageLarge: {
+    fontSize: 16, // Cambia el tamaño de la fuente para el mensaje grande
+  },
+  linkTextLarge: {
+    fontSize: 16, // Cambia el tamaño de la fuente para el enlace grande
   },
 });

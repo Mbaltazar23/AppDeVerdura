@@ -15,6 +15,5 @@ export interface ProductRepository {
     product: Product,
     file: ImagePicker.ImageInfo
   ): Promise<ResponseApiDeVerdura>;
-
   remove(product: Product): Promise<ResponseApiDeVerdura>;
 }

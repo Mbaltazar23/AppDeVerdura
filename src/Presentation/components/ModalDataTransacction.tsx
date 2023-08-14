@@ -2,16 +2,37 @@ import React from "react";
 import { View, Text, Modal, StyleSheet, TouchableOpacity } from "react-native";
 import { TransferDataTexts } from "../constants/DataTransacction";
 import { MyColors } from "../theme/AppTheme";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ClientOrderStackParamList } from "../navigator/ClientOrderStackNavigator";
+import { Order } from "../../Domain/entities/Order";
 
 interface TransferDataModalProps {
+  order: Order;
   visible: boolean;
   onClose: () => void;
+  navigation: StackNavigationProp<
+    ClientOrderStackParamList,
+    "ClientOrderDetailScreen",
+    undefined
+  >;
+  optionMessage: string;
 }
 
 export const TransferDataModal = ({
+  order,
   visible,
   onClose,
+  navigation,
+  optionMessage,
 }: TransferDataModalProps) => {
+  const onPressClose = async () => {
+    if (order.payment?.method === "Transferencia" && optionMessage == "si") {
+      navigation.navigate("ClientOrderListScreen");
+    } else {
+      onClose();
+    }
+  };
+
   return (
     <Modal visible={visible} transparent={true} animationType="fade">
       <View style={styles.modalContainer}>
@@ -23,7 +44,7 @@ export const TransferDataModal = ({
             rut="17.370.038-5"
             chequeraElectronica="01070771507"
           />
-          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+          <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
             <Text style={styles.closeButtonText}>Cerrar</Text>
           </TouchableOpacity>
         </View>
@@ -57,7 +78,7 @@ const styles = StyleSheet.create({
   closeButton: {
     backgroundColor: MyColors.primary,
     padding: 10,
-    width:'100%',
+    width: "100%",
     borderRadius: 10,
     marginTop: 20,
   },
