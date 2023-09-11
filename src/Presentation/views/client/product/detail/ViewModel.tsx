@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Product } from "../../../../../Domain/entities/Product";
-import { ShoppingBagContext } from "../../../../context/ShoppingBagContext";
 import { GetProductsFiltersUseCase } from "../../../../../Domain/useCases/product/GetProductsFilters";
+import { ShoppingBagContext } from "../../../../context/ShoppingBagContext";
+import { Product } from "../../../../../Domain/entities/Product";
 
 const ClientProductDetailViewModel = (product: Product) => {
   const productImagesList: string[] = [product.image];

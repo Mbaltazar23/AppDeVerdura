@@ -1,62 +1,86 @@
 {
     "expo": {
-        "name": "De Verdura",
-        "slug": "AppVerdura",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/logo.png",
-        "userInterfaceStyle": "light",
-        "plugins": [
-            [
-                "expo-image-picker", {
-                    "photosPermission": "custom photos permission",
-                    "cameraPermission": "Allow $(PRODUCT_NAME) to open the camera",
-                    "//": "Disables the microphone permission",
-                    "microphonePermission": false
-                }
-            ]
-        ],
-        "splash": {
-            "image": "./assets/logo.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
+      "name": "De Verdura",
+      "slug": "AppVerdura",
+      "version": "1.0.0",
+      "orientation": "portrait",
+      "icon": "./assets/logo.png",
+      "userInterfaceStyle": "light",
+      "plugins": [
+        [
+          "expo-image-picker",
+          {
+            "photosPermission": "custom photos permission",
+            "cameraPermission": "Allow $(PRODUCT_NAME) to open the camera",
+            "//": "Disables the microphone permission",
+            "microphonePermission": false
+          }
+        ]
+      ],
+      "splash": {
+        "image": "./assets/logo.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff"
+      },
+      "assetBundlePatterns": ["**/*"],
+      "ios": {
+        "supportsTablet": true,
+        "bundleIdentifier": "com.mbaltazar.AppDeVerdura",
+        "config": {
+          "googleMapsApiKey": "AIzaSyD7M1Wk_hiOt6DLkOTMZ-he1FISDA5bH9M"
         },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": true,
-            "bundleIdentifier": "com.mbaltazar.AppDeVerdura",
-            "config": {
-                "googleMapsApiKey": "AIzaSyD7M1Wk_hiOt6DLkOTMZ-he1FISDA5bH9M"
-            },
-            "infoPlist": {
-                "UIBackgroundModes": ["location", "fetch"]
-            }
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/logo.png",
-                "backgroundColor": "#ffffff"
-            },
-            "package": "com.mbaltazar.AppDeVerdura",
-            "config": {
-                "googleMaps": {
-                    "apiKey": "AIzaSyCTLQJidWJgcHYOyHMrsfOMWAH73DLUeHY"
-                }
-            },
-            "permissions": ["android.permission.ACCESS_BACKGROUND_LOCATION", "android.permission.ACCESS_COARSE_LOCATION", "android.permission.ACCESS_FINE_LOCATION", "android.permission.FOREGROUND_SERVICE"]
-        },
-        "expo": {
-            "androidStatusBar": {
-                "backgroundColor": "#0B993D"
-            }
-        },
-        "web": {
-            "favicon": "./assets/favicon.png"
-        },
-        "extra": {
-            "eas": {
-                "projectId": "08ee6486-8eab-4445-b60c-979735f4d48f"
-            }
+        "infoPlist": {
+          "UIBackgroundModes": ["location", "fetch"]
         }
+      },
+      "android": {
+        "adaptiveIcon": {
+          "foregroundImage": "./assets/logo.png",
+          "backgroundColor": "#ffffff"
+        },
+        "package": "com.mbaltazar.AppDeVerdura",
+        "config": {
+          "googleMaps": {
+            "apiKey": "AIzaSyCTLQJidWJgcHYOyHMrsfOMWAH73DLUeHY"
+          },
+          "intentFilters": [
+            {
+              "action": "VIEW",
+              "data": [
+                {
+                  "scheme": "whatsapp",
+                  "host": "send"
+                },
+                {
+                  "scheme": "sms",
+                  "host": "",
+                  "pathPrefix": "/send"
+                }
+              ],
+              "category": ["BROWSABLE", "DEFAULT"]
+            }
+          ]
+        },
+        "permissions": [
+          "android.permission.INTERNET",
+          "android.permission.ACCESS_BACKGROUND_LOCATION",
+          "android.permission.ACCESS_COARSE_LOCATION",
+          "android.permission.ACCESS_FINE_LOCATION",
+          "android.permission.FOREGROUND_SERVICE"
+        ]
+      },
+      "expo": {
+        "androidStatusBar": {
+          "backgroundColor": "#0B993D"
+        }
+      },
+      "web": {
+        "favicon": "./assets/favicon.png"
+      },
+      "extra": {
+        "eas": {
+          "projectId": "08ee6486-8eab-4445-b60c-979735f4d48f"
+        }
+      }
     }
-}
+  }

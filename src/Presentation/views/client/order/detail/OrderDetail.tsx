@@ -14,6 +14,7 @@ import { PaymentStatusMessage } from "../../../../components/CustomMessageStatus
 import { TransferDataModal } from "../../../../components/ModalDataTransacction";
 import { StackScreenProps } from "@react-navigation/stack";
 import { OrderDetailItem } from "./Item";
+import { PRICE_DELIVERY } from "../../../../constants/PriceDelivery";
 import { RoundedButton } from "../../../../components/RoundedButton";
 import { DateFormater } from "../../../../utils/DateFormater";
 import { Picker } from "@react-native-picker/picker";
@@ -66,7 +67,7 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
   const handlePaymentbtn = async () => {
     const paymentSuccess = await handlePayment();
     if (paymentSuccess?.success) {
-        await handleShowMessage();
+      await handleShowMessage();
     }
   };
 
@@ -133,6 +134,26 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
                 TOTAL : $ {total.toLocaleString("en-US")}
               </Text>
             </View>
+            {total < 20000 ? (
+              <View style={styles.infoRow}>
+                <Text style={styles.paymentLabel}>Recargo por la compra y delivery:</Text>
+                <Text style={styles.paymentMethod}>
+                  $ {PRICE_DELIVERY.toLocaleString("en-US")}
+                </Text>
+              </View>
+            ) : (
+              <View style={styles.infoRow}>
+                <Text style={styles.paymentLabel}>Recargo por la compra y delivery:</Text>
+                <Text style={styles.paymentMethod}>Gratis</Text>
+              </View>
+            )}
+            <View style={styles.infoRow}>
+              {/* Mostrar datos del total a pagar*/}
+              <Text style={styles.paymentLabel}>Total a pagar:</Text>
+              <Text style={styles.paymentMethod}>
+                $ {( total <= 20000 ? total + PRICE_DELIVERY: total).toLocaleString("en-US")}
+              </Text>
+            </View>
             {order.status === "EN ESPERA" && (
               <View style={styles.paymentSection}>
                 {/* Sección de pago */}
@@ -171,36 +192,40 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
                     {order.payment?.method}
                   </Text>
                 </View>
+
                 {/* Agregar botón según payment.method y process */}
-                {order.payment?.method === "Transferencia" ? (
+                {order.payment?.method !== "Efectivo" && (
                   <View style={styles.buttonContainer}>
-                    <RoundedButton text="Ver Datos" onPress={handleOpenModal} />
-                    <TransferDataModal
-                      order={order}
-                      visible={modalVisible}
-                      onClose={handleCloseModal}
-                      navigation={navigation}
-                      optionMessage="no"
-                    />
-                  </View>
-                ) : order.payment?.method === "Transbank" &&
-                  order.process === 1 ? (
-                  <View style={styles.buttonContainer}>
-                    <RoundedButton
-                      text="Pagar"
-                      onPress={() => openTransbankURL()}
-                    />
-                  </View>
-                ) : (
-                  <View style={styles.buttonContainer}>
-                    <RoundedButton
-                      text="Ver Pago"
-                      onPress={() =>
-                        navigation.replace("ClientOrderPayTransbankScreen", {
-                          order: order,
-                        })
-                      }
-                    />
+                    {order.payment?.method === "Transferencia" ? (
+                      <>
+                        <RoundedButton
+                          text="Ver Datos"
+                          onPress={handleOpenModal}
+                        />
+                        <TransferDataModal
+                          order={order}
+                          visible={modalVisible}
+                          onClose={handleCloseModal}
+                          navigation={navigation}
+                          optionMessage="no"
+                        />
+                      </>
+                    ) : order.payment?.method === "Transbank" &&
+                      order.process === 1 ? (
+                      <RoundedButton
+                        text="Pagar"
+                        onPress={() => openTransbankURL()}
+                      />
+                    ) : (
+                      <RoundedButton
+                        text="Ver Pago"
+                        onPress={() =>
+                          navigation.replace("ClientOrderPayTransbankScreen", {
+                            order: order,
+                          })
+                        }
+                      />
+                    )}
                   </View>
                 )}
               </View>
@@ -214,6 +239,7 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
                 navigation={navigation}
               />
             )}
+
             {/* Modal con el componente TransbankPaymentModal */}
             <TransbankPaymentModal
               order={order}

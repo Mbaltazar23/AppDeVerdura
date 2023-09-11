@@ -58,7 +58,7 @@ export const CardSimilarsProduct = ({ product, navigation }: CardProps) => {
         <Text style={styles.description}>{product.description}</Text>
       </View>
       <View style={styles.footer}>
-        <Text style={styles.price}>${product.price}</Text>
+        <Text style={styles.price}>${product.price.toLocaleString("en-US")}</Text>
         <TouchableOpacity onPress={addToCart}>
           <View style={styles.addToCart}>
             <Icon

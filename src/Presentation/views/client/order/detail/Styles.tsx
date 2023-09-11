@@ -77,7 +77,7 @@ const ClientOrderDetailStyles = StyleSheet.create({
   paymentInfo: {
     flexDirection: "row", // Cambiado a fila para alinear elementos horizontalmente
     alignItems: "center", // Alinear elementos verticalmente
-    marginBottom: 10, // Espacio entre el valor del objeto y el botón
+    marginBottom: 13, // Espacio entre el valor del objeto y el botón
   },
   paymentLabel: {
     fontSize: 16,
@@ -89,16 +89,12 @@ const ClientOrderDetailStyles = StyleSheet.create({
     fontSize: 17,
     color: "black",
     marginLeft: 5, // Espacio entre el texto y el valor
-    bottom:2
-  },
-  dropDown: {
-    width: "90%",
-    marginTop: 20,
+    bottom: 2,
   },
   buttonContainer: {
     width: "90%", // Cambiado el ancho
     marginTop: 15, // Margen adicional
-    bottom: 10,
+    bottom: 12,
   },
   backgroundImage: {
     flex: 1,

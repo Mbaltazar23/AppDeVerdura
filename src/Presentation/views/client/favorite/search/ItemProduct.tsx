@@ -74,7 +74,7 @@ export const CardItemFavoriteProductSearch = ({
         <Text style={styles.description}>{product.description}</Text>
       </View>
       <View style={styles.footer}>
-        <Text style={styles.price}>${product.price}</Text>
+        <Text style={styles.price}>${product.price.toLocaleString("en-US")}</Text>
         <TouchableOpacity onPress={addToWhishList}>
           <View style={styles.addToWhishList}>
             <Icon
@@ -136,9 +136,9 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 5,
-    paddingHorizontal: 14,
-    marginBottom: 15,
+    marginTop: 6,
+    paddingHorizontal: 10,
+    marginBottom: 16,
   },
   price: {
     fontSize: 18,

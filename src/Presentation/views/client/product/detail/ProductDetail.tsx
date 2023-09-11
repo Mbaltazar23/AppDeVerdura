@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { Image, Text, TouchableOpacity, View, ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
+import { SimilarProductsList } from "./ProductsSimilars";
+import { ActionToCartMessage } from "../../../../components/CustomMessageCart";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RoundedButton } from "../../../../components/RoundedButton";
 import useViewModel from "./ViewModel";
 import styles from "./Styles";
-import { SimilarProductsList } from "./ProductsSimilars";
-import { ActionToCartMessage } from "../../../../components/CustomMessageCart";
 
 interface Props
   extends StackScreenProps<ClientStackParamList, "ClientProductDetailScreen"> {}

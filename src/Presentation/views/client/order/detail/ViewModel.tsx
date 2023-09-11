@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { ResponseApiDeVerdura } from "../../../../../Data/sources/remote/models/ResponseApiDeVerdura";
 import { ResponseApiTransbank } from "../../../../../Data/sources/remote/models/ResponseApiTransbank";
+import { PRICE_DELIVERY } from "../../../../constants/PriceDelivery";
 import { OrderContext } from "../../../../context/OrderContext";
 import { Order } from "../../../../../Domain/entities/Order";
 
@@ -62,10 +63,16 @@ const ClientOrderDetailViewModel = (order: Order) => {
   };
 
   const getTotal = async () => {
-    const calculatedTotal = order.products.reduce(
+    let calculatedTotal = order.products.reduce(
       (accumulator, product) => accumulator + product.price * product.quantity!,
       0
     );
+  
+    // Si el total es menor a 20,000, agrega el precio de entrega
+    if (calculatedTotal <= 20000) {
+      calculatedTotal += PRICE_DELIVERY;
+    }
+  
     setTotal(calculatedTotal);
   };
 
@@ -97,11 +104,13 @@ const ClientOrderDetailViewModel = (order: Order) => {
     if (order.payment?.method === "Transbank") {
       await getTotal();
       console.log("TOTAL : ", JSON.stringify(total, null, 3));
+      // Verifica si el total es menor a 20,000 para agregar el precio de entrega
+      const totalpay = total < 20000 ? total + PRICE_DELIVERY : total;
 
       // Llama al Use Case para obtener el token y la URL de Transbank
       transbankData = await createTransbankPayment({
         id_order: values.id_order,
-        total: total.toString(),
+        total: totalpay.toString(),
       });
       // Retorna la respuesta
       if (transbankData.success) {
@@ -150,7 +159,7 @@ const ClientOrderDetailViewModel = (order: Order) => {
     orderGet,
     handleShowMessage,
     showMessage,
-    setShowMessage
+    setShowMessage,
   };
 };
 

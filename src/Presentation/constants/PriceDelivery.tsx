@@ -1,0 +1,1 @@
+export const PRICE_DELIVERY = 3500

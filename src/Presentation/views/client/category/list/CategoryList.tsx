@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { ClientBannerCarouselAds } from "../../../../components/BannerAds";
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator";
 import { ActionToCartMessage } from "../../../../components/CustomMessageCart";
 import { StackScreenProps } from "@react-navigation/stack";
@@ -8,6 +9,7 @@ import { CategoryList } from "./ItemsCategory";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import useViewModel from "./ViewModel";
 import styles from "./Styles";
+import { MyColors } from "../../../../theme/AppTheme";
 
 interface Props
   extends StackScreenProps<ClientStackParamList, "ClientCategoryListScreen"> {}
@@ -42,6 +44,7 @@ export const ClientCategoryListScreen = ({ navigation, route }: Props) => {
           </Text>
         </View>
       </View>
+
       <TouchableOpacity
         style={styles.searchContainer}
         onPress={handleSearchPress}
@@ -50,8 +53,12 @@ export const ClientCategoryListScreen = ({ navigation, route }: Props) => {
         <View style={styles.searchInputContainer}>
           <Text style={styles.searchInputPlaceholder}>Busque un producto</Text>
         </View>
-      </TouchableOpacity>
-      <View style={styles.categoryListContainer}>
+      </TouchableOpacity> 
+     
+          <ClientBannerCarouselAds />
+
+
+      <View style={styles.categoryListContainer}>  
         <CategoryList
           categories={categories}
           navigation={navigation}
