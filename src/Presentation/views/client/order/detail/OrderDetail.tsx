@@ -75,7 +75,7 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
     if (order.payment?.method === "Transbank" && order.process == 1) {
       validateTransbank();
     }
-  }, [order]);
+  }, [order, transbankUrl, transbankToken]);
 
   return (
     <ImageBackground
@@ -151,7 +151,7 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
               {/* Mostrar datos del total a pagar*/}
               <Text style={styles.paymentLabel}>Total a pagar:</Text>
               <Text style={styles.paymentMethod}>
-                $ {( total <= 20000 ? total + PRICE_DELIVERY: total).toLocaleString("en-US")}
+                $ {( total < 20000 ? total + PRICE_DELIVERY: total).toLocaleString("en-US")}
               </Text>
             </View>
             {order.status === "EN ESPERA" && (
@@ -236,6 +236,8 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
                   setShowMessage(false);
                 }}
                 order={orderGet} // Pasa el pedido actualizado
+                urlTransbank={transbankUrl}
+                tokenTransbank={transbankToken}
                 navigation={navigation}
               />
             )}

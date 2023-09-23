@@ -11,10 +11,13 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { ClientOrderStackParamList } from "../navigator/ClientOrderStackNavigator";
 import { TransferDataModal } from "./ModalDataTransacction";
 import { Order } from "../../Domain/entities/Order";
+import { TransbankPaymentModal } from "./ModalTranbankForm";
 
 interface Props {
   onAnimationEnd: () => void;
   order: Order;
+  urlTransbank: string;
+  tokenTransbank: string;
   navigation: StackNavigationProp<
     ClientOrderStackParamList,
     "ClientOrderDetailScreen",
@@ -25,9 +28,12 @@ interface Props {
 export const PaymentStatusMessage = ({
   onAnimationEnd,
   order,
+  urlTransbank,
+  tokenTransbank,
   navigation,
 }: Props) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalTransbankVisible, setModalTransbankVisible] = useState(false);
   const scaleAnim = useRef(new Animated.Value(0)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
 
@@ -61,11 +67,12 @@ export const PaymentStatusMessage = ({
     setModalVisible(false);
   };
 
+
   useEffect(() => {
     showAnimation();
 
     const timer = setTimeout(() => {
-      if (order.payment?.method !== "Transferencia") {
+   if (order.payment?.method !== "Transferencia" && order.payment?.method !== "Transbank") {
         hideAnimation();
         navigation.replace("ClientOrderListScreen");
       }
@@ -79,9 +86,13 @@ export const PaymentStatusMessage = ({
   const handlePaymentMethod = () => {
     if (order.payment?.method === "Transbank") {
       return (
-        <Text style={[styles.messageText, styles.messageLarge]}>
-          Puede ir al apartado de PAGADO para pagar por Transbank
-        </Text>
+        <View>
+          <TouchableOpacity onPress={() => setModalTransbankVisible(true)}>
+              <Text style={[styles.messageText, styles.messageLarge]}>
+                  Pinche aqui para realizar el pago por Transbank
+              </Text>
+          </TouchableOpacity>
+       </View> 
       );
     } else if (order.payment?.method === "Transferencia") {
       return (
@@ -118,6 +129,14 @@ export const PaymentStatusMessage = ({
         navigation={navigation}
         onClose={handleCloseModalTransfer}
         visible={modalVisible}
+      />
+      <TransbankPaymentModal
+        order={order}
+        visible={modalTransbankVisible}
+        transbankUrl={urlTransbank}
+        transbankToken={tokenTransbank}
+        methodModal={setModalTransbankVisible}
+        navigation={navigation}
       />
     </View>
   );
