@@ -10,6 +10,7 @@ import {
 import { AdminOrderConfirmationOrderModal } from "../../../../components/MessageModal";
 import { AdminOrderStackParamList } from "../../../../navigator/AdminOrderStackNavigator";
 import { StackScreenProps } from "@react-navigation/stack";
+import { PRICE_DELIVERY } from "../../../../constants/PriceDelivery";
 import { OrderDetailItem } from "./Item";
 import { RoundedButton } from "../../../../components/RoundedButton";
 import { DateFormater } from "../../../../utils/DateFormater";
@@ -102,19 +103,36 @@ export const AdminOrderDetailScreen = ({ navigation, route }: Props) => {
           </View>
 
           <View style={styles.totalInfo}>
-            <Text style={styles.total}>
-              TOTAL : $ {total.toLocaleString("en-US")}{" "}
-            </Text>
+      
+            <View style={styles.infoRow}>
+              <Text style={styles.total}>
+                TOTAL : $ {total.toLocaleString("en-US")}
+              </Text>
+            </View>
+            {total < 20000 ? (
+              <View style={styles.infoRow}>
+                <Text style={styles.paymentLabel}>Recargo por la compra y delivery:</Text>
+                <Text style={styles.paymentMethod}>
+                  $ {PRICE_DELIVERY.toLocaleString("en-US")}
+                </Text>
+              </View>
+            ) : (
+              <View style={styles.infoRow}>
+                <Text style={styles.paymentLabel}>Recargo por la compra y delivery:</Text>
+                <Text style={styles.paymentMethod}>Gratis</Text>
+              </View>
+            )}
+            <View style={styles.infoRow}>
+              {/* Mostrar datos del total a pagar*/}
+              <Text style={styles.paymentLabel}>Total a pagar:</Text>
+              <Text style={styles.paymentMethod}>
+                $ {( total < 20000 ? total + PRICE_DELIVERY: total).toLocaleString("en-US")}
+              </Text>
+            </View>
             <View style={styles.button}>
               {order.status === "PAGADO" && (
                 <RoundedButton
                   text="DESPACHAR ORDEN"
-                  onPress={() => setModalVisible(true)}
-                />
-              )}
-              {order.status === "DESPACHADO" && (
-                <RoundedButton
-                  text="ENTREGAR ORDEN"
                   onPress={() => setModalVisible(true)}
                 />
               )}

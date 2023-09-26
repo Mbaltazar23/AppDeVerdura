@@ -18,7 +18,7 @@ interface Props {
 }
 
 const OrderListView = ({ status }: Props) => {
-  const { ordersPayed, ordersDispatched, ordersDelivery, getOrders } =
+  const { ordersPayed, ordersHolding, ordersDelivery, getOrders } =
     useViewModel();
 
   const navigation =
@@ -39,11 +39,11 @@ const OrderListView = ({ status }: Props) => {
       <View style={styles.content}>
         <FlatList
           data={
-            status === "PAGADO"
+            status === "RECEPCIONADO"
+              ? ordersHolding
+              : status === "PAGADO"
               ? ordersPayed
               : status === "DESPACHADO"
-              ? ordersDispatched
-              : status === "ENTREGADO"
               ? ordersDelivery
               : []
           }
@@ -60,13 +60,13 @@ const OrderListView = ({ status }: Props) => {
 const renderScene = ({ route }: any) => {
   switch (route.key) {
     case "first":
-      return <OrderListView status="PAGADO" />;
+      return <OrderListView status="RECEPCIONADO" />;
     case "second":
-      return <OrderListView status="DESPACHADO" />;
-    case "third":
-      return <OrderListView status="ENTREGADO" />;
-    default:
       return <OrderListView status="PAGADO" />;
+    case "third":
+      return <OrderListView status="DESPACHADO" />;
+    default:
+      return <OrderListView status="RECEPCIONADO" />;
   }
 };
 
@@ -75,9 +75,9 @@ export const AdminOrderListScreen = () => {
   const { getOrders } = useViewModel();
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: "first", title: "PAGADO" },
-    { key: "second", title: "DESPACHADO" },
-    { key: "third", title: "ENTREGADO" },
+    { key: "first", title: "RECEPCIONADO" },
+    { key: "second", title: "PAGADO" },
+    { key: "third", title: "DESPACHADO" },
   ]);
 
   const isFocused = useIsFocused(); // Nueva adición

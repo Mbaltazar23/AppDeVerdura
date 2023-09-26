@@ -154,7 +154,7 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
                 $ {( total < 20000 ? total + PRICE_DELIVERY: total).toLocaleString("en-US")}
               </Text>
             </View>
-            {order.status === "EN ESPERA" && (
+            {order.status === "RECEPCIONADO" && (
               <View style={styles.paymentSection}>
                 {/* Sección de pago */}
                 <View style={styles.paymentDropdown}>
@@ -230,7 +230,17 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
                 )}
               </View>
             )}
-            {showMessage && (
+            {/* Modal con el componente TransbankPaymentModal */}
+            <TransbankPaymentModal
+              order={order}
+              visible={transbankModalVisible}
+              transbankUrl={transbankUrl}
+              transbankToken={transbankToken}
+              methodModal={setTransbankModalVisible}
+              navigation={navigation}
+            />
+          </ScrollView>  
+          {showMessage && (
               <PaymentStatusMessage
                 onAnimationEnd={() => {
                   setShowMessage(false);
@@ -241,17 +251,6 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
                 navigation={navigation}
               />
             )}
-
-            {/* Modal con el componente TransbankPaymentModal */}
-            <TransbankPaymentModal
-              order={order}
-              visible={transbankModalVisible}
-              transbankUrl={transbankUrl}
-              transbankToken={transbankToken}
-              methodModal={setTransbankModalVisible}
-              navigation={navigation}
-            />
-          </ScrollView>
         </View>
       </View>
     </ImageBackground>

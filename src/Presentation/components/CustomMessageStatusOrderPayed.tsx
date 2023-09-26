@@ -89,7 +89,7 @@ export const PaymentStatusMessage = ({
         <View>
           <TouchableOpacity onPress={() => setModalTransbankVisible(true)}>
               <Text style={[styles.messageText, styles.messageLarge]}>
-                  Pinche aqui para realizar el pago por Transbank
+                    Pinché aquí para pago Webpay
               </Text>
           </TouchableOpacity>
        </View> 

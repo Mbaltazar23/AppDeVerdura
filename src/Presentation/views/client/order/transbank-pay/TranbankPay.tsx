@@ -4,6 +4,7 @@ import { ClientOrderStackParamList } from "../../../../navigator/ClientOrderStac
 import { StackScreenProps } from "@react-navigation/stack";
 import useViewModel from "./ViewModel";
 import styles from "./Styles";
+import { RoundedButton } from "../../../../components/RoundedButton";
 
 interface Props
   extends StackScreenProps<
@@ -116,6 +117,10 @@ export const ClientOrderPayTransbankScreen = ({ navigation, route }: Props) => {
               </Text>
             </View>
           ))}
+            <RoundedButton
+              text="Volver a sus Pedidos"
+              onPress={() => navigation.replace("ClientOrderListScreen")}
+            />
         </View>
       </View>
       {/* Agregar más secciones según sea necesario */}

@@ -5,7 +5,7 @@ const AdminOrderListViewModel = () => {
   //const [orders, setOrders] = useState<Order[]>([]);
   const {
     ordersPayed,
-    ordersDispatched,
+    ordersHolding,
     ordersDelivery,
     getOrderByStatus,
   } = useContext(OrderContext);
@@ -18,7 +18,7 @@ const AdminOrderListViewModel = () => {
   
   return {
     ordersPayed,
-    ordersDispatched,
+    ordersHolding,
     ordersDelivery,
     getOrders,
   };

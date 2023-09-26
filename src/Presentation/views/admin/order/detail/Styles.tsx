@@ -60,6 +60,18 @@ const AdminOrderDetailStyles = StyleSheet.create({
   dropDown: {
     marginTop: 20,
   },
+  paymentLabel: {
+    fontSize: 16,
+    fontWeight: "bold",
+    bottom: 2,
+    color: "black",
+  },
+  paymentMethod: {
+    fontSize: 17,
+    color: "black",
+    marginLeft: 5, // Espacio entre el texto y el valor
+    bottom: 2,
+  },
   backgroundImage: {
     flex: 1,
     resizeMode: "cover",

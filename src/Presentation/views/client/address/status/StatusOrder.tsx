@@ -28,7 +28,7 @@ export const ClientStatusOrderScreen = ({ navigation, route }: Props) => {
         <Text style={styles.info}>
           {/* Cambiar el estilo del texto para hacerlo más llamativo */}
           <Text style={styles.infoHighlight}>
-            Mira el estado de tu orden en la sección de MIS PEDIDOS en EN ESPERA
+            Mira el estado de tu orden en la sección de MIS PEDIDOS en RECEPCIONADO
             para proceder a pagar
           </Text>
         </Text>

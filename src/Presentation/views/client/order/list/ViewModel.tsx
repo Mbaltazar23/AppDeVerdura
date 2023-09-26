@@ -8,7 +8,6 @@ const ClientOrderListViewModel = () => {
   const {
     ordersHolding,
     ordersPayed,
-    ordersDispatched,
     ordersDelivery,
     getOrderByClientAndStatus,
   } = useContext(OrderContext);
@@ -24,7 +23,6 @@ const ClientOrderListViewModel = () => {
   return {
     ordersHolding,
     ordersPayed,
-    ordersDispatched,
     ordersDelivery,
     getOrders,
     user,

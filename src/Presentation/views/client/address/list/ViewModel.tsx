@@ -45,7 +45,7 @@ const ClientAddressListViewModel = () => {
 
       const orders = await GetByClientAndStatusByOrderUseCase(
         user.id!,
-        "EN ESPERA"
+        "RECEPCIONADO"
       );
       const orderFind = orders.find((order) => order.id === result.data);
       setOrder(orderFind);

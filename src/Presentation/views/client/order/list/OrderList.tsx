@@ -12,7 +12,6 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { OrderListItem } from "./Item";
 import useViewModel from "./ViewModel";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface Props {
   status: string;
@@ -22,7 +21,6 @@ const OrderListView = ({ status }: Props) => {
   const {
     ordersHolding,
     ordersPayed,
-    ordersDispatched,
     ordersDelivery,
     getOrders,
     user,
@@ -46,13 +44,11 @@ const OrderListView = ({ status }: Props) => {
       <View style={styles.content}>
         <FlatList
           data={
-            status === "EN ESPERA"
+            status === "RECEPCIONADO"
               ? ordersHolding
               : status === "PAGADO"
               ? ordersPayed
               : status === "DESPACHADO"
-              ? ordersDispatched
-              : status === "ENTREGADO"
               ? ordersDelivery
               : []
           }
@@ -70,15 +66,13 @@ const OrderListView = ({ status }: Props) => {
 const renderScene = ({ route }: any) => {
   switch (route.key) {
     case "first":
-      return <OrderListView status="EN ESPERA" />;
+      return <OrderListView status="RECEPCIONADO" />;
     case "second":
       return <OrderListView status="PAGADO" />;
     case "third":
       return <OrderListView status="DESPACHADO" />;
-    case "fourth":
-      return <OrderListView status="ENTREGADO" />;
     default:
-      return <OrderListView status="EN ESPERA" />;
+      return <OrderListView status="RECEPCIONADO" />;
   }
 };
 
@@ -88,10 +82,9 @@ export const ClientOrderListScreen = () => {
   const { getOrders, user } = useViewModel();
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: "first", title: "EN ESPERA" },
+    { key: "first", title: "RECEPCIONADO" },
     { key: "second", title: "PAGADO" },
     { key: "third", title: "DESPACHADO" },
-    { key: "fourth", title: "ENTREGADO" },
   ]);
 
   const isFocused = useIsFocused(); // Nueva adición
