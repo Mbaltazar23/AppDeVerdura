@@ -6,14 +6,14 @@ import { User } from "../../../../Domain/entities/User";
 //URL API WEB: https://api.deverdura.cl/api
 
 const ApiDeVerdura = axios.create({
-  baseURL: "http://192.168.1.88:3000/api",
+  baseURL: "https://api.deverdura.cl/api",
   headers: {
     "Content-type": "application/json",
   },
 });
 
 const ApiDeVerduraWithImage = axios.create({
-  baseURL: "http://192.168.1.88:3000/api",
+  baseURL: "https://api.deverdura.cl/api",
   headers: {
     "Content-type": "multipart/form-data",
     accept: "application/json",
