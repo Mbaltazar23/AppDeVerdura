@@ -50,6 +50,8 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
     handleShowMessage,
     showMessage,
     setShowMessage,
+    paymentSectionVisible,
+    setPaymentSectionVisible
   } = useViewModel(order);
 
   useEffect(() => {
@@ -68,6 +70,7 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
     const paymentSuccess = await handlePayment();
     if (paymentSuccess?.success) {
       await handleShowMessage();
+      setPaymentSectionVisible(false);
     }
   };
 
@@ -154,7 +157,7 @@ export const ClientOrderDetailScreen = ({ navigation, route }: Props) => {
                 $ {( total < 20000 ? total + PRICE_DELIVERY: total).toLocaleString("en-US")}
               </Text>
             </View>
-            {order.status === "RECEPCIONADO" && (
+            {paymentSectionVisible && order.status === "RECEPCIONADO" && (
               <View style={styles.paymentSection}>
                 {/* Sección de pago */}
                 <View style={styles.paymentDropdown}>

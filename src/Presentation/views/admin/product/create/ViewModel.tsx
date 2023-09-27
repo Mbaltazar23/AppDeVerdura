@@ -22,14 +22,15 @@ const AdminProductCreateViewModel = (category: Category) => {
 
   const createProduct = async () => {
     console.log("Producto Formulario : " + JSON.stringify(values));
- 
     setLoading(true);
     const response = await create(values, file!);
     setResponseMessage(response.message);
     setLoading(false);
     if (response.success) {
       resetForm();
+      return true; // Indica que la creación fue exitosa
     }
+    return false; // Indica que la creación no fue exitosa
   };
 
   const pickImage = async () => {

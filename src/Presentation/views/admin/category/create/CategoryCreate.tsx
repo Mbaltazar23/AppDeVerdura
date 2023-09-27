@@ -39,15 +39,17 @@ export const AdminCategoryCreateScreen = ({ navigation, route }: Props) => {
   useEffect(() => {
     if (responseMessage !== "") {
       ToastAndroid.show(responseMessage, ToastAndroid.LONG);
-      //navigation.navigate("AdminCategoryListScreen");
+    //navigation.navigate("AdminCategoryListScreen");
     }
   }, [responseMessage]);
 
-  const handleCreateCategory = async() => {
-    createCategory()
-    navigation.navigate("AdminCategoryListScreen");
-  }
-
+  const handleCreateCategory = async () => {
+    const isSuccess = await createCategory();
+    if (isSuccess) {
+      navigation.navigate("AdminCategoryListScreen");
+    }
+  };
+  
   return (
     <View style={styles.container}>
       <TouchableOpacity

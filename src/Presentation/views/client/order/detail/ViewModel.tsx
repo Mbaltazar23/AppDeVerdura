@@ -19,6 +19,7 @@ const ClientOrderDetailViewModel = (order : Order) => {
     const [transbankUrl, setTransbankURL] = useState("");
     const [orderGet, setOrderGet] = useState(order);
     const [transbankModalVisible, setTransbankModalVisible] = useState(false);
+    const [paymentSectionVisible, setPaymentSectionVisible] = useState(true);
     const [values, setValues] = useState({
         id_order: order.id !,
         method: ""
@@ -176,7 +177,9 @@ const ClientOrderDetailViewModel = (order : Order) => {
         orderGet,
         handleShowMessage,
         showMessage,
-        setShowMessage
+        setShowMessage,
+        paymentSectionVisible,
+        setPaymentSectionVisible
     };
 };
 
