@@ -33,8 +33,7 @@ export const ClientTermsConditionsScreen = ({ navigation }: Props) => {
             2. Proceso de compra: Para realizar una compra, selecciona los
             productos y agrégalos a tu carrito de compras. Revisa tu pedido
             antes de confirmarlo y proporciona la información de entrega
-            requerida. Recibirás una confirmación por correo electrónico con los
-            detalles de tu compra.
+            requerida(como lo seria la direccion a la que ira y el medio de pago con el cual lo cancelara).
           </Text>
           <Text style={styles.content}>
             3. Precios y pagos: Los precios mostrados están en la moneda local y

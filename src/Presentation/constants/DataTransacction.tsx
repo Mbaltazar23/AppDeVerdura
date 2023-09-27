@@ -6,6 +6,7 @@ interface TransferDataTextsProps {
   correo: string;
   rut: string;
   chequeraElectronica: string;
+  banco:string
 }
 
 export const TransferDataTexts = ({
@@ -13,6 +14,7 @@ export const TransferDataTexts = ({
   correo,
   rut,
   chequeraElectronica,
+  banco
 }: TransferDataTextsProps) => {
   return (
     <View>
@@ -21,6 +23,9 @@ export const TransferDataTexts = ({
       <Text style={styles.modalText}>Rut: {rut}</Text>
       <Text style={styles.modalText}>
         Chequera Electronica: {chequeraElectronica}
+      </Text>
+      <Text style={styles.modalText}>
+        Nombre del Banco: {banco}
       </Text>
     </View>
   );

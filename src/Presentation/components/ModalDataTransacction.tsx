@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text, Modal, StyleSheet, TouchableOpacity } from "react-native";
+import { ClientOrderStackParamList } from "../navigator/ClientOrderStackNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { TransferDataTexts } from "../constants/DataTransacction";
 import { MyColors } from "../theme/AppTheme";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { ClientOrderStackParamList } from "../navigator/ClientOrderStackNavigator";
 import { Order } from "../../Domain/entities/Order";
 
 interface TransferDataModalProps {
@@ -25,6 +25,7 @@ export const TransferDataModal = ({
   navigation,
   optionMessage,
 }: TransferDataModalProps) => {
+  
   const onPressClose = async () => {
     if (order.payment?.method === "Transferencia" && optionMessage == "si") {
       navigation.navigate("ClientOrderListScreen");
@@ -43,6 +44,7 @@ export const TransferDataModal = ({
             correo="n.diazmoscoso@gmail.com"
             rut="17.370.038-5"
             chequeraElectronica="01070771507"
+            banco="Banco Estado"
           />
           <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
             <Text style={styles.closeButtonText}>Cerrar</Text>
