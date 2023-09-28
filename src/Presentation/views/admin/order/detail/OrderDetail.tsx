@@ -101,9 +101,6 @@ export const AdminOrderDetailScreen = ({ navigation, route }: Props) => {
               source={require("../../../../../../assets/location.png")}
             />
           </View>
-
-          <View style={styles.totalInfo}>
-      
             <View style={styles.infoRow}>
               <Text style={styles.total}>
                 TOTAL : $ {total.toLocaleString("en-US")}
@@ -137,7 +134,6 @@ export const AdminOrderDetailScreen = ({ navigation, route }: Props) => {
                 />
               )}
             </View>
-          </View>
           <AdminOrderConfirmationOrderModal
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
