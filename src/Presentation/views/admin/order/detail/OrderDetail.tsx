@@ -6,6 +6,7 @@ import {
   Image,
   ToastAndroid,
   ImageBackground,
+  ScrollView,
 } from "react-native";
 import { AdminOrderConfirmationOrderModal } from "../../../../components/MessageModal";
 import { AdminOrderStackParamList } from "../../../../navigator/AdminOrderStackNavigator";
@@ -37,10 +38,10 @@ export const AdminOrderDetailScreen = ({ navigation, route }: Props) => {
   useEffect(() => {
     if (responseMessage !== "") {
       ToastAndroid.show(responseMessage, ToastAndroid.LONG);
-      navigation.navigate("AdminOrderListScreen");
     }
   }, [responseMessage, order]);
 
+  
   useEffect(() => {
     if (total === 0.0) {
       getTotal();
@@ -52,7 +53,6 @@ export const AdminOrderDetailScreen = ({ navigation, route }: Props) => {
       source={require("../../../../../../assets/fondo-difuminado.jpg")}
       style={styles.backgroundImage}
     >
-      <View style={styles.container}>
         <View style={styles.products}>
           <FlatList
             data={order.products}
@@ -60,8 +60,9 @@ export const AdminOrderDetailScreen = ({ navigation, route }: Props) => {
             renderItem={({ item }) => <OrderDetailItem product={item} />}
           />
         </View>
-
         <View style={styles.info}>
+          <ScrollView>   
+
           <View style={styles.infoRow}>
             <View style={styles.infoText}>
               <Text style={styles.infoTitle}>Fecha del pedido</Text>
@@ -126,6 +127,7 @@ export const AdminOrderDetailScreen = ({ navigation, route }: Props) => {
                 $ {( total < 20000 ? total + PRICE_DELIVERY: total).toLocaleString("en-US")}
               </Text>
             </View>
+
             <View style={styles.button}>
               {order.status === "PAGADO" && (
                 <RoundedButton
@@ -134,6 +136,7 @@ export const AdminOrderDetailScreen = ({ navigation, route }: Props) => {
                 />
               )}
             </View>
+            </ScrollView>  
           <AdminOrderConfirmationOrderModal
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
@@ -141,7 +144,6 @@ export const AdminOrderDetailScreen = ({ navigation, route }: Props) => {
             handleConfirmAction={handleConfirmAction}
           />
         </View>
-      </View>
     </ImageBackground>
   );
 };

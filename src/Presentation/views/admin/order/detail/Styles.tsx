@@ -22,7 +22,7 @@ const AdminOrderDetailStyles = StyleSheet.create({
   },
   infoRow: {
     flexDirection: "row",
-    marginTop: 35,
+    marginTop: 25,
   },
   infoText: {
     flex: 1,
@@ -55,7 +55,9 @@ const AdminOrderDetailStyles = StyleSheet.create({
     fontSize: 18,
   },
   button: {
-    width: "30%",
+    width: "100%", // Ajusta el ancho del botón
+    marginTop: 25,
+    bottom: 10,
   },
   dropDown: {
     marginTop: 20,
@@ -63,14 +65,14 @@ const AdminOrderDetailStyles = StyleSheet.create({
   paymentLabel: {
     fontSize: 16,
     fontWeight: "bold",
-    bottom: 2,
+    bottom: 1,
     color: "black",
   },
   paymentMethod: {
     fontSize: 17,
     color: "black",
     marginLeft: 5, // Espacio entre el texto y el valor
-    bottom: 2,
+    bottom: 0,
   },
   backgroundImage: {
     flex: 1,
